@@ -1,0 +1,49 @@
+<script>
+    async function compare() {
+        const input = document.getElementById('products').value;
+        const products = input.split(',').map(p => p.trim());
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '';
+
+        try {
+            const response = await fetch('/compare', {  // Already correct, just confirming
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({products})
+            });
+            const data = await response.json();
+            if (data.error) {
+                resultDiv.innerHTML = `<p class="error">${data.error}</p>`;
+                return;
+            }
+            const table = document.createElement('table');
+            table.innerHTML = `
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                    <th>Positive Reviews</th>
+                    <th>Negative Reviews</th>
+                    <th>Key Feedback</th>
+                </tr>
+            `;
+            for (const [name, details] of Object.entries(data.comparisons)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${name}</td>
+                    <td>$${details.price.toFixed(2)}</td>
+                    <td>${details.rating}/5</td>
+                    <td>${details.review_summary.positive}</td>
+                    <td>${details.review_summary.negative}</td>
+                    <td>${Object.entries(details.review_summary.keywords)
+                        .map(([word, count]) => `${word} (${count})`)
+                        .join(', ')}</td>
+                `;
+                table.appendChild(row);
+            }
+            resultDiv.appendChild(table);
+        } catch (error) {
+            resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+        }
+    }
+</script>
