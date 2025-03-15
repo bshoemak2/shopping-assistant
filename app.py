@@ -7,9 +7,20 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s: %(message)s')
 
 def fetch_amazon_products(product_names):
+    # Mock data with affiliate URLs (replace YOUR_ASSOCIATE_TAG after approval)
     mock_api_response = {
-        "wireless earbuds": {"price": 49.99, "rating": 4.3, "reviews": ["Love the sound quality!", "Broke after a month", "Best earbuds ever"]},
-        "bluetooth speaker": {"price": 69.99, "rating": 4.6, "reviews": ["Awesome bass!", "A bit pricey", "Excellent for parties"]}
+        "wireless earbuds": {
+            "price": 49.99,
+            "rating": 4.3,
+            "reviews": ["Love the sound quality!", "Broke after a month", "Best earbuds ever"],
+            "url": "https://amazon.com/dp/B08J5G2X9Z?tag=YOUR_ASSOCIATE_TAG"
+        },
+        "bluetooth speaker": {
+            "price": 69.99,
+            "rating": 4.6,
+            "reviews": ["Awesome bass!", "A bit pricey", "Excellent for parties"],
+            "url": "https://amazon.com/dp/B07DD3W18Z?tag=YOUR_ASSOCIATE_TAG"
+        }
     }
     return {name: mock_api_response.get(name, {}) for name in product_names}
 
@@ -39,6 +50,10 @@ def analyze_reviews(reviews):
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/compare')
 def compare_page():
     return render_template('compare.html')
@@ -48,11 +63,12 @@ def compare_products():
     try:
         data = request.get_json()
         product_names = data.get('products', [])
-        logging.info(f"Received request to compare: {product_names}")
+        logging.info(f"POST request received with products: {product_names}")
         if not product_names:
-            logging.error("No products provided")
+            logging.error("No products provided in POST request")
             return jsonify({"error": "No products provided"}), 400
         products = fetch_amazon_products(product_names)
+        logging.info(f"Fetched products: {products}")
         comparisons = {}
         for name, product in products.items():
             if product:
@@ -60,11 +76,15 @@ def compare_products():
                 comparisons[name] = {
                     "price": product["price"],
                     "rating": product["rating"],
-                    "review_summary": review_summary
+                    "review_summary": review_summary,
+                    "url": product.get("url", "#")  # Default to "#" if no URL
                 }
             else:
                 logging.warning(f"Product not found: {name}")
-        logging.debug(f"Comparison result: {comparisons}")
+        if not comparisons:
+            logging.warning("No valid products found")
+            return jsonify({"error": "No matching products"}), 404
+        logging.debug(f"Returning comparisons: {comparisons}")
         return jsonify({"comparisons": comparisons}), 200
     except Exception as e:
         logging.error(f"Error in compare_products: {str(e)}")

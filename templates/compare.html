@@ -3,20 +3,34 @@
 <head>
     <title>Shopping Assistant</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: Arial, sans-serif; margin: 0; }
+        header { background: #007bff; color: white; padding: 10px; text-align: center; }
+        div { margin: 20px; }
         input { padding: 5px; width: 300px; }
-        button { padding: 5px 10px; }
+        button { padding: 5px 10px; margin-left: 5px; }
         table { border-collapse: collapse; width: 100%; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         .error { color: red; }
+        footer { background: #f2f2f2; padding: 10px; text-align: center; }
+        a { color: #007bff; text-decoration: none; padding: 0 10px; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <h1>Compare Products</h1>
-    <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
-    <button onclick="compare()">Compare</button>
-    <div id="result"></div>
+    <header>
+        <h1 style="margin: 0;">Shopping Assistant</h1>
+    </header>
+    <div>
+        <h1>Compare Products</h1>
+        <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
+        <button onclick="compare()">Compare</button>
+        <button onclick="saveComparison()">Save</button>
+        <div id="result"></div>
+    </div>
+    <footer>
+        <a href="/">Home</a> | <a href="/about">About</a>
+    </footer>
 
     <script>
         async function compare() {
@@ -26,15 +40,15 @@
             resultDiv.innerHTML = 'Loading...';
 
             try {
-                console.log('Sending request with products:', products);  // Debug
+                console.log('Sending request with products:', products);
                 const response = await fetch('/compare', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({products})
                 });
-                console.log('Response status:', response.status);  // Debug
+                console.log('Response status:', response.status);
                 const data = await response.json();
-                console.log('Response data:', data);  // Debug
+                console.log('Response data:', data);
                 resultDiv.innerHTML = '';
 
                 if (!response.ok || data.error || !data.comparisons) {
@@ -51,6 +65,7 @@
                         <th>Positive Reviews</th>
                         <th>Negative Reviews</th>
                         <th>Key Feedback</th>
+                        <th>Buy</th>
                     </tr>
                 `;
                 for (const [name, details] of Object.entries(data.comparisons)) {
@@ -64,15 +79,65 @@
                         <td>${Object.entries(details.review_summary.keywords)
                             .map(([word, count]) => `${word} (${count})`)
                             .join(', ')}</td>
+                        <td><a href="${details.url}" target="_blank">Buy on Amazon</a></td>
                     `;
                     table.appendChild(row);
                 }
                 resultDiv.appendChild(table);
+                window.lastComparison = data;  // Store for saving
             } catch (error) {
-                console.error('Fetch error:', error);  // Debug
+                console.error('Fetch error:', error);
                 resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
             }
         }
+
+        function saveComparison() {
+            if (!window.lastComparison) {
+                alert("No comparison to save!");
+                return;
+            }
+            const saved = JSON.parse(localStorage.getItem('savedComparisons') || '[]');
+            saved.push(window.lastComparison);
+            localStorage.setItem('savedComparisons', JSON.stringify(saved));
+            alert("Comparison saved!");
+        }
+
+        window.onload = function() {
+            const saved = JSON.parse(localStorage.getItem('savedComparisons') || '[]');
+            if (saved.length > 0) {
+                document.getElementById('result').innerHTML = '<h3>Saved Comparisons</h3>';
+                saved.forEach((data, index) => {
+                    const table = document.createElement('table');
+                    table.innerHTML = `
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Positive Reviews</th>
+                            <th>Negative Reviews</th>
+                            <th>Key Feedback</th>
+                            <th>Buy</th>
+                        </tr>
+                    `;
+                    for (const [name, details] of Object.entries(data.comparisons)) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${name}</td>
+                            <td>$${details.price.toFixed(2)}</td>
+                            <td>${details.rating}/5</td>
+                            <td>${details.review_summary.positive}</td>
+                            <td>${details.review_summary.negative}</td>
+                            <td>${Object.entries(details.review_summary.keywords)
+                                .map(([word, count]) => `${word} (${count})`)
+                                .join(', ')}</td>
+                            <td><a href="${details.url}" target="_blank">Buy on Amazon</a></td>
+                        `;
+                        table.appendChild(row);
+                    }
+                    document.getElementById('result').appendChild(table);
+                });
+            }
+        };
     </script>
 </body>
 </html>
