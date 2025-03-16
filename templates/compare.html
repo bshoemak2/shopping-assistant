@@ -26,6 +26,7 @@
         <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
         <button onclick="compare()">Compare</button>
         <button onclick="saveComparison()">Save</button>
+        <button onclick="clearSaved()">Clear Saved</button>
         <div id="result"></div>
     </div>
     <footer>
@@ -84,7 +85,7 @@
                     table.appendChild(row);
                 }
                 resultDiv.appendChild(table);
-                window.lastComparison = data;  // Store for saving
+                window.lastComparison = data;
             } catch (error) {
                 console.error('Fetch error:', error);
                 resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
@@ -100,6 +101,11 @@
             saved.push(window.lastComparison);
             localStorage.setItem('savedComparisons', JSON.stringify(saved));
             alert("Comparison saved!");
+        }
+
+        function clearSaved() {
+            localStorage.removeItem('savedComparisons');
+            document.getElementById('result').innerHTML = 'Saved comparisons cleared!';
         }
 
         window.onload = function() {

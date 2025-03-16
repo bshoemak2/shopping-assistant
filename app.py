@@ -7,19 +7,19 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s: %(message)s')
 
 def fetch_amazon_products(product_names):
-    # Mock data with affiliate URLs (replace YOUR_ASSOCIATE_TAG after approval)
+    # Mock data with your Associate ID bshoemak-20
     mock_api_response = {
         "wireless earbuds": {
             "price": 49.99,
             "rating": 4.3,
             "reviews": ["Love the sound quality!", "Broke after a month", "Best earbuds ever"],
-            "url": "https://amazon.com/dp/B08J5G2X9Z?tag=YOUR_ASSOCIATE_TAG"
+            "url": "https://amazon.com/dp/B08J5G2X9Z?tag=bshoemak-20"
         },
         "bluetooth speaker": {
             "price": 69.99,
             "rating": 4.6,
             "reviews": ["Awesome bass!", "A bit pricey", "Excellent for parties"],
-            "url": "https://amazon.com/dp/B07DD3W18Z?tag=YOUR_ASSOCIATE_TAG"
+            "url": "https://amazon.com/dp/B07DD3W18Z?tag=bshoemak-20"
         }
     }
     return {name: mock_api_response.get(name, {}) for name in product_names}
@@ -77,7 +77,7 @@ def compare_products():
                     "price": product["price"],
                     "rating": product["rating"],
                     "review_summary": review_summary,
-                    "url": product.get("url", "#")  # Default to "#" if no URL
+                    "url": product.get("url", "#")
                 }
             else:
                 logging.warning(f"Product not found: {name}")
