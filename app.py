@@ -7,7 +7,7 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s: %(message)s')
 
 def fetch_amazon_products(product_names):
-    # Mock data with 25 active ASINs and Associate ID bshoemak-20
+    # Mock data with 25 items, verified ASINs, and Associate ID bshoemak-20
     mock_api_response = {
         "wireless earbuds": {
             "price": 49.99,
@@ -25,7 +25,7 @@ def fetch_amazon_products(product_names):
             "price": 999.99,
             "rating": 4.5,
             "reviews": ["Fast performance", "Battery could be better", "Great for work"],
-            "url": "https://www.amazon.com/dp/B0D1KX3NVF?tag=bshoemak-20"  # Acer Aspire 5
+            "url": "https://www.amazon.com/dp/B0CP9W2Q5G?tag=bshoemak-20"  # Acer Aspire Vero (laptop)
         },
         "coffee maker": {
             "price": 79.99,
