@@ -25,7 +25,7 @@ def fetch_amazon_products(product_names):
             "price": 999.99,
             "rating": 4.5,
             "reviews": ["Fast performance", "Battery could be better", "Great for work"],
-            "url": "https://www.amazon.com/dp/B0CP9W2Q5G?tag=bshoemak-20"  # Acer Aspire Vero (laptop)
+            "url": "https://www.amazon.com/dp/B0CXJRY8R2?tag=bshoemak-20"  # Acer Aspire 3 (laptop)
         },
         "coffee maker": {
             "price": 79.99,

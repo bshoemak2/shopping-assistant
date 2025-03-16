@@ -26,6 +26,7 @@
         <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
         <button onclick="compare()">Compare</button>
         <button onclick="saveComparison()">Save</button>
+        <button onclick="deleteSaved()">Delete Saved</button>
         <div id="result"></div>
     </div>
     <footer>
@@ -100,6 +101,11 @@
             saved.push(window.lastComparison);
             localStorage.setItem('savedComparisons', JSON.stringify(saved));
             alert("Comparison saved!");
+        }
+
+        function deleteSaved() {
+            localStorage.removeItem('savedComparisons');
+            document.getElementById('result').innerHTML = 'Saved comparisons deleted!';
         }
 
         window.onload = function() {
