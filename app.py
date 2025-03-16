@@ -24,14 +24,14 @@ def fetch_amazon_products(product_names):
         "laptop": {
             "price": 999.99,
             "rating": 4.5,
-            "reviews": ["Fast performance", "Battery life could be better", "Great for work"],
-            "url": "https://www.amazon.com/dp/B0CWHLXJQG?tag=bshoemak-20"  # Lenovo IdeaPad Slim 5
+            "reviews": ["Fast performance", "Battery could be better", "Great for work"],
+            "url": "https://www.amazon.com/dp/B0D1KX3NVF?tag=bshoemak-20"  # Acer Aspire 5
         },
         "coffee maker": {
             "price": 79.99,
             "rating": 4.4,
-            "reviews": ["Easy to use", "Leaks sometimes", "Perfect brew every time"],
-            "url": "https://www.amazon.com/dp/B08F5FCR1Z?tag=bshoemak-20"  # Keurig K-Mini Plus
+            "reviews": ["Easy to use", "Leaks sometimes", "Perfect brew"],
+            "url": "https://www.amazon.com/dp/B0BVDG8MJT?tag=bshoemak-20"  # Keurig K-Express
         },
         "headphones": {
             "price": 299.99,
