@@ -6,7 +6,7 @@ app = Flask(__name__)
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s: %(message)s')
 
-# Serve static files from the 'static' folder
+# Serve static files from 'static' folder
 app.static_folder = 'static'
 
 def fetch_amazon_products(product_names):
