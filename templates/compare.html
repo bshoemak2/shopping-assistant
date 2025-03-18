@@ -4,7 +4,8 @@
     <title>Shopping Assistant</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; }
-        header { background: #007bff; color: white; padding: 10px; text-align: center; }
+        header { background: #007bff; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; }
+        header img { width: 50px; height: auto; margin-right: 10px; }
         div { margin: 20px; }
         input { padding: 5px; width: 300px; }
         button { padding: 5px 10px; margin-left: 5px; }
@@ -13,12 +14,13 @@
         th { background-color: #f2f2f2; }
         .error { color: red; }
         footer { background: #f2f2f2; padding: 10px; text-align: center; }
-        a { color: #007bff; text-decoration: none; padding: 0 10px; }
+        a { color: #007bff; text-decoration: none; padding: 0 5px; }
         a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Shopping Assistant Logo">
         <h1 style="margin: 0;">Shopping Assistant</h1>
     </header>
     <div>
@@ -49,7 +51,7 @@
                 });
                 console.log('Response status:', response.status);
                 const data = await response.json();
-                console.log('Response data:', data);
+                console.log('Response data:', JSON.stringify(data, null, 2));
                 resultDiv.innerHTML = '';
 
                 if (!response.ok || data.error || !data.comparisons) {
@@ -66,10 +68,13 @@
                         <th>Positive Reviews</th>
                         <th>Negative Reviews</th>
                         <th>Key Feedback</th>
-                        <th>Buy</th>
+                        <th>Buy on Amazon</th>
+                        <th>Buy on Walmart</th>
                     </tr>
                 `;
                 for (const [name, details] of Object.entries(data.comparisons)) {
+                    console.log(`Amazon URL for ${name}: ${details.amazon_url}`);
+                    console.log(`Walmart URL for ${name}: ${details.walmart_url}`);
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${name}</td>
@@ -80,7 +85,8 @@
                         <td>${Object.entries(details.review_summary.keywords)
                             .map(([word, count]) => `${word} (${count})`)
                             .join(', ')}</td>
-                        <td><a href="${details.url}" target="_blank">Buy on Amazon</a></td>
+                        <td><a href="${details.amazon_url}" target="_blank">Amazon</a></td>
+                        <td><a href="${details.walmart_url}" target="_blank">Walmart</a></td>
                     `;
                     table.appendChild(row);
                 }
@@ -122,7 +128,8 @@
                             <th>Positive Reviews</th>
                             <th>Negative Reviews</th>
                             <th>Key Feedback</th>
-                            <th>Buy</th>
+                            <th>Buy on Amazon</th>
+                            <th>Buy on Walmart</th>
                         </tr>
                     `;
                     for (const [name, details] of Object.entries(data.comparisons)) {
@@ -136,7 +143,8 @@
                             <td>${Object.entries(details.review_summary.keywords)
                                 .map(([word, count]) => `${word} (${count})`)
                                 .join(', ')}</td>
-                            <td><a href="${details.url}" target="_blank">Buy on Amazon</a></td>
+                            <td><a href="${details.amazon_url}" target="_blank">Amazon</a></td>
+                            <td><a href="${details.walmart_url}" target="_blank">Walmart</a></td>
                         `;
                         table.appendChild(row);
                     }
