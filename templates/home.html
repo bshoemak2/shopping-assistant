@@ -1,27 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Assistant</title>
+    <title>SHOPPING ASSISTANT</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
-        header { background: #007bff; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; }
-        header img { width: 100px; height: auto; margin-right: 10px; }
-        a { color: #007bff; text-decoration: none; padding: 0 10px; }
-        a:hover { text-decoration: underline; }
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FF00; 
+        }
+        header { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FF00; 
+        }
+        header img { 
+            width: 100px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FF00; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FF00; 
+            position: fixed; 
+            bottom: 0; 
+            width: calc(100% - 40px); 
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Shopping Assistant Logo">
-        <h1 style="margin: 0;">Shopping Assistant</h1>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
     <div style="margin: 20px;">
-        <h1>Welcome to Shopping Assistant</h1>
-        <p>Compare Amazon products easily by price, rating, and reviews.</p>
-        <p><a href="/about">About</a> | <a href="/compare">Start Comparing</a></p>
+        <h1>WELCOME TO SHOPPING ASSISTANT</h1>
+        <p>COMPARE AMAZON PRODUCTS BY PRICE, RATING, AND REVIEWS.</p>
+        <p><a href="/about">ABOUT</a> | <a href="/compare">START COMPARING</a></p>
     </div>
-    <footer style="background: #f2f2f2; padding: 10px; text-align: center;">
-        <a href="/">Home</a> | <a href="/about">About</a>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
 </body>
 </html>

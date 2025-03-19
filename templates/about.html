@@ -1,28 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>About Shopping Assistant</title>
+    <title>ABOUT SHOPPING ASSISTANT</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
-        header { background: #007bff; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; }
-        header img { width: 100px; height: auto; margin-right: 10px; }
-        a { color: #007bff; text-decoration: none; padding: 0 10px; }
-        a:hover { text-decoration: underline; }
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FF00; 
+        }
+        header { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FF00; 
+        }
+        header img { 
+            width: 100px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FF00; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FF00; 
+            position: fixed; 
+            bottom: 0; 
+            width: calc(100% - 40px); 
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Shopping Assistant Logo">
-        <h1 style="margin: 0;">Shopping Assistant</h1>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
     <div style="margin: 20px;">
-        <h1>About Shopping Assistant</h1>
-        <p>This app helps you compare Amazon products by price, rating, and customer reviews, making shopping decisions easier.</p>
-        <p>Built by Game Theory to simplify online shopping.</p>
-        <p><a href="/">Home</a> | <a href="/compare">Compare Products</a></p>
+        <h1>ABOUT SHOPPING ASSISTANT</h1>
+        <p>THIS APP HELPS YOU COMPARE AMAZON PRODUCTS BY PRICE, RATING, AND CUSTOMER REVIEWS, MAKING SHOPPING DECISIONS EASIER.</p>
+        <p>BUILT BY GAME THEORY TO SIMPLIFY ONLINE SHOPPING.</p>
+        <p><a href="/">HOME</a> | <a href="/compare">COMPARE PRODUCTS</a></p>
     </div>
-    <footer style="background: #f2f2f2; padding: 10px; text-align: center;">
-        <a href="/">Home</a> | <a href="/about">About</a>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
 </body>
 </html>

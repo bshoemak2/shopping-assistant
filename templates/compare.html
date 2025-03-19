@@ -1,38 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Assistant</title>
+    <title>SHOPPING ASSISTANT</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; }
-        header { background: #007bff; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; }
-        header img { width: 100px; height: auto; margin-right: 10px; }
-        div { margin: 20px; }
-        input { padding: 5px; width: 300px; }
-        button { padding: 5px 10px; margin-left: 5px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .error { color: red; }
-        footer { background: #f2f2f2; padding: 10px; text-align: center; }
-        a { color: #007bff; text-decoration: none; padding: 0 5px; }
-        a:hover { text-decoration: underline; }
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 0; 
+            background-color: black; 
+            color: #00FF00; 
+        }
+        header { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FF00; 
+        }
+        header img { 
+            width: 100px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        div { 
+            margin: 20px; 
+            text-align: center; 
+        }
+        input { 
+            padding: 5px; 
+            width: 300px; 
+            background-color: black; 
+            color: #00FF00; 
+            border: 1px solid #00FF00; 
+            font-family: 'Courier New', monospace; 
+        }
+        button { 
+            padding: 5px 10px; 
+            margin-left: 5px; 
+            background-color: black; 
+            color: #00FF00; 
+            border: 1px solid #00FF00; 
+            font-family: 'Courier New', monospace; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #00FF00; 
+            color: black; 
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin-top: 20px; 
+            color: #00FF00; 
+        }
+        th, td { 
+            border: 1px solid #00FF00; 
+            padding: 8px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #003300; 
+        }
+        .error { 
+            color: #FF0000; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FF00; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FF00; 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+        }
+        a { 
+            color: #00FF00; 
+            text-decoration: none; 
+            padding: 0 5px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Shopping Assistant Logo">
-        <h1 style="margin: 0;">Shopping Assistant</h1>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
     <div>
-        <h1>Compare Products</h1>
+        <h1>COMPARE PRODUCTS</h1>
         <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
-        <button onclick="compare()">Compare</button>
-        <button onclick="saveComparison()">Save</button>
-        <button onclick="deleteSaved()">Delete Saved</button>
+        <button onclick="compare()">COMPARE</button>
+        <button onclick="saveComparison()">SAVE</button>
+        <button onclick="deleteSaved()">DELETE SAVED</button>
         <div id="result"></div>
     </div>
     <footer>
-        <a href="/">Home</a> | <a href="/about">About</a>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
 
     <script>
@@ -40,7 +107,7 @@
             const input = document.getElementById('products').value;
             const products = input.split(',').map(p => p.trim());
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = 'Loading...';
+            resultDiv.innerHTML = 'LOADING...';
 
             try {
                 console.log('Sending request with products:', products);
@@ -55,21 +122,21 @@
                 resultDiv.innerHTML = '';
 
                 if (!response.ok || data.error || !data.comparisons) {
-                    resultDiv.innerHTML = `<p class="error">${data.error || 'No results found'}</p>`;
+                    resultDiv.innerHTML = `<p class="error">${data.error || 'NO RESULTS FOUND'}</p>`;
                     return;
                 }
 
                 const table = document.createElement('table');
                 table.innerHTML = `
                     <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Rating</th>
-                        <th>Positive Reviews</th>
-                        <th>Negative Reviews</th>
-                        <th>Key Feedback</th>
-                        <th>Buy on Amazon</th>
-                        <th>Buy on Walmart</th>
+                        <th>PRODUCT</th>
+                        <th>PRICE</th>
+                        <th>RATING</th>
+                        <th>POSITIVE REVIEWS</th>
+                        <th>NEGATIVE REVIEWS</th>
+                        <th>KEY FEEDBACK</th>
+                        <th>BUY ON AMAZON</th>
+                        <th>BUY ON WALMART</th>
                     </tr>
                 `;
                 for (const [name, details] of Object.entries(data.comparisons)) {
@@ -85,8 +152,8 @@
                         <td>${Object.entries(details.review_summary.keywords)
                             .map(([word, count]) => `${word} (${count})`)
                             .join(', ')}</td>
-                        <td><a href="${details.amazon_url}" target="_blank">Amazon</a></td>
-                        <td><a href="${details.walmart_url}" target="_blank">Walmart</a></td>
+                        <td><a href="${details.amazon_url}" target="_blank">AMAZON</a></td>
+                        <td><a href="${details.walmart_url}" target="_blank">WALMART</a></td>
                     `;
                     table.appendChild(row);
                 }
@@ -94,42 +161,42 @@
                 window.lastComparison = data;
             } catch (error) {
                 console.error('Fetch error:', error);
-                resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error">ERROR: ${error.message}</p>`;
             }
         }
 
         function saveComparison() {
             if (!window.lastComparison) {
-                alert("No comparison to save!");
+                alert("NO COMPARISON TO SAVE!");
                 return;
             }
             const saved = JSON.parse(localStorage.getItem('savedComparisons') || '[]');
             saved.push(window.lastComparison);
             localStorage.setItem('savedComparisons', JSON.stringify(saved));
-            alert("Comparison saved!");
+            alert("COMPARISON SAVED!");
         }
 
         function deleteSaved() {
             localStorage.removeItem('savedComparisons');
-            document.getElementById('result').innerHTML = 'Saved comparisons deleted!';
+            document.getElementById('result').innerHTML = 'SAVED COMPARISONS DELETED!';
         }
 
         window.onload = function() {
             const saved = JSON.parse(localStorage.getItem('savedComparisons') || '[]');
             if (saved.length > 0) {
-                document.getElementById('result').innerHTML = '<h3>Saved Comparisons</h3>';
+                document.getElementById('result').innerHTML = '<h3>SAVED COMPARISONS</h3>';
                 saved.forEach((data, index) => {
                     const table = document.createElement('table');
                     table.innerHTML = `
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Rating</th>
-                            <th>Positive Reviews</th>
-                            <th>Negative Reviews</th>
-                            <th>Key Feedback</th>
-                            <th>Buy on Amazon</th>
-                            <th>Buy on Walmart</th>
+                            <th>PRODUCT</th>
+                            <th>PRICE</th>
+                            <th>RATING</th>
+                            <th>POSITIVE REVIEWS</th>
+                            <th>NEGATIVE REVIEWS</th>
+                            <th>KEY FEEDBACK</th>
+                            <th>BUY ON AMAZON</th>
+                            <th>BUY ON WALMART</th>
                         </tr>
                     `;
                     for (const [name, details] of Object.entries(data.comparisons)) {
@@ -143,8 +210,8 @@
                             <td>${Object.entries(details.review_summary.keywords)
                                 .map(([word, count]) => `${word} (${count})`)
                                 .join(', ')}</td>
-                            <td><a href="${details.amazon_url}" target="_blank">Amazon</a></td>
-                            <td><a href="${details.walmart_url}" target="_blank">Walmart</a></td>
+                            <td><a href="${details.amazon_url}" target="_blank">AMAZON</a></td>
+                            <td><a href="${details.walmart_url}" target="_blank">WALMART</a></td>
                         `;
                         table.appendChild(row);
                     }
