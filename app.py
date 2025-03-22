@@ -33,6 +33,14 @@ def fetch_amazon_products(product_names):
             "amazon_url": "https://amzn.to/4bWdt5K",  # Real Site Stripe link
             "walmart_url": "https://www.walmart.com/ip/987654321",  # Placeholder Walmart link
             "is_search_page": False  # Assuming it links to specific product (e.g., Catan)
+        },
+        "beef tallow": {
+            "price": 19.99,
+            "rating": 4.3,
+            "reviews": ["Great for cooking", "Strong smell", "Good quality"],
+            "amazon_url": "https://amzn.to/4ivkVHn",  # Real Site Stripe link
+            "walmart_url": "https://www.walmart.com/ip/123456789",  # Placeholder Walmart link
+            "is_search_page": False  # Assuming it links to specific product
         }
     }
     return {name: mock_api_response.get(name, {}) for name in product_names}
