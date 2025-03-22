@@ -93,7 +93,8 @@
     <div>
         <p><a href="/">HOME</a></p>
         <h1>COMPARE PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
-        <input type="text" id="products" placeholder="e.g., wireless earbuds, bluetooth speaker">
+        <p>Available products to compare: laptop, yoga mat, board game</p>
+        <input type="text" id="products" placeholder="e.g., laptop, yoga mat">
         <button onclick="compare()">COMPARE</button>
         <button onclick="saveComparison()">SAVE</button>
         <button onclick="deleteSaved()">DELETE SAVED</button>
@@ -153,7 +154,10 @@
                         <td>${Object.entries(details.review_summary.keywords)
                             .map(([word, count]) => `${word} (${count})`)
                             .join(', ')}</td>
-                        <td><a href="${details.amazon_url}" target="_blank">AMAZON</a></td>
+                        <td>
+                            <a href="${details.amazon_url}" target="_blank">AMAZON</a>
+                            ${details.is_search_page ? '<br><small>(Links to search results)</small>' : ''}
+                        </td>
                         <td><a href="${details.walmart_url}" target="_blank">WALMART</a></td>
                     `;
                     table.appendChild(row);
@@ -211,7 +215,10 @@
                             <td>${Object.entries(details.review_summary.keywords)
                                 .map(([word, count]) => `${word} (${count})`)
                                 .join(', ')}</td>
-                            <td><a href="${details.amazon_url}" target="_blank">AMAZON</a></td>
+                            <td>
+                                <a href="${details.amazon_url}" target="_blank">AMAZON</a>
+                                ${details.is_search_page ? '<br><small>(Links to search results)</small>' : ''}
+                            </td>
                             <td><a href="${details.walmart_url}" target="_blank">WALMART</a></td>
                         `;
                         table.appendChild(row);

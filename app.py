@@ -10,8 +10,30 @@ app.static_folder = 'static'
 
 def fetch_amazon_products(product_names):
     mock_api_response = {
-        "laptop": {"price": 999.99, "rating": 4.5, "reviews": ["Fast performance", "Battery could be better", "Great for work"], "amazon_url": "https://amzn.to/4huW45a", "walmart_url": "https://www.walmart.com/ip/456789123"},  # Site Stripe short link
-        "yoga mat": {"price": 29.99, "rating": 4.5, "reviews": ["Non-slip", "Thin padding", "Easy to carry"], "amazon_url": "https://amzn.to/41RTeRT", "walmart_url": "https://www.walmart.com/ip/147963852"}  # Site Stripe short link
+        "laptop": {
+            "price": 999.99,
+            "rating": 4.5,
+            "reviews": ["Fast performance", "Battery could be better", "Great for work"],
+            "amazon_url": "https://amzn.to/4huW45a",  # Known to redirect to search page
+            "walmart_url": "https://www.walmart.com/ip/456789123",
+            "is_search_page": True  # Flag for UI note
+        },
+        "yoga mat": {
+            "price": 29.99,
+            "rating": 4.5,
+            "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
+            "amazon_url": "https://amzn.to/41RTeRT",  # Redirects to specific product
+            "walmart_url": "https://www.walmart.com/ip/147963852",
+            "is_search_page": False
+        },
+        "board game": {
+            "price": 39.99,
+            "rating": 4.8,
+            "reviews": ["Super fun", "Long playtime", "Great for families"],
+            "amazon_url": "https://amzn.to/4bWdt5K",  # Real Site Stripe link
+            "walmart_url": "https://www.walmart.com/ip/987654321",  # Placeholder Walmart link
+            "is_search_page": False  # Assuming it links to specific product (e.g., Catan)
+        }
     }
     return {name: mock_api_response.get(name, {}) for name in product_names}
 
@@ -69,7 +91,8 @@ def compare_products():
                     "rating": product["rating"],
                     "review_summary": review_summary,
                     "amazon_url": product.get("amazon_url", "#"),
-                    "walmart_url": product.get("walmart_url", "#")
+                    "walmart_url": product.get("walmart_url", "#"),
+                    "is_search_page": product.get("is_search_page", False)  # Include flag
                 }
             else:
                 logging.warning(f"Product not found: {name}")
