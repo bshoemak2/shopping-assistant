@@ -1,10 +1,133 @@
-{% extends "base.html" %}
-{% block content %}
-    <h2>Compare</h2>
-    <h3>Barlito's Life Hacks</h3>
-    <ul>
-        <li><a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a></li>
-        <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a></li>
-        <li><a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a></li>
-    </ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SHOPPING ASSISTANT - Compare</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FFFF; 
+        }
+        header { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FFFF; 
+        }
+        header img { 
+            width: 100px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FFFF; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FFFF; 
+            position: fixed; 
+            bottom: 0; 
+            width: calc(100% - 40px); 
+        }
+        #compare-form input { 
+            font-size: 16px; 
+            padding: 5px; 
+            width: 300px; 
+            background-color: #000; 
+            color: #00FFFF; 
+            border: 1px solid #00FFFF; 
+        }
+        #compare-form button { 
+            font-size: 16px; 
+            padding: 5px 10px; 
+            background-color: #00FFFF; 
+            color: #000; 
+            border: none; 
+            cursor: pointer; 
+        }
+        #results { 
+            margin-top: 20px; 
+            text-align: left; 
+            display: inline-block; 
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
+    </header>
+    <div style="margin: 20px;">
+        <h1>COMPARE PRODUCTS</h1>
+        <div id="compare-form">
+            <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
+            <button onclick="compareProducts()">Compare</button>
+        </div>
+        <div id="results"></div>
+        <h3>Barlito's Life Hacks</h3>
+        <ul>
+            <li><a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a></li>
+            <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a></li>
+            <li><a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a></li>
+            <li><a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a></li>
+        </ul>
+        <p><a href="/">HOME</a> | <a href="/about">ABOUT</a></p>
+    </div>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+    </footer>
+    <script>
+        function compareProducts() {
+            const input = document.getElementById('product-input').value;
+            const products = input.split(',').map(p => p.trim());
+            fetch('/compare', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ products: products })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const results = document.getElementById('results');
+                results.innerHTML = '';
+                if (data.error) {
+                    results.innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    for (const [name, info] of Object.entries(data.comparisons)) {
+                        results.innerHTML += `
+                            <h3>${name}</h3>
+                            <p>Price: $${info.price}</p>
+                            <p>Rating: ${info.rating}</p>
+                            <p>Positive Reviews: ${info.review_summary.positive}</p>
+                            <p>Negative Reviews: ${info.review_summary.negative}</p>
+                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
+                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
+                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
+                            <p><a href="${info.walmart_url}" target="_blank">Walmart Link</a></p>
+                        `;
+                    }
+                }
+            })
+            .catch(error => {
+                document.getElementById('results').innerHTML = `<p>Error: ${error}</p>`;
+            });
+        }
+    </script>
+</body>
+</html>
