@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>SHOPPING ASSISTANT - Find Products</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
         body { 
             font-family: 'Courier New', monospace; 
@@ -79,6 +80,19 @@
             margin: 10px 0; 
             font-weight: bold; 
         }
+        .hacks-title { 
+            font-size: 24px; 
+            margin-top: 30px; 
+        }
+        .hacks-list li { 
+            font-size: 18px; 
+            margin: 10px 0; 
+        }
+        .hacks-prompt { 
+            font-size: 16px; 
+            margin-bottom: 20px; 
+            font-style: italic; 
+        }
     </style>
 </head>
 <body>
@@ -95,8 +109,9 @@
             <button onclick="compareProducts()">FIND PRODUCTS</button>
         </div>
         <div id="results"></div>
-        <h3>Barlito's Life Hacks</h3>
-        <ul>
+        <h3 class="hacks-title">Barlito's Life Hacks</h3>
+        <p class="hacks-prompt">Click these links for funny and quirky products!</p>
+        <ul class="hacks-list">
             <li><a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a></li>
             <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a></li>
             <li><a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a></li>
@@ -113,40 +128,16 @@
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
-    <script>
-        function compareProducts() {
-            const input = document.getElementById('product-input').value;
-            const products = input.split(',').map(p => p.trim());
-            fetch('/compare', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ products: products })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const results = document.getElementById('results');
-                results.innerHTML = '';
-                if (data.error) {
-                    results.innerHTML = `<p>Error: ${data.error}</p>`;
-                } else {
-                    for (const [name, info] of Object.entries(data.comparisons)) {
-                        results.innerHTML += `
-                            <h3>${name}</h3>
-                            <p>Price: $${info.price}</p>
-                            <p>Rating: ${info.rating}</p>
-                            <p>Positive Reviews: ${info.review_summary.positive}</p>
-                            <p>Negative Reviews: ${info.review_summary.negative}</p>
-                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
-                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
-                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
-                        `;
-                    }
-                }
-            })
-            .catch(error => {
-                document.getElementById('results').innerHTML = `<p>Error: ${error}</p>`;
-            });
-        }
+    <!-- Default Statcounter code for shopping application https://shopping-assistant-5m0q.onrender.com/ -->
+    <script type="text/javascript">
+        var sc_project=13107765; 
+        var sc_invisible=0; 
+        var sc_security="da1ff213"; 
+        var scJsHost = "https://";
+        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
+        "statcounter.com/counter/counter.js'></"+"script>");
     </script>
+    <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <!-- End of Statcounter Code -->
 </body>
 </html>
