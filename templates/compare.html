@@ -44,19 +44,26 @@
         }
         #compare-form input { 
             font-size: 16px; 
-            padding: 5px; 
+            padding: 8px; 
             width: 300px; 
             background-color: #000; 
             color: #00FFFF; 
             border: 1px solid #00FFFF; 
+            margin-right: 10px; 
         }
         #compare-form button { 
-            font-size: 16px; 
-            padding: 5px 10px; 
+            font-size: 20px; 
+            padding: 12px 24px; 
             background-color: #00FFFF; 
             color: #000; 
-            border: none; 
+            border: 2px solid #00FFFF; 
+            font-weight: bold; 
             cursor: pointer; 
+            text-transform: uppercase; 
+        }
+        #compare-form button:hover { 
+            background-color: #000; 
+            color: #00FFFF; 
         }
         #results { 
             margin-top: 20px; 
@@ -66,6 +73,11 @@
         ul { 
             list-style-type: none; 
             padding: 0; 
+        }
+        .prompt { 
+            font-size: 18px; 
+            margin: 10px 0; 
+            font-weight: bold; 
         }
     </style>
 </head>
@@ -77,9 +89,10 @@
     <div style="margin: 20px;">
         <h1>COMPARE PRODUCTS</h1>
         <p>Searchable Products: laptop, yoga mat, board game, beef tallow</p>
+        <p class="prompt">Enter products below and click "START COMPARING" to see results:</p>
         <div id="compare-form">
             <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
-            <button onclick="compareProducts()">Compare</button>
+            <button onclick="compareProducts()">START COMPARING</button>
         </div>
         <div id="results"></div>
         <h3>Barlito's Life Hacks</h3>
@@ -88,7 +101,13 @@
             <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a></li>
             <li><a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a></li>
             <li><a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a></li>
+            <li><a href="https://amzn.to/4iTYRG5" target="_blank">Unicorn meat (canned) - emergency snack for mythical cravings</a></li>
+            <li><a href="https://amzn.to/4l56Diq" target="_blank">Screaming goat button - instant stress relief</a></li>
+            <li><a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a></li>
+            <li><a href="https://amzn.to/3TrKxQz" target="_blank">Bacon bandages - heal with pork power</a></li>
+            <li><a href="https://amzn.to/3TsL2Rw" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a></li>
         </ul>
+        <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
         <p><a href="/">HOME</a> | <a href="/about">ABOUT</a></p>
     </div>
     <footer>
