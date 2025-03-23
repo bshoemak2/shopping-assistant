@@ -22,7 +22,7 @@
             border-bottom: 2px solid #00FFFF; 
         }
         header img { 
-            width: 100px; 
+            width: 150px; 
             height: auto; 
             margin-right: 10px; 
         }
@@ -63,8 +63,8 @@
             margin-right: 10px; 
         }
         #find-form button { 
-            font-size: 20px; /* Reduced from 28px */
-            padding: 10px 20px; /* Reduced from 16px 32px */
+            font-size: 20px; 
+            padding: 10px 20px; 
             background-color: #00FFFF; 
             color: #000; 
             border: 2px solid #00FFFF; 
@@ -111,7 +111,9 @@
         <h1 style="margin: 0;">SHOPPING ASSISTANT BETA</h1>
     </header>
     <div style="margin: 20px;">
-        <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
+        <img src="{{ url_for('static', filename='funny_shopping_image.jpg') }}" alt="Barlito's Shopping Juggle" class="funny-image">
+        <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
+        <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
         <h1>FIND PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
         <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
         <div id="find-form">
@@ -139,6 +141,11 @@
             <li><a href="https://amzn.to/4kVwlWw" target="_blank">Dinosaur Taco Holder - Prehistoric Dining</a></li>
             <li><a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style</a></li>
             <li><a href="https://amzn.to/4ipnOJH" target="_blank">Zombie Garden Gnome - Undead Lawn Vibes</a></li>
+            <li><a href="https://amzn.to/4ixPvAa" target="_blank">Burrito Blanket - Wrap Yourself in Taco Glory</a></li>
+            <li><a href="https://amzn.to/4hx9r4M" target="_blank">Singing Pasta Timer - Croons While You Cook</a></li>
+            <li><a href="https://amzn.to/4bZyeNU" target="_blank">Toaster Grilled Cheese Bags - Burnt Bread Begone</a></li>
+            <li><a href="https://amzn.to/4iQ1Pvh" target="_blank">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a></li>
+            <li><a href="https://amzn.to/41S2SUK" target="_blank">Unicorn Pool Float - Float Like a Mythical Beast</a></li>
         </ul>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
@@ -165,4 +172,43 @@
                 return;
             }
             const products = input.split(',').map(p => p.trim());
-            console.log('Products:', products); /
+            console.log('Products:', products); // Debug products array
+            fetch('/find', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ products: products })
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // Debug response status
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data); // Debug data
+                const results = document.getElementById('results');
+                results.innerHTML = '';
+                if (data.error) {
+                    results.innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    for (const [name, info] of Object.entries(data.comparisons)) {
+                        results.innerHTML += `
+                            <h3>${name}</h3>
+                            <p>Price: $${info.price}</p>
+                            <p>Rating: ${info.rating}</p>
+                            <p>Positive Reviews: ${info.review_summary.positive}</p>
+                            <p>Negative Reviews: ${info.review_summary.negative}</p>
+                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
+                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
+                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
+                        `;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // Debug error
+                document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+    </script>
+</body>
+</html>
