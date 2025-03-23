@@ -71,12 +71,8 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/compare')
-def compare_page():
-    return render_template('compare.html')
-
-@app.route('/compare', methods=['POST'])
-def compare_products():
+@app.route('/find', methods=['POST'])
+def find_products():
     try:
         data = request.get_json()
         product_names = data.get('products', [])
@@ -105,7 +101,7 @@ def compare_products():
         logging.debug(f"Returning comparisons: {comparisons}")
         return jsonify({"comparisons": comparisons}), 200
     except Exception as e:
-        logging.error(f"Error in compare_products: {str(e)}")
+        logging.error(f"Error in find_products: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
