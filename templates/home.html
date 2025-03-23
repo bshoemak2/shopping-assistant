@@ -50,7 +50,7 @@
             border: 2px solid #00FFFF; 
         }
         h1 { 
-            font-size: 48px; 
+            font-size: 36px; /* Reduced from 48px */
             margin: 20px 0; 
         }
         #find-form input { 
@@ -113,7 +113,7 @@
     <div style="margin: 20px;">
         <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
         <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
-        <h1>FIND PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
+        <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
         <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
         <div id="find-form">
             <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
