@@ -43,6 +43,13 @@
             bottom: 0; 
             width: calc(100% - 40px); 
         }
+        .funny-image { 
+            width: 300px; 
+            height: auto; 
+            margin: 20px auto; 
+            display: block; 
+            border: 2px solid #00FFFF; 
+        }
     </style>
 </head>
 <body>
@@ -51,6 +58,7 @@
         <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
     <div style="margin: 20px;">
+        <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
         <h1>ABOUT SHOPPING ASSISTANT</h1>
         <p>THIS APP HELPS YOU FIND FUNNY PRODUCTS THAT MAKE FOLKS LAUGH AND BREATH EASY</p>
         <p>BUILT BY GAME THEORY TO SIMPLIFY ONLINE SHOPPING FOR DUMB STUFF</p>
