@@ -10,6 +10,7 @@
             text-align: center; 
             background-color: black; 
             color: #00FFFF; 
+            overflow-y: auto; /* Enable vertical scrollbar if needed */
         }
         header { 
             background-color: black; 
@@ -39,8 +40,6 @@
             padding: 10px; 
             text-align: center; 
             border-top: 2px solid #00FFFF; 
-            position: fixed; 
-            bottom: 0; 
             width: calc(100% - 40px); 
         }
         .funny-image { 
@@ -87,8 +86,12 @@
             margin: 10px 0; 
             font-weight: bold; 
         }
+        .searchable { 
+            font-size: 20px; 
+            margin: 15px 0; 
+        }
         .hacks-title { 
-            font-size: 24px; 
+            font-size: 30px; /* Larger font */
             margin-top: 30px; 
         }
         .hacks-list li { 
@@ -96,7 +99,7 @@
             margin: 10px 0; 
         }
         .hacks-prompt { 
-            font-size: 16px; 
+            font-size: 20px; /* Larger font */
             margin-bottom: 20px; 
             font-style: italic; 
         }
@@ -116,7 +119,7 @@
             <button onclick="findProducts()">FIND PRODUCTS</button>
         </div>
         <div id="results"></div>
-        <p>Searchable Products: laptop, yoga mat, board game, beef tallow</p>
+        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow</p>
         <h3 class="hacks-title">Barlito's Life Hacks</h3>
         <p class="hacks-prompt">Click these links for funny and quirky products!</p>
         <ul class="hacks-list">
@@ -129,6 +132,16 @@
             <li><a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a></li>
             <li><a href="https://amzn.to/4bWHClp" target="_blank">Bacon bandages - heal with pork power</a></li>
             <li><a href="https://amzn.to/4hF36V4" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a></li>
+            <li><a href="https://amzn.to/3v8XjZk" target="_blank">Squirrel feeder - watch them hang upside down</a></li>
+            <li><a href="https://amzn.to/3PqRt5m" target="_blank">Mini disco ball - instant party vibes</a></li>
+            <li><a href="https://amzn.to/3v9pQJk" target="_blank">Fake poop - prank your friends</a></li>
+            <li><a href="https://amzn.to/4iU2JkL" target="_blank">Glow-in-the-dark toilet paper - night-time luxury</a></li>
+            <li><a href="https://amzn.to/3TrL2Rw" target="_blank">Cat butt magnets - fridge decoration gone wild</a></li>
+            <li><a href="https://amzn.to/4kW2JkL" target="_blank">Inflatable unicorn horn for cats - pet cosplay</a></li>
+            <li><a href="https://amzn.to/41XJkL2" target="_blank">Dinosaur taco holder - prehistoric dining</a></li>
+            <li><a href="https://amzn.to/3PqRt5m" target="_blank">Bubble wrap costume - pop your way through life</a></li>
+            <li><a href="https://amzn.to/4iVJkL3" target="_blank">Rubber chicken purse - cluck in style</a></li>
+            <li><a href="https://amzn.to/3TrM2Rw" target="_blank">Zombie garden gnome - undead lawn vibes</a></li>
         </ul>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
         <p><a href="/about">ABOUT</a></p>

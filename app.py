@@ -14,28 +14,21 @@ def fetch_amazon_products(product_names):
             "price": 999.99,
             "rating": 4.5,
             "reviews": ["Fast performance", "Battery could be better", "Great for work"],
-            "amazon_url": "https://amzn.to/4huW45a",
-            "is_search_page": True
+            "amazon_url": "https://amzn.to/4kVu4dW",
+            "is_search_page": False
         },
         "yoga mat": {
             "price": 29.99,
             "rating": 4.5,
             "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
-            "amazon_url": "https://amzn.to/41RTeRT",
-            "is_search_page": False
-        },
-        "board game": {
-            "price": 39.99,
-            "rating": 4.8,
-            "reviews": ["Super fun", "Long playtime", "Great for families"],
-            "amazon_url": "https://amzn.to/4bWdt5K",
+            "amazon_url": "https://amzn.to/41SGXN5",
             "is_search_page": False
         },
         "beef tallow": {
             "price": 19.99,
             "rating": 4.3,
             "reviews": ["Great for cooking", "Strong smell", "Good quality"],
-            "amazon_url": "https://amzn.to/4ivkVHn",
+            "amazon_url": "https://amzn.to/41WPu1H",
             "is_search_page": False
         }
     }
