@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SHOPPING ASSISTANT</title>
+    <title>SHOPPING ASSISTANT BETA</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
         body { 
@@ -50,17 +50,54 @@
             display: block; 
             border: 2px solid #00FFFF; 
         }
+        h1 { 
+            font-size: 48px; /* Larger font */
+            margin: 20px 0; 
+        }
+        #find-form input { 
+            font-size: 20px; /* Larger input font */
+            padding: 12px; 
+            width: 350px; /* Slightly wider */
+            background-color: #000; 
+            color: #00FFFF; 
+            border: 1px solid #00FFFF; 
+            margin-right: 10px; 
+        }
+        #find-form button { 
+            font-size: 28px; /* Larger button font */
+            padding: 16px 32px; /* Larger padding */
+            background-color: #00FFFF; 
+            color: #000; 
+            border: 2px solid #00FFFF; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+        }
+        #find-form button:hover { 
+            background-color: #000; 
+            color: #00FFFF; 
+        }
+        .prompt { 
+            font-size: 24px; /* Larger prompt font */
+            margin: 10px 0; 
+            font-weight: bold; 
+        }
     </style>
 </head>
 <body>
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
-        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
+        <h1 style="margin: 0;">SHOPPING ASSISTANT BETA</h1>
     </header>
     <div style="margin: 20px;">
         <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
         <h1>FIND PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
-        <p><a href="/about">ABOUT</a> | <a href="/compare">FIND PRODUCTS</a></p>
+        <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
+        <div id="find-form">
+            <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
+            <button onclick="findProducts()">FIND PRODUCTS</button>
+        </div>
+        <p><a href="/about">ABOUT</a> | <a href="/compare">MORE PRODUCTS</a></p>
     </div>
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
@@ -76,5 +113,17 @@
     </script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
     <!-- End of Statcounter Code -->
+    <script>
+        function findProducts() {
+            const input = document.getElementById('product-input').value;
+            console.log('Home Input:', input); // Debug input
+            if (!input) {
+                alert('Please enter products to find.');
+                return;
+            }
+            localStorage.setItem('searchProducts', input); // Store input
+            window.location.href = '/compare'; // Redirect
+        }
+    </script>
 </body>
 </html>

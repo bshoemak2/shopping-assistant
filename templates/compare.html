@@ -44,8 +44,8 @@
             width: calc(100% - 40px); 
         }
         #compare-form input { 
-            font-size: 16px; 
-            padding: 8px; 
+            font-size: 18px; 
+            padding: 10px; 
             width: 300px; 
             background-color: #000; 
             color: #00FFFF; 
@@ -53,8 +53,8 @@
             margin-right: 10px; 
         }
         #compare-form button { 
-            font-size: 20px; 
-            padding: 12px 24px; 
+            font-size: 24px; 
+            padding: 14px 28px; 
             background-color: #00FFFF; 
             color: #000; 
             border: 2px solid #00FFFF; 
@@ -76,7 +76,7 @@
             padding: 0; 
         }
         .prompt { 
-            font-size: 18px; 
+            font-size: 20px; 
             margin: 10px 0; 
             font-weight: bold; 
         }
@@ -139,5 +139,62 @@
     </script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
     <!-- End of Statcounter Code -->
+    <script>
+        function compareProducts() {
+            const input = document.getElementById('product-input').value;
+            console.log('Input:', input); // Debug input
+            if (!input) {
+                document.getElementById('results').innerHTML = '<p>Please enter products to find.</p>';
+                return;
+            }
+            const products = input.split(',').map(p => p.trim());
+            console.log('Products:', products); // Debug products array
+            fetch('/compare', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ products: products })
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // Debug response status
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data); // Debug data
+                const results = document.getElementById('results');
+                results.innerHTML = '';
+                if (data.error) {
+                    results.innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    for (const [name, info] of Object.entries(data.comparisons)) {
+                        results.innerHTML += `
+                            <h3>${name}</h3>
+                            <p>Price: $${info.price}</p>
+                            <p>Rating: ${info.rating}</p>
+                            <p>Positive Reviews: ${info.review_summary.positive}</p>
+                            <p>Negative Reviews: ${info.review_summary.negative}</p>
+                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
+                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
+                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
+                        `;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // Debug error
+                document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+
+        // Check for search input on page load
+        window.onload = function() {
+            const storedInput = localStorage.getItem('searchProducts');
+            if (storedInput) {
+                document.getElementById('product-input').value = storedInput;
+                compareProducts();
+                localStorage.removeItem('searchProducts'); // Clear after use
+            }
+        };
+    </script>
 </body>
 </html>
