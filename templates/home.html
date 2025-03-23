@@ -63,8 +63,8 @@
             margin-right: 10px; 
         }
         #find-form button { 
-            font-size: 28px; 
-            padding: 16px 32px; 
+            font-size: 20px; /* Reduced from 28px */
+            padding: 10px 20px; /* Reduced from 16px 32px */
             background-color: #00FFFF; 
             color: #000; 
             border: 2px solid #00FFFF; 
@@ -99,7 +99,7 @@
             margin: 10px 0; 
         }
         .hacks-prompt { 
-            font-size: 24px; /* Increased from 20px */
+            font-size: 24px; 
             margin-bottom: 20px; 
             font-style: italic; 
         }
@@ -119,7 +119,7 @@
             <button onclick="findProducts()">FIND PRODUCTS</button>
         </div>
         <div id="results"></div>
-        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow</p>
+        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
         <h3 class="hacks-title">Barlito's Life Hacks</h3>
         <p class="hacks-prompt">Click these links for funny and quirky products!</p>
         <ul class="hacks-list">
@@ -165,43 +165,4 @@
                 return;
             }
             const products = input.split(',').map(p => p.trim());
-            console.log('Products:', products); // Debug products array
-            fetch('/find', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ products: products })
-            })
-            .then(response => {
-                console.log('Response status:', response.status); // Debug response status
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data received:', data); // Debug data
-                const results = document.getElementById('results');
-                results.innerHTML = '';
-                if (data.error) {
-                    results.innerHTML = `<p>Error: ${data.error}</p>`;
-                } else {
-                    for (const [name, info] of Object.entries(data.comparisons)) {
-                        results.innerHTML += `
-                            <h3>${name}</h3>
-                            <p>Price: $${info.price}</p>
-                            <p>Rating: ${info.rating}</p>
-                            <p>Positive Reviews: ${info.review_summary.positive}</p>
-                            <p>Negative Reviews: ${info.review_summary.negative}</p>
-                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
-                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
-                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
-                        `;
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error); // Debug error
-                document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
-            });
-        }
-    </script>
-</body>
-</html>
+            console.log('Products:', products); /
