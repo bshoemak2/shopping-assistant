@@ -1,118 +1,158 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
+import folium
+from trail_db import init_db, view_stories, submit_story, cheer_story, view_archived_stories, pick_winner, get_prize_pool, get_leaderboard, get_random_story_snippet, subscribe_user, get_existing_users, get_user_subscription
+from trail_security import validate_username, validate_title, validate_story
+from trail_payments import PaymentHandler
+import os
 import logging
-from datetime import datetime
 
 app = Flask(__name__)
-logging.basicConfig(filename='app.log', level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)s: %(message)s')
+app.secret_key = os.environ.get("SECRET_KEY", "your-secret-key-here")
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
-app.static_folder = 'static'
+stripe_handler = PaymentHandler(os.environ.get("STRIPE_SECRET_KEY"))
 
-def fetch_amazon_products(product_names):
-    mock_api_response = {
-        "laptop": {
-            "price": 999.99,
-            "rating": 4.5,
-            "reviews": ["Fast performance", "Battery could be better", "Great for work"],
-            "amazon_url": "https://amzn.to/4huW45a",  # Known to redirect to search page
-            "walmart_url": "https://www.walmart.com/ip/456789123",
-            "is_search_page": True  # Flag for UI note
-        },
-        "yoga mat": {
-            "price": 29.99,
-            "rating": 4.5,
-            "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
-            "amazon_url": "https://amzn.to/41RTeRT",  # Redirects to specific product
-            "walmart_url": "https://www.walmart.com/ip/147963852",
-            "is_search_page": False
-        },
-        "board game": {
-            "price": 39.99,
-            "rating": 4.8,
-            "reviews": ["Super fun", "Long playtime", "Great for families"],
-            "amazon_url": "https://amzn.to/4bWdt5K",  # Real Site Stripe link
-            "walmart_url": "https://www.walmart.com/ip/987654321",  # Placeholder Walmart link
-            "is_search_page": False  # Assuming it links to specific product (e.g., Catan)
-        },
-        "beef tallow": {
-            "price": 19.99,
-            "rating": 4.3,
-            "reviews": ["Great for cooking", "Strong smell", "Good quality"],
-            "amazon_url": "https://amzn.to/4ivkVHn",  # Real Site Stripe link
-            "walmart_url": "https://www.walmart.com/ip/123456789",  # Placeholder Walmart link
-            "is_search_page": False  # Assuming it links to specific product
-        }
-    }
-    return {name: mock_api_response.get(name, {}) for name in product_names}
-
-def analyze_reviews(reviews):
-    positive_words = {"great": 1, "love": 1, "best": 1.5, "awesome": 1, "excellent": 1}
-    negative_words = {"broke": -1, "poor": -1, "pricey": -0.5, "bad": -1, "terrible": -1}
-    sentiment_score = 0
-    keywords = {}
-    for review in reviews:
-        for word in review.lower().split():
-            if word in positive_words:
-                sentiment_score += positive_words[word]
-                keywords[word] = keywords.get(word, 0) + 1
-            elif word in negative_words:
-                sentiment_score += negative_words[word]
-                keywords[word] = keywords.get(word, 0) + 1
-    positive = sum(1 for r in reviews if any(w in r.lower() for w in positive_words))
-    negative = sum(1 for r in reviews if any(w in r.lower() for w in negative_words))
-    return {
-        "positive": positive,
-        "negative": negative,
-        "keywords": keywords,
-        "sentiment_score": round(sentiment_score, 2)
-    }
+# Initialize DB at startup
+logging.info("Starting app - initializing database")
+init_db()
+logging.info("Database initialization completed")
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    prize_pool = get_prize_pool()
+    winners_share = prize_pool * (2/3)
+    quote = get_random_story_snippet() or "Kindness is the sunshine that brightens the world."
+    subscribed = get_user_subscription(session.get('username')) if 'username' in session else False
+    return render_template('home.html', prize_pool=prize_pool, winners_share=winners_share, quote=quote, subscribed=subscribed)
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/stories')
+def stories():
+    stories = view_stories()
+    return render_template('stories.html', stories=stories)
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+    if 'username' not in session:
+        return redirect(url_for('home'))
+    if request.method == 'POST':
+        title = request.form['title']
+        story = request.form['story']
+        location = request.form.get('location', '')
+        logging.debug(f"Submit attempt: title='{title}', story='{story[:50]}...', location='{location}'")
+        if validate_title(title) and validate_story(story):
+            result = submit_story(session['username'], title, story, location=location)
+            if "successfully" in result:
+                logging.info(f"Story submitted by {session['username']}: {title}")
+                return redirect(url_for('stories'))
+            else:
+                logging.error(f"Submit failed: {result}")
+                return render_template('submit.html', error=result)
+        else:
+            logging.error(f"Validation failed: title_valid={validate_title(title)}, story_valid={validate_story(story)}")
+            return render_template('submit.html', error="Invalid input")
+    return render_template('submit.html')
+
+@app.route('/cheer/<int:story_id>', methods=['POST'])
+def cheer(story_id):
+    if 'username' not in session:
+        return redirect(url_for('home'))
+    result = cheer_story(session['username'], story_id)
+    logging.info(f"{session['username']} cheered story #{story_id}")
+    return redirect(url_for('stories'))
+
+@app.route('/archive')
+def archive():
+    archived_stories = view_archived_stories()
+    return render_template('archive.html', archived_stories=archived_stories)
+
+@app.route('/winner')
+def winner():
+    winner_info = pick_winner()
+    return render_template('winner.html', winner_info=winner_info)
+
+@app.route('/leaderboard')
+def leaderboard():
+    leaders = get_leaderboard()
+    return render_template('leaderboard.html', leaders=leaders)
 
 @app.route('/compare')
-def compare_page():
+def compare():
     return render_template('compare.html')
 
-@app.route('/compare', methods=['POST'])
-def compare_products():
-    try:
-        data = request.get_json()
-        product_names = data.get('products', [])
-        logging.info(f"POST request received with products: {product_names}")
-        if not product_names:
-            logging.error("No products provided in POST request")
-            return jsonify({"error": "No products provided"}), 400
-        products = fetch_amazon_products(product_names)
-        logging.info(f"Fetched products: {products}")
-        comparisons = {}
-        for name, product in products.items():
-            if product:
-                review_summary = analyze_reviews(product["reviews"])
-                comparisons[name] = {
-                    "price": product["price"],
-                    "rating": product["rating"],
-                    "review_summary": review_summary,
-                    "amazon_url": product.get("amazon_url", "#"),
-                    "walmart_url": product.get("walmart_url", "#"),
-                    "is_search_page": product.get("is_search_page", False)  # Include flag
-                }
-            else:
-                logging.warning(f"Product not found: {name}")
-        if not comparisons:
-            logging.warning("No valid products found")
-            return jsonify({"error": "No matching products"}), 404
-        logging.debug(f"Returning comparisons: {comparisons}")
-        return jsonify({"comparisons": comparisons}), 200
-    except Exception as e:
-        logging.error(f"Error in compare_products: {str(e)}")
-        return jsonify({"error": "Internal server error"}), 500
+@app.route('/map')
+def map():
+    m = folium.Map(location=[20, 0], zoom_start=2, tiles="OpenStreetMap")
+    stories = view_stories()
+    for story in stories:
+        _, title, _, _, username, _, _, location = story
+        if location:
+            loc_key = location.lower().strip()
+            coords = {
+                "usa": (37.0902, -95.7129), "canada": (56.1304, -106.3468), "uk": (55.3781, -3.4360),
+                "france": (46.6034, 1.8883), "brazil": (-14.2350, -51.9253), "australia": (-25.2744, 133.7751),
+                "miami lakes, fl": (25.9087, -80.3087)
+            }.get(loc_key, (random.uniform(-90, 90), random.uniform(-180, 180)))
+            folium.Marker(coords, popup=f"{title} by {username or 'Anonymous'}").add_to(m)
+    map_html = m._repr_html_()
+    return render_template('map.html', map_html=map_html)
 
-if __name__ == '__main__':
-    logging.info(f"Starting server at {datetime.now()}")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username', '').strip()
+    logging.debug(f"Login attempt with username: {username}")
+    if not username:
+        logging.error("No username provided")
+        prize_pool = get_prize_pool()
+        winners_share = prize_pool * (2/3)
+        quote = get_random_story_snippet() or "Kindness is the sunshine that brightens the world."
+        return render_template('home.html', error="Please enter a username / Ingresa un nombre de usuario", 
+                               prize_pool=prize_pool, winners_share=winners_share, quote=quote)
+    if not validate_username(username):
+        logging.error(f"Invalid username format: {username}")
+        prize_pool = get_prize_pool()
+        winners_share = prize_pool * (2/3)
+        quote = get_random_story_snippet() or "Kindness is the sunshine that brightens the world."
+        return render_template('home.html', error="Invalid username format / Formato de nombre de usuario inválido", 
+                               prize_pool=prize_pool, winners_share=winners_share, quote=quote)
+    existing_users = get_existing_users()
+    logging.debug(f"Existing users: {existing_users}")
+    if username in existing_users:
+        session['username'] = username
+        logging.info(f"User logged in: {username}")
+    else:
+        from trail_db import register_user
+        result = register_user(username, f"{username}@example.com")
+        if "Welcome" in result or "Bienvenido" in result:
+            session['username'] = username
+            logging.info(f"New user registered and logged in: {username}")
+        else:
+            logging.error(f"Registration failed: {result}")
+            prize_pool = get_prize_pool()
+            winners_share = prize_pool * (2/3)
+            quote = get_random_story_snippet() or "Kindness is the sunshine that brightens the world."
+            return render_template('home.html', error=result, prize_pool=prize_pool, winners_share=winners_share, quote=quote)
+    return redirect(url_for('home'))
+
+@app.route('/subscribe', methods=['POST'])
+def subscribe():
+    if 'username' not in session:
+        return redirect(url_for('home'))
+    url, error = stripe_handler.create_subscription(session['username'], price_id="price_1R5aVbP5TKnthUKZOwtyFyPt")
+    if url:
+        return redirect(url)
+    return jsonify({"error": error}), 500
+
+@app.route('/success')
+def success():
+    if 'username' in session:
+        subscribe_user(session['username'])
+    return render_template('success.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    logging.info("User logged out")
+    return redirect(url_for('home'))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
