@@ -42,6 +42,13 @@
             bottom: 0; 
             width: calc(100% - 40px); 
         }
+        .funny-image { 
+            width: 300px; 
+            height: auto; 
+            margin: 20px auto; 
+            display: block; 
+            border: 2px solid #00FFFF; 
+        }
     </style>
 </head>
 <body>
@@ -50,8 +57,9 @@
         <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
     <div style="margin: 20px;">
-        <h1>COMPARE PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
-        <p><a href="/about">ABOUT</a> | <a href="/compare">START COMPARING</a></p>
+        <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
+        <h1>FIND PRODUCTS BY PRICE, RATING AND REVIEWS</h1>
+        <p><a href="/about">ABOUT</a> | <a href="/compare">FIND PRODUCTS</a></p>
     </div>
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
