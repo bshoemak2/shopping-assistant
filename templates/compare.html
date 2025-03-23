@@ -76,6 +76,7 @@
     </header>
     <div style="margin: 20px;">
         <h1>COMPARE PRODUCTS</h1>
+        <p>Searchable Products: laptop, yoga mat, board game, beef tallow</p>
         <div id="compare-form">
             <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
             <button onclick="compareProducts()">Compare</button>
@@ -119,7 +120,6 @@
                             <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
                             <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
                             <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
-                            <p><a href="${info.walmart_url}" target="_blank">Walmart Link</a></p>
                         `;
                     }
                 }

@@ -15,7 +15,6 @@ def fetch_amazon_products(product_names):
             "rating": 4.5,
             "reviews": ["Fast performance", "Battery could be better", "Great for work"],
             "amazon_url": "https://amzn.to/4huW45a",
-            "walmart_url": "https://www.walmart.com/ip/456789123",
             "is_search_page": True
         },
         "yoga mat": {
@@ -23,7 +22,6 @@ def fetch_amazon_products(product_names):
             "rating": 4.5,
             "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
             "amazon_url": "https://amzn.to/41RTeRT",
-            "walmart_url": "https://www.walmart.com/ip/147963852",
             "is_search_page": False
         },
         "board game": {
@@ -31,7 +29,6 @@ def fetch_amazon_products(product_names):
             "rating": 4.8,
             "reviews": ["Super fun", "Long playtime", "Great for families"],
             "amazon_url": "https://amzn.to/4bWdt5K",
-            "walmart_url": "https://www.walmart.com/ip/987654321",
             "is_search_page": False
         },
         "beef tallow": {
@@ -39,7 +36,6 @@ def fetch_amazon_products(product_names):
             "rating": 4.3,
             "reviews": ["Great for cooking", "Strong smell", "Good quality"],
             "amazon_url": "https://amzn.to/4ivkVHn",
-            "walmart_url": "https://www.walmart.com/ip/123456789",
             "is_search_page": False
         }
     }
@@ -99,7 +95,6 @@ def compare_products():
                     "rating": product["rating"],
                     "review_summary": review_summary,
                     "amazon_url": product.get("amazon_url", "#"),
-                    "walmart_url": product.get("walmart_url", "#"),
                     "is_search_page": product.get("is_search_page", False)
                 }
             else:
