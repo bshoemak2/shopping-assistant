@@ -11,8 +11,8 @@
             background-color: black; 
             color: #00FFFF; 
             overflow-y: auto; 
-            background: linear-gradient(45deg, #000, #1a1a1a); /* Subtle gradient */
-            animation: glitch 5s linear infinite; /* Glitch animation */
+            background: linear-gradient(45deg, #000, #1a1a1a); 
+            animation: glitch 5s linear infinite; 
         }
         @keyframes glitch {
             0% { background-position: 0 0; }
@@ -78,13 +78,13 @@
             font-weight: bold; 
             cursor: pointer; 
             text-transform: uppercase; 
-            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; /* Neon glow */
+            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; 
             transition: box-shadow 0.3s ease; 
         }
         #find-form button:hover { 
             background-color: #000; 
             color: #00FFFF; 
-            box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; /* Brighter glow on hover */
+            box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; 
         }
         #results { 
             margin-top: 20px; 
@@ -132,31 +132,42 @@
             background-color: #000; 
             color: #00FFFF; 
         }
-        /* Responsive CSS for mobile */
+        .promo-video { 
+            width: 100%; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            display: block; 
+            border: 2px solid #00FFFF; 
+            box-shadow: 0 0 10px #00FFFF; 
+        }
         @media (max-width: 600px) {
             header img {
-                width: 100px; /* Smaller logo on mobile */
+                width: 100px; 
             }
             h1 {
-                font-size: 24px; /* Smaller heading */
+                font-size: 24px; 
             }
             #find-form input {
-                width: 100%; /* Full-width input */
+                width: 100%; 
                 margin-bottom: 10px;
             }
             #find-form button {
-                width: 100%; /* Full-width button */
+                width: 100%; 
             }
             .funny-image {
-                width: 100%; /* Full-width images */
+                width: 100%; 
                 max-width: 300px;
             }
             .hacks-list li {
-                font-size: 14px; /* Smaller list items */
+                font-size: 14px; 
             }
             .hacks-list button {
-                font-size: 12px; /* Smaller share button */
+                font-size: 12px; 
                 padding: 3px 6px;
+            }
+            .promo-video {
+                width: 100%; 
+                max-width: 300px; 
             }
         }
     </style>
@@ -179,6 +190,10 @@
         <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
         <h3 class="hacks-title">Barlito's Life Hacks</h3>
         <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
+        <video class="promo-video" controls>
+            <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <p class="hacks-prompt">Click these links for funny and quirky products!</p>
         <ul class="hacks-list">
             <li>
