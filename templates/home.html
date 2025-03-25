@@ -11,6 +11,13 @@
             background-color: black; 
             color: #00FFFF; 
             overflow-y: auto; 
+            background: linear-gradient(45deg, #000, #1a1a1a); /* Subtle gradient */
+            animation: glitch 5s linear infinite; /* Glitch animation */
+        }
+        @keyframes glitch {
+            0% { background-position: 0 0; }
+            50% { background-position: 2px 2px; }
+            100% { background-position: 0 0; }
         }
         header { 
             background-color: black; 
@@ -71,10 +78,13 @@
             font-weight: bold; 
             cursor: pointer; 
             text-transform: uppercase; 
+            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; /* Neon glow */
+            transition: box-shadow 0.3s ease; 
         }
         #find-form button:hover { 
             background-color: #000; 
             color: #00FFFF; 
+            box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; /* Brighter glow on hover */
         }
         #results { 
             margin-top: 20px; 
@@ -109,6 +119,46 @@
             margin: 10px 0; 
             font-style: italic; 
         }
+        .hacks-list button { 
+            margin-left: 10px; 
+            padding: 5px 10px; 
+            background-color: #00FFFF; 
+            color: #000; 
+            border: 1px solid #00FFFF; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
+        .hacks-list button:hover { 
+            background-color: #000; 
+            color: #00FFFF; 
+        }
+        /* Responsive CSS for mobile */
+        @media (max-width: 600px) {
+            header img {
+                width: 100px; /* Smaller logo on mobile */
+            }
+            h1 {
+                font-size: 24px; /* Smaller heading */
+            }
+            #find-form input {
+                width: 100%; /* Full-width input */
+                margin-bottom: 10px;
+            }
+            #find-form button {
+                width: 100%; /* Full-width button */
+            }
+            .funny-image {
+                width: 100%; /* Full-width images */
+                max-width: 300px;
+            }
+            .hacks-list li {
+                font-size: 14px; /* Smaller list items */
+            }
+            .hacks-list button {
+                font-size: 12px; /* Smaller share button */
+                padding: 3px 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,27 +181,90 @@
         <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
         <p class="hacks-prompt">Click these links for funny and quirky products!</p>
         <ul class="hacks-list">
-            <li><a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a></li>
-            <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a></li>
-            <li><a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a></li>
-            <li><a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a></li>
-            <li><a href="https://amzn.to/4iTYRG5" target="_blank">Unicorn meat (canned) - emergency snack for mythical cravings</a></li>
-            <li><a href="https://amzn.to/4l56Diq" target="_blank">Screaming goat button - instant stress relief</a></li>
-            <li><a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a></li>
-            <li><a href="https://amzn.to/4bWHClp" target="_blank">Bacon bandages - heal with pork power</a></li>
-            <li><a href="https://amzn.to/4hF36V4" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a></li>
-            <li><a href="https://amzn.to/4ixKqYC" target="_blank">Bird Feeder - Watch Them Hang Upside Down</a></li>
-            <li><a href="https://amzn.to/4bZsWC2" target="_blank">Mini Disco Ball - Instant Party Vibes</a></li>
-            <li><a href="https://amzn.to/4hEoA4v" target="_blank">Fake Poop - Prank Your Friends</a></li>
-            <li><a href="https://amzn.to/4iUjSQZ" target="_blank">Cat Butt Magnets - Fridge Decoration Gone Wild</a></li>
-            <li><a href="https://amzn.to/4kVwlWw" target="_blank">Dinosaur Taco Holder - Prehistoric Dining</a></li>
-            <li><a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style</a></li>
-            <li><a href="https://amzn.to/4ipnOJH" target="_blank">Zombie Garden Gnome - Undead Lawn Vibes</a></li>
-            <li><a href="https://amzn.to/4ixPvAa" target="_blank">Burrito Blanket - Wrap Yourself in Taco Glory</a></li>
-            <li><a href="https://amzn.to/4hx9r4M" target="_blank">Singing Pasta Timer - Croons While You Cook</a></li>
-            <li><a href="https://amzn.to/4bZyeNU" target="_blank">Toaster Grilled Cheese Bags - Burnt Bread Begone</a></li>
-            <li><a href="https://amzn.to/4iQ1Pvh" target="_blank">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a></li>
-            <li><a href="https://amzn.to/41S2SUK" target="_blank">Unicorn Pool Float - Float Like a Mythical Beast</a></li>
+            <li>
+                <a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a>
+                <button onclick="shareProduct('Wooden clothes pins', 'https://amzn.to/4hBxujc')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a>
+                <button onclick="shareProduct('Fart whistles', 'https://amzn.to/4kQ39A7')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a>
+                <button onclick="shareProduct('Bear claw pencils', 'https://amzn.to/4kRem3n')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a>
+                <button onclick="shareProduct('Expresso cups in poo colors', 'https://amzn.to/4kVaBtW')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iTYRG5" target="_blank">Unicorn meat (canned) - emergency snack for mythical cravings</a>
+                <button onclick="shareProduct('Unicorn meat (canned)', 'https://amzn.to/4iTYRG5')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4l56Diq" target="_blank">Screaming goat button - instant stress relief</a>
+                <button onclick="shareProduct('Screaming goat button', 'https://amzn.to/4l56Diq')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a>
+                <button onclick="shareProduct('Inflatable tube man', 'https://amzn.to/4bSGxLj')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bWHClp" target="_blank">Bacon bandages - heal with pork power</a>
+                <button onclick="shareProduct('Bacon bandages', 'https://amzn.to/4bWHClp')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hF36V4" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a>
+                <button onclick="shareProduct('Toilet bowl night light', 'https://amzn.to/4hF36V4')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ixKqYC" target="_blank">Bird Feeder - Watch Them Hang Upside Down</a>
+                <button onclick="shareProduct('Bird Feeder', 'https://amzn.to/4ixKqYC')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bZsWC2" target="_blank">Mini Disco Ball - Instant Party Vibes</a>
+                <button onclick="shareProduct('Mini Disco Ball', 'https://amzn.to/4bZsWC2')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hEoA4v" target="_blank">Fake Poop - Prank Your Friends</a>
+                <button onclick="shareProduct('Fake Poop', 'https://amzn.to/4hEoA4v')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iUjSQZ" target="_blank">Cat Butt Magnets - Fridge Decoration Gone Wild</a>
+                <button onclick="shareProduct('Cat Butt Magnets', 'https://amzn.to/4iUjSQZ')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kVwlWw" target="_blank">Dinosaur Taco Holder - Prehistoric Dining</a>
+                <button onclick="shareProduct('Dinosaur Taco Holder', 'https://amzn.to/4kVwlWw')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style</a>
+                <button onclick="shareProduct('Rubber Chicken Purse', 'https://amzn.to/4hAMdL5')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ipnOJH" target="_blank">Zombie Garden Gnome - Undead Lawn Vibes</a>
+                <button onclick="shareProduct('Zombie Garden Gnome', 'https://amzn.to/4ipnOJH')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ixPvAa" target="_blank">Burrito Blanket - Wrap Yourself in Taco Glory</a>
+                <button onclick="shareProduct('Burrito Blanket', 'https://amzn.to/4ixPvAa')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hx9r4M" target="_blank">Singing Pasta Timer - Croons While You Cook</a>
+                <button onclick="shareProduct('Singing Pasta Timer', 'https://amzn.to/4hx9r4M')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bZyeNU" target="_blank">Toaster Grilled Cheese Bags - Burnt Bread Begone</a>
+                <button onclick="shareProduct('Toaster Grilled Cheese Bags', 'https://amzn.to/4bZyeNU')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iQ1Pvh" target="_blank">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a>
+                <button onclick="shareProduct('Glow-in-the-Dark Skeleton Onesie', 'https://amzn.to/4iQ1Pvh')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/41S2SUK" target="_blank">Unicorn Pool Float - Float Like a Mythical Beast</a>
+                <button onclick="shareProduct('Unicorn Pool Float', 'https://amzn.to/41S2SUK')">Share</button>
+            </li>
         </ul>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
@@ -214,6 +327,19 @@
                 console.error('Fetch error:', error); // Debug error
                 document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
             });
+        }
+
+        function shareProduct(name, url) {
+            const shareText = `Found this hilarious ${name} on Shopping Assistant Beta! Check it out: ${url} #GrokBuilt #OTCPlays`;
+            if (navigator.share) {
+                navigator.share({
+                    title: name,
+                    text: shareText,
+                    url: url
+                }).catch(err => console.error('Share failed:', err));
+            } else {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
         }
     </script>
 </body>
