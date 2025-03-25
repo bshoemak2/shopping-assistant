@@ -49,10 +49,16 @@
             border-top: 2px solid #00FFFF; 
             width: calc(100% - 40px); 
         }
+        .image-container {
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            margin: 20px 0; 
+        }
         .funny-image { 
             width: 300px; 
             height: auto; 
-            margin: 20px auto; 
+            margin: 10px; 
             display: block; 
             border: 2px solid #00FFFF; 
         }
@@ -132,6 +138,12 @@
             background-color: #000; 
             color: #00FFFF; 
         }
+        .fun-stuff-score { 
+            font-size: 14px; 
+            color: #FF00FF; 
+            margin-left: 10px; 
+            font-weight: bold; 
+        }
         .promo-video { 
             width: 100%; 
             max-width: 600px; 
@@ -154,9 +166,14 @@
             #find-form button {
                 width: 100%; 
             }
+            .image-container {
+                flex-direction: column; 
+                align-items: center;
+            }
             .funny-image {
                 width: 100%; 
                 max-width: 300px;
+                margin: 10px 0; 
             }
             .hacks-list li {
                 font-size: 14px; 
@@ -164,6 +181,11 @@
             .hacks-list button {
                 font-size: 12px; 
                 padding: 3px 6px;
+            }
+            .fun-stuff-score {
+                display: block; 
+                margin-left: 0; 
+                font-size: 12px; 
             }
             .promo-video {
                 width: 100%; 
@@ -178,8 +200,10 @@
         <h1 style="margin: 0;">SHOPPING ASSISTANT BETA</h1>
     </header>
     <div style="margin: 20px;">
-        <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
-        <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
+            <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
+        </div>
         <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
         <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
         <div id="find-form">
@@ -198,87 +222,153 @@
         <ul class="hacks-list">
             <li>
                 <a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Wooden clothes pins', 'https://amzn.to/4hBxujc')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
                 <button onclick="shareProduct('Fart whistles', 'https://amzn.to/4kQ39A7')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 6/10</span>
                 <button onclick="shareProduct('Bear claw pencils', 'https://amzn.to/4kRem3n')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Expresso cups in poo colors', 'https://amzn.to/4kVaBtW')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4iTYRG5" target="_blank">Unicorn meat (canned) - emergency snack for mythical cravings</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 10/10</span>
                 <button onclick="shareProduct('Unicorn meat (canned)', 'https://amzn.to/4iTYRG5')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4l56Diq" target="_blank">Screaming goat button - instant stress relief</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Screaming goat button', 'https://amzn.to/4l56Diq')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Inflatable tube man', 'https://amzn.to/4bSGxLj')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4bWHClp" target="_blank">Bacon bandages - heal with pork power</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 6/10</span>
                 <button onclick="shareProduct('Bacon bandages', 'https://amzn.to/4bWHClp')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4hF36V4" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Toilet bowl night light', 'https://amzn.to/4hF36V4')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4ixKqYC" target="_blank">Bird Feeder - Watch Them Hang Upside Down</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Bird Feeder', 'https://amzn.to/4ixKqYC')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4bZsWC2" target="_blank">Mini Disco Ball - Instant Party Vibes</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
                 <button onclick="shareProduct('Mini Disco Ball', 'https://amzn.to/4bZsWC2')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4hEoA4v" target="_blank">Fake Poop - Prank Your Friends</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Fake Poop', 'https://amzn.to/4hEoA4v')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4iUjSQZ" target="_blank">Cat Butt Magnets - Fridge Decoration Gone Wild</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Cat Butt Magnets', 'https://amzn.to/4iUjSQZ')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4kVwlWw" target="_blank">Dinosaur Taco Holder - Prehistoric Dining</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
                 <button onclick="shareProduct('Dinosaur Taco Holder', 'https://amzn.to/4kVwlWw')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Rubber Chicken Purse', 'https://amzn.to/4hAMdL5')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4ipnOJH" target="_blank">Zombie Garden Gnome - Undead Lawn Vibes</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Zombie Garden Gnome', 'https://amzn.to/4ipnOJH')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4ixPvAa" target="_blank">Burrito Blanket - Wrap Yourself in Taco Glory</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
                 <button onclick="shareProduct('Burrito Blanket', 'https://amzn.to/4ixPvAa')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4hx9r4M" target="_blank">Singing Pasta Timer - Croons While You Cook</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Singing Pasta Timer', 'https://amzn.to/4hx9r4M')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4bZyeNU" target="_blank">Toaster Grilled Cheese Bags - Burnt Bread Begone</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
                 <button onclick="shareProduct('Toaster Grilled Cheese Bags', 'https://amzn.to/4bZyeNU')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/4iQ1Pvh" target="_blank">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
                 <button onclick="shareProduct('Glow-in-the-Dark Skeleton Onesie', 'https://amzn.to/4iQ1Pvh')">Share</button>
             </li>
             <li>
                 <a href="https://amzn.to/41S2SUK" target="_blank">Unicorn Pool Float - Float Like a Mythical Beast</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
                 <button onclick="shareProduct('Unicorn Pool Float', 'https://amzn.to/41S2SUK')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4i5b2PL" target="_blank">Giant Googly Eyes - Stick Them Anywhere for Instant Chaos</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
+                <button onclick="shareProduct('Giant Googly Eyes', 'https://amzn.to/4i5b2PL')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3DV7tNV" target="_blank">Inflatable Turkey - Thanksgiving Prank Ready</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
+                <button onclick="shareProduct('Inflatable Turkey', 'https://amzn.to/3DV7tNV')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3FEOBDn" target="_blank">Singing Fish Plaque - Wall-Mounted Karaoke Star</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
+                <button onclick="shareProduct('Singing Fish Plaque', 'https://amzn.to/3FEOBDn')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3DHPsTg" target="_blank">Potato Chip Grabber - Keep Your Fingers Clean</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 6/10</span>
+                <button onclick="shareProduct('Potato Chip Grabber', 'https://amzn.to/3DHPsTg')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4j498Qe" target="_blank">Finger Hands - Tiny Hands for Your Fingers</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
+                <button onclick="shareProduct('Finger Hands', 'https://amzn.to/4j498Qe')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iFZWl4" target="_blank">Banana Phone - Make Calls with a Fruit</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
+                <button onclick="shareProduct('Banana Phone', 'https://amzn.to/4iFZWl4')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3XYJrby" target="_blank">Squishy Stress Poop - Squeeze Away Your Worries</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 7/10</span>
+                <button onclick="shareProduct('Squishy Stress Poop', 'https://amzn.to/3XYJrby')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4c8lggL" target="_blank">Stormtrooper Inspired Storm Pooper Parody Vinyl Decal</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 8/10</span>
+                <button onclick="shareProduct('Stormtrooper Inspired Storm Pooper Parody Vinyl Decal', 'https://amzn.to/4c8lggL')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4l41QNZ" target="_blank">Silly String Shooter - Spray Chaos Everywhere</a>
+                <span class="fun-stuff-score">Fun Stuff Score: 9/10</span>
+                <button onclick="shareProduct('Silly String Shooter', 'https://amzn.to/4l41QNZ')">Share</button>
             </li>
         </ul>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
