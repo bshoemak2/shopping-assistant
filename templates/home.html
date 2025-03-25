@@ -113,10 +113,6 @@
             font-size: 20px; 
             margin: 15px 0; 
         }
-        .hacks-title { 
-            font-size: 30px; 
-            margin-top: 30px; 
-        }
         .hacks-list li { 
             font-size: 18px; 
             margin: 10px 0; 
@@ -156,8 +152,8 @@
             margin-left: 10px; 
         }
         .vote-buttons button { 
-            padding: 4px 8px; /* Increased padding for larger buttons */
-            font-size: 16px; /* Increased font size for larger arrows */
+            padding: 4px 8px; 
+            font-size: 16px; 
             background-color: #FF00FF; 
             color: #000; 
             border: 1px solid #FF00FF; 
@@ -174,6 +170,32 @@
             display: block; 
             border: 2px solid #00FFFF; 
             box-shadow: 0 0 10px #00FFFF; 
+        }
+        .mystery-product-section { 
+            margin: 20px 0; 
+        }
+        .mystery-button { 
+            font-size: 20px; 
+            padding: 10px 20px; 
+            background-color: #FF00FF; 
+            color: #000; 
+            border: 2px solid #FF00FF; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            box-shadow: 0 0 10px #FF00FF, 0 0 20px #FF00FF; 
+            transition: box-shadow 0.3s ease; 
+        }
+        .mystery-button:hover { 
+            background-color: #000; 
+            color: #FF00FF; 
+            box-shadow: 0 0 20px #FF00FF, 0 0 30px #FF00FF; 
+        }
+        .mystery-product { 
+            margin-top: 20px; 
+            font-size: 18px; 
+            color: #00FFFF; 
+            display: none; 
         }
         @media (max-width: 600px) {
             header img {
@@ -216,12 +238,16 @@
                 margin-top: 5px; 
             }
             .vote-buttons button {
-                padding: 3px 6px; /* Slightly smaller padding on mobile */
-                font-size: 14px; /* Slightly smaller font size on mobile */
+                padding: 3px 6px; 
+                font-size: 14px; 
             }
             .promo-video {
                 width: 100%; 
                 max-width: 300px; 
+            }
+            .mystery-button {
+                font-size: 16px;
+                padding: 8px 16px;
             }
         }
     </style>
@@ -236,12 +262,15 @@
             <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
             <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
         </div>
-        <h3 class="hacks-title">Barlito's Life Hacks</h3>
         <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
         <video class="promo-video" controls>
             <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <div class="mystery-product-section">
+            <button class="mystery-button" onclick="revealMysteryProduct()">Reveal Mystery Product!</button>
+            <div class="mystery-product" id="mysteryProduct"></div>
+        </div>
         <p class="hacks-prompt">Click these links for funny and quirky products!</p>
         <ul class="hacks-list">
             <li>
@@ -605,6 +634,13 @@
             score = Math.max(0, Math.min(10, score + change)); // Keep score between 0 and 10
             scoreElement.textContent = score;
             localStorage.setItem(`fun-stuff-score-${productId}`, score); // Save to localStorage
+        }
+
+        function revealMysteryProduct() {
+            const mysteryProduct = { name: "Fart whistles, loads of fun", url: "https://amzn.to/4kQ39A7" };
+            const mysteryDiv = document.getElementById('mysteryProduct');
+            mysteryDiv.innerHTML = `Mystery Product: <a href="${mysteryProduct.url}" target="_blank">${mysteryProduct.name}</a>`;
+            mysteryDiv.style.display = 'block';
         }
 
         // Load scores from localStorage on page load
