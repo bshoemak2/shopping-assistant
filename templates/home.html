@@ -3,6 +3,13 @@
 <head>
     <title>Barlito’s Bazaar, Beta Version</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <!-- SEO and Sharing Meta Tags -->
+    <meta name="description" content="Find the dumbest products at Barlito’s Bazaar, Beta Version! Fart whistles, unicorn meat, and more quirky finds.">
+    <meta name="keywords" content="funny products, quirky gifts, dumb stuff, Barlito’s Bazaar, OTC, Grok">
+    <meta property="og:title" content="Barlito’s Bazaar, Beta Version">
+    <meta property="og:description" content="Discover hilarious products like fart whistles and unicorn meat! Join the dumb stuff revolution.">
+    <meta property="og:image" content="{{ url_for('static', filename='funny_image_2.jpg') }}">
+    <meta property="og:url" content="https://shopping-assistant-5m0q.onrender.com/">
     <style>
         body { 
             font-family: 'Courier New', monospace; 
@@ -149,8 +156,8 @@
             margin-left: 10px; 
         }
         .vote-buttons button { 
-            padding: 2px 6px; 
-            font-size: 12px; 
+            padding: 4px 8px; /* Increased padding for larger buttons */
+            font-size: 16px; /* Increased font size for larger arrows */
             background-color: #FF00FF; 
             color: #000; 
             border: 1px solid #FF00FF; 
@@ -208,6 +215,10 @@
                 margin-left: 0; 
                 margin-top: 5px; 
             }
+            .vote-buttons button {
+                padding: 3px 6px; /* Slightly smaller padding on mobile */
+                font-size: 14px; /* Slightly smaller font size on mobile */
+            }
             .promo-video {
                 width: 100%; 
                 max-width: 300px; 
@@ -225,14 +236,6 @@
             <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
             <img src="{{ url_for('static', filename='funny_image_3.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
         </div>
-        <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
-        <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
-        <div id="find-form">
-            <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
-            <button onclick="findProducts()">FIND PRODUCTS</button>
-        </div>
-        <div id="results"></div>
-        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
         <h3 class="hacks-title">Barlito's Life Hacks</h3>
         <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
         <video class="promo-video" controls>
@@ -512,6 +515,14 @@
                 <button onclick="shareProduct('Silly String Shooter', 'https://amzn.to/4l41QNZ')">Share</button>
             </li>
         </ul>
+        <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
+        <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
+        <div id="find-form">
+            <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
+            <button onclick="findProducts()">FIND PRODUCTS</button>
+        </div>
+        <div id="results"></div>
+        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
     <footer>
