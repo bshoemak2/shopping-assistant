@@ -13,12 +13,12 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
 
 app.static_folder = 'static'
 
-# Configure Flask-Mail with environment variables
+# Configure Flask-Mail with environment variables and new app-specific password
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'bshoemak2@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'ycvp qmmg rbcl kdfg')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'vzug hygx grwt frkn')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME', 'bshoemak2@gmail.com')
 
 mail = Mail(app)
@@ -148,22 +148,29 @@ def subscribe():
         conn.close()
         
         # Send welcome email with freebie
-        msg = Message(
-            subject="Your Prank Cheat Sheet Is Here! Let the Fun Begin 🎉",
-            recipients=[email],
-            body=f"""
-            Hey there,
+        try:
+            msg = Message(
+                subject="Your Prank Cheat Sheet Is Here! Let the Fun Begin 🎉",
+                recipients=[email],
+                body=f"""
+                Hey there,
 
-            Welcome to the Prank Party! 🎉 Here's your free "Ultimate Prank Cheat Sheet":
-            Download it here: {url_for('static', filename='prank_cheat_sheet.pdf', _external=True)}
+                Welcome to the Prank Party! 🎉 Here's your free "Ultimate Prank Cheat Sheet":
+                Download it here: {url_for('static', filename='prank_cheat_sheet.pdf', _external=True)}
 
-            Stay tuned for our monthly blast—next up, the dumbest Amazon gag gifts you’ll love!
+                Stay tuned for our monthly blast—next up, the dumbest Amazon gag gifts you’ll love!
 
-            Happy pranking,
-            The Shopping Assistant Team
-            """
-        )
-        mail.send(msg)
+                To manage your subscription, visit: {url_for('manage_subscription', _external=True)}
+
+                Happy pranking,
+                The Shopping Assistant Team
+                """
+            )
+            mail.send(msg)
+            logging.info(f"Welcome email sent to {email}")
+        except Exception as email_error:
+            logging.error(f"Failed to send welcome email to {email}: {str(email_error)}")
+            return jsonify({"error": f"Failed to send welcome email: {str(email_error)}"}), 500
         
         logging.info(f"New subscriber: {email}")
         return redirect(url_for('thank_you'))
@@ -173,6 +180,46 @@ def subscribe():
     except Exception as e:
         logging.error(f"Error in subscribe: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
+
+@app.route('/manage-subscription', methods=['GET', 'POST'])
+def manage_subscription():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        if not email:
+            return render_template('manage_subscription.html', message="Please enter an email address.")
+
+        # Check if the email exists in the database
+        conn = sqlite3.connect('emails.db')
+        c = conn.cursor()
+        c.execute("SELECT signup_date FROM subscribers WHERE email = ?", (email,))
+        result = c.fetchone()
+        conn.close()
+
+        if result:
+            signup_date = result[0]
+            message = f"You are subscribed since {signup_date}."
+            return render_template('manage_subscription.html', message=message, email=email, subscribed=True)
+        else:
+            message = "You are not subscribed with this email."
+            return render_template('manage_subscription.html', message=message, subscribed=False)
+
+    return render_template('manage_subscription.html')
+
+@app.route('/unsubscribe', methods=['POST'])
+def unsubscribe():
+    email = request.form.get('email')
+    if not email:
+        return render_template('manage_subscription.html', message="Please enter an email address.")
+
+    # Remove the email from the database
+    conn = sqlite3.connect('emails.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM subscribers WHERE email = ?", (email,))
+    conn.commit()
+    conn.close()
+
+    logging.info(f"Unsubscribed: {email}")
+    return render_template('manage_subscription.html', message="You have been unsubscribed successfully.", subscribed=False)
 
 @app.route('/thank-you')
 def thank_you():
@@ -230,9 +277,11 @@ def send_monthly_blast():
     - Fake Poop: Scare your coworker silly! Get it here: https://amzn.to/4hEoA4v
     - Fart Whistles: A classic that never fails. Shop now: https://amzn.to/4kQ39A7
 
+    To manage your subscription, visit: {url}
+
     Happy pranking,
     The Shopping Assistant Team
-    """
+    """.format(url=url_for('manage_subscription', _external=True))
     
     for email in subscribers:
         msg = Message(subject=subject, recipients=[email], body=body)

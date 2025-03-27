@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Subscription - Barlito’s Bazaar</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FFFF; 
+            background: linear-gradient(45deg, #000, #1a1a1a); 
+            animation: glitch 5s linear infinite; 
+        }
+        @keyframes glitch {
+            0% { background-position: 0 0; }
+            50% { background-position: 2px 2px; }
+            100% { background-position: 0 0; }
+        }
+        header { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FFFF; 
+        }
+        header img { 
+            width: 150px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FFFF; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FFFF; 
+            position: fixed; 
+            bottom: 0; 
+            width: calc(100% - 40px); 
+        }
+        .subscription-form {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border: 2px solid #FF00FF;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 0 10px #FF00FF;
+        }
+        .subscription-form h2 {
+            color: #FF00FF;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .subscription-form p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .subscription-form form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .subscription-form input[type="email"] {
+            width: 70%;
+            padding: 10px;
+            background-color: #000;
+            color: #00FFFF;
+            border: 1px solid #00FFFF;
+            font-size: 16px;
+        }
+        .subscription-form button {
+            padding: 10px 20px;
+            background-color: #FF00FF;
+            color: #000;
+            border: 2px solid #FF00FF;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .subscription-form button:hover {
+            background-color: #000;
+            color: #FF00FF;
+        }
+        .message {
+            color: #FF00FF;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        @media (max-width: 600px) {
+            header img {
+                width: 100px; 
+            }
+            h1 {
+                font-size: 24px; 
+            }
+            .subscription-form form {
+                flex-direction: column;
+            }
+            .subscription-form input[type="email"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .subscription-form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">Barlito’s Bazaar</h1>
+    </header>
+    <div style="margin: 20px;">
+        <h1>MANAGE YOUR SUBSCRIPTION</h1>
+        <div class="subscription-form">
+            <h2>Check or Unsubscribe</h2>
+            <p>Enter your email to check your subscription status or unsubscribe.</p>
+            <form action="{{ url_for('manage_subscription') }}" method="POST">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Check Subscription</button>
+            </form>
+        </div>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+            {% if subscribed %}
+                <form action="{{ url_for('unsubscribe') }}" method="POST">
+                    <input type="hidden" name="email" value="{{ email }}">
+                    <button type="submit" style="padding: 10px 20px; background-color: #FF00FF; color: #000; border: 2px solid #FF00FF; font-weight: bold; cursor: pointer; font-size: 16px;">Unsubscribe</button>
+                </form>
+            {% endif %}
+        {% endif %}
+        <p><a href="/">BACK TO HOME</a></p>
+    </div>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+    </footer>
+</body>
+</html>
