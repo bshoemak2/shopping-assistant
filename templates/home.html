@@ -197,7 +197,7 @@
             color: #00FFFF; 
             display: none; 
         }
-        /* Added styles for email sign-up form and blog links */
+        /* Added styles for email sign-up form */
         .email-signup {
             background-color: #1a1a1a;
             padding: 20px;
@@ -242,17 +242,6 @@
         .email-signup button:hover {
             background-color: #000;
             color: #FF00FF;
-        }
-        .blog-links {
-            margin: 20px 0;
-        }
-        .blog-links h2 {
-            color: #FF00FF;
-            font-size: 24px;
-        }
-        .blog-links p {
-            font-size: 18px;
-            margin: 10px 0;
         }
         /* Styles for new product sections */
         .product-section {
@@ -677,12 +666,6 @@
         </div>
         <div id="results"></div>
         <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
-        <!-- Blog Links for SEO -->
-        <div class="blog-links">
-            <h2>CHECK OUT OUR FUNNY GUIDES</h2>
-            <p><a href="{{ url_for('blog_post', post_slug='best-gag-gift-for-brothers-wedding') }}">Best Gag Gift for Your Brother’s Wedding</a></p>
-            <p><a href="{{ url_for('blog_post', post_slug='funny-office-prank-ideas') }}">Funny Office Prank Ideas for April Fools</a></p>
-        </div>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
     <footer>
