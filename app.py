@@ -35,27 +35,27 @@ def init_db():
 init_db()
 
 def fetch_amazon_products(product_names):
-    # Updated mock API response with funny products and real Amazon affiliate links
+    # Updated mock API response to match searchable products in home.html
     mock_api_response = {
-        "whoopee cushion": {
-            "price": 9.99,
-            "rating": 4.2,
-            "reviews": ["Hilarious at parties", "Broke after one use", "Best gag gift ever"],
-            "amazon_url": "https://amzn.to/4kQ39A7",  # Fart whistles (used as a placeholder for whoopee cushion)
-            "is_search_page": False
-        },
-        "fake spider prank": {
-            "price": 5.99,
-            "rating": 4.0,
-            "reviews": ["Scared my coworker", "Looks too fake", "Great for Halloween"],
-            "amazon_url": "https://amzn.to/4hEoA4v",  # Fake poop (used as a placeholder for fake spider)
-            "is_search_page": False
-        },
-        "prank gift box": {
-            "price": 7.99,
+        "laptop": {
+            "price": 999.99,
             "rating": 4.5,
-            "reviews": ["Perfect for Secret Santa", "Hilarious packaging", "Good quality"],
-            "amazon_url": "https://amzn.to/4kVaBtW",  # Expresso cups in poo colors (used as a placeholder)
+            "reviews": ["Fast performance", "Battery could be better", "Great for work"],
+            "amazon_url": "https://amzn.to/4kVu4dW",
+            "is_search_page": False
+        },
+        "yoga mat": {
+            "price": 29.99,
+            "rating": 4.5,
+            "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
+            "amazon_url": "https://amzn.to/41SGXN5",
+            "is_search_page": False
+        },
+        "beef tallow": {
+            "price": 19.99,
+            "rating": 4.3,
+            "reviews": ["Great for cooking", "Strong smell", "Good quality"],
+            "amazon_url": "https://amzn.to/41WPu1H",
             "is_search_page": False
         }
     }
@@ -85,10 +85,7 @@ def analyze_reviews(reviews):
 
 @app.route('/')
 def home():
-    # Fetch some funny products to display on the homepage
-    funny_products = fetch_amazon_products(["whoopee cushion", "fake spider prank", "prank gift box"])
-    disclosure = "As an Amazon Associate, I earn from qualifying purchases."
-    return render_template('home.html', funny_products=funny_products, disclosure=disclosure)
+    return render_template('home.html')
 
 @app.route('/about')
 def about():
