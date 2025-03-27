@@ -339,19 +339,6 @@
         <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
     </header>
     <div style="margin: 20px;">
-        <!-- Email Sign-Up Form -->
-        <div class="email-signup">
-            <h2>JOIN THE PRANK PARTY! 🎉</h2>
-            <p>Get "The Ultimate Prank Cheat Sheet" for FREE and never miss a laugh!</p>
-            <form action="{{ url_for('subscribe') }}" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit">Sign Me Up for the Shenanigans!</button>
-            </form>
-            <p style="font-size: 12px; margin-top: 10px;">
-                By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
-            </p>
-        </div>
-
         <div class="image-container">
             <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
             <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
@@ -666,6 +653,18 @@
         </div>
         <div id="results"></div>
         <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
+        <!-- Email Sign-Up Form Moved to Bottom -->
+        <div class="email-signup">
+            <h2>JOIN THE PRANK PARTY! 🎉</h2>
+            <p>Get "The Ultimate Prank Cheat Sheet" for FREE and never miss a laugh!</p>
+            <form action="{{ url_for('subscribe') }}" method="POST">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Sign Me Up for the Shenanigans!</button>
+            </form>
+            <p style="font-size: 12px; margin-top: 10px;">
+                By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
+            </p>
+        </div>
         <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
     <footer>
