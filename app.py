@@ -13,7 +13,7 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
 
 app.static_folder = 'static'
 
-# Configure Flask-Mail with your Gmail settings
+# Configure Flask-Mail with environment variables
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
