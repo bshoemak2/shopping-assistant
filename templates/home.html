@@ -254,6 +254,25 @@
             font-size: 18px;
             margin: 10px 0;
         }
+        /* Styles for new product sections */
+        .product-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #00FFFF;
+            border-radius: 10px;
+        }
+        .product-section h2 {
+            color: #FF00FF;
+            font-size: 24px;
+        }
+        .product-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .product-section li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
         @media (max-width: 600px) {
             header img {
                 width: 100px; 
@@ -295,7 +314,7 @@
                 margin-top: 5px; 
             }
             .vote-buttons button {
-                padding: 3px 6px; 
+                padding: 3px 6px;
                 font-size: 14px; 
             }
             .promo-video {
@@ -315,6 +334,12 @@
             }
             .email-signup button {
                 width: 100%;
+            }
+            .product-section h2 {
+                font-size: 20px;
+            }
+            .product-section li {
+                font-size: 14px;
             }
         }
     </style>
@@ -624,6 +649,26 @@
                 <button onclick="shareProduct('Silly String Shooter', 'https://amzn.to/4l41QNZ')">Share</button>
             </li>
         </ul>
+        <!-- New Section: Best Gag Gift for Your Brother’s Wedding -->
+        <div class="product-section">
+            <h2>🎉 Best Gag Gift for Your Brother’s Wedding</h2>
+            <p>Add some humor to the big day with these hilarious picks!</p>
+            <ul>
+                <li><a href="https://amzn.to/4kQ39A7" target="_blank">Fart Whistles - Loads of Fun for the Reception</a></li>
+                <li><a href="https://amzn.to/4kVaBtW" target="_blank">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a></li>
+                <li><a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style at the After-Party</a></li>
+            </ul>
+        </div>
+        <!-- New Section: Funny Office Prank Ideas for April Fools -->
+        <div class="product-section">
+            <h2>🤡 Funny Office Prank Ideas for April Fools</h2>
+            <p>Make your coworkers laugh with these prank-ready products!</p>
+            <ul>
+                <li><a href="https://amzn.to/4hEoA4v" target="_blank">Fake Poop - Leave It on a Desk for a Scream</a></li>
+                <li><a href="https://amzn.to/4l41QNZ" target="_blank">Silly String Shooter - Spray Chaos in the Break Room</a></li>
+                <li><a href="https://amzn.to/4i5b2PL" target="_blank">Giant Googly Eyes - Stick Them on Office Supplies</a></li>
+            </ul>
+        </div>
         <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
         <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
         <div id="find-form">

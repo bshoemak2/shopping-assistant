@@ -91,6 +91,10 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
 @app.route('/blog/<post_slug>')
 def blog_post(post_slug):
     # Mock blog posts for SEO with quirky long-tail keywords

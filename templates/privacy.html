@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Privacy Policy - Barlito’s Bazaar</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FFFF; 
+            background: linear-gradient(45deg, #000, #1a1a1a); 
+            animation: glitch 5s linear infinite; 
+        }
+        @keyframes glitch {
+            0% { background-position: 0 0; }
+            50% { background-position: 2px 2px; }
+            100% { background-position: 0 0; }
+        }
+        header { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FFFF; 
+        }
+        header img { 
+            width: 150px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FFFF; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FFFF; 
+            position: fixed; 
+            bottom: 0; 
+            width: calc(100% - 40px); 
+        }
+        @media (max-width: 600px) {
+            header img {
+                width: 100px; 
+            }
+            h1 {
+                font-size: 24px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">Barlito’s Bazaar</h1>
+    </header>
+    <div style="margin: 20px;">
+        <h1>PRIVACY POLICY</h1>
+        <p>We collect your email address when you sign up for our newsletter to send you prank ideas and Amazon product recommendations.</p>
+        <p>We do not share your email with third parties. You can unsubscribe at any time by clicking the link in our emails.</p>
+        <p>For questions, contact us at <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a>.</p>
+        <p><a href="/">BACK TO HOME</a></p>
+    </div>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+    </footer>
+</body>
+</html>
