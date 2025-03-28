@@ -807,16 +807,19 @@ twq('config','pdq4g');
     <!-- End of Statcounter Code -->
     <script>
         function trackAffiliateClick(productName) {
-            if (typeof twq !== 'undefined') {
-                twq('track', 'Custom', {
-                    value: 1.00,           // Static value (e.g., estimated commission or click value)
-                    currency: 'USD',       // Currency code
-                    contents: productName, // Product name as content
-                    conversion_id: 'affiliate-click-' + Date.now() // Unique ID for each click
-                });
-            }
-        }
-
+    if (typeof twq !== 'undefined') {
+        const eventData = {
+            value: 1.00,
+            currency: 'USD',
+            contents: productName,
+            conversion_id: 'affiliate-click-' + Date.now()
+        };
+        console.log('Tracking affiliate click:', eventData);
+        twq('track', 'Custom', eventData);
+    } else {
+        console.error('Twitter pixel not loaded');
+    }
+}
         function findProducts() {
             const input = document.getElementById('product-input').value;
             console.log('Input:', input); // Debug input
