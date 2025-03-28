@@ -695,7 +695,7 @@ twq('config','pdq4g');
             </li>
             <li>
                 <a href="https://amzn.to/4j6rIac" target="_blank" onclick="trackAffiliateClick('Squirting Flower Lapel')">Squirting Flower Lapel - Classic Clown Prank</a>
-                <span class="fun-stuff-score" data-id="squirting-flower-lapel">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="fun-stuff-score" data-id="squirting-flower-lapel">多元 Stuff Score: <span class="score-value">7</span>/10</span>
                 <span class="vote-buttons">
                     <button onclick="vote('squirting-flower-lapel', 1)">⬆</button>
                     <button onclick="vote('squirting-flower-lapel', -1)">⬇</button>
@@ -739,9 +739,7 @@ twq('config','pdq4g');
                 <button onclick="shareProduct('Disappearing Ink', 'https://amzn.to/43uODHN')">Share</button>
             </li>
             <li>
-                <a href="https://amzn.to/3RoizxW" target="_blank" onclick="trackAffiliateClick('Fake Cockroach')">Fake Cockroach - Realistic Bug
-
- for a Screaming Good Time</a>
+                <a href="https://amzn.to/3RoizxW" target="_blank" onclick="trackAffiliateClick('Fake Cockroach')">Fake Cockroach - Realistic Bug for a Screaming Good Time</a>
                 <span class="fun-stuff-score" data-id="fake-cockroach">Fun Stuff Score: <span class="score-value">8</span>/10</span>
                 <span class="vote-buttons">
                     <button onclick="vote('fake-cockroach', 1)">⬆</button>
@@ -810,10 +808,11 @@ twq('config','pdq4g');
     <script>
         function trackAffiliateClick(productName) {
             if (typeof twq !== 'undefined') {
-                twq('track', 'AffiliateLinkClick', {
-                    value: 0, // Optional: value of the conversion (e.g., 0 since you’re not tracking revenue directly)
-                    currency: 'USD',
-                    content_name: productName // Optional: track which product was clicked
+                twq('track', 'Custom', {
+                    value: 1.00,           // Static value (e.g., estimated commission or click value)
+                    currency: 'USD',       // Currency code
+                    contents: productName, // Product name as content
+                    conversion_id: 'affiliate-click-' + Date.now() // Unique ID for each click
                 });
             }
         }
@@ -864,7 +863,7 @@ twq('config','pdq4g');
             });
         }
 
-        function shareProduct(name, url) {
+        function shareAProduct(name, url) {
             const shareText = `Found this hilarious ${name} on Barlito’s Bazaar, Beta Version! Check it out: ${url} #GrokBuilt #DumbStuffChallenge`;
             if (navigator.share) {
                 navigator.share({
