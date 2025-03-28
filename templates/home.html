@@ -808,17 +808,14 @@ twq('config','pdq4g');
     <script>
 function trackAffiliateClick(productName) {
     if (typeof twq !== 'undefined') {
-        const eventData = {
+        twq('track', 'Custom', {
             value: 1.00,
             currency: 'USD',
             contents: productName,
             conversion_id: 'affiliate-click-' + Date.now()
-        };
-        console.log('Tracking affiliate click:', JSON.stringify(eventData));
-        twq('track', 'Custom', eventData);
-    } else {
-        console.error('Twitter pixel not loaded');
+        });
     }
+}
 }
         function findProducts() {
             const input = document.getElementById('product-input').value;
