@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Barlito’s Bazaar, Beta Version</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <!-- SEO and Sharing Meta Tags -->
+    <meta name="description" content="Find the dumbest products at Barlito’s Bazaar, Beta Version! Fart whistles, unicorn meat, and more quirky finds.">
+    <meta name="keywords" content="funny products, quirky gifts, dumb stuff, Barlito’s Bazaar, OTC, Grok">
+    <meta property="og:title" content="Barlito’s Bazaar, Beta Version">
+    <meta property="og:description" content="Discover hilarious products like fart whistles and unicorn meat! Join the dumb stuff revolution.">
+    <meta property="og:image" content="{{ url_for('static', filename='funny_image_2.jpg') }}">
+    <meta property="og:url" content="https://shopping-assistant-5m0q.onrender.com/">
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            text-align: center; 
+            background-color: black; 
+            color: #00FFFF; 
+            overflow-y: auto; 
+            background: linear-gradient(45deg, #000, #1a1a1a); 
+            animation: glitch 5s linear infinite; 
+        }
+        @keyframes glitch {
+            0% { background-position: 0 0; }
+            50% { background-position: 2px 2px; }
+            100% { background-position: 0 0; }
+        }
+        header { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 2px solid #00FFFF; 
+        }
+        header img { 
+            width: 150px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+        a { 
+            color: #00FFFF; 
+            text-decoration: none; 
+            padding: 0 10px; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        footer { 
+            background-color: black; 
+            color: #00FFFF; 
+            padding: 10px; 
+            text-align: center; 
+            border-top: 2px solid #00FFFF; 
+            width: calc(100% - 40px); 
+        }
+        .image-container {
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            margin: 20px 0; 
+        }
+        .funny-image { 
+            width: 300px; 
+            height: auto; 
+            margin: 10px; 
+            display: block; 
+            border: 2px solid #00FFFF; 
+        }
+        h1 { 
+            font-size: 36px; 
+            margin: 20px 0; 
+        }
+        #find-form input { 
+            font-size: 20px; 
+            padding: 12px; 
+            width: 350px; 
+            background-color: #000; 
+            color: #00FFFF; 
+            border: 1px solid #00FFFF; 
+            margin-right: 10px; 
+        }
+        #find-form button { 
+            font-size: 20px; 
+            padding: 10px 20px; 
+            background-color: #00FFFF; 
+            color: #000; 
+            border: 2px solid #00FFFF; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; 
+            transition: box-shadow 0.3s ease; 
+        }
+        #find-form button:hover { 
+            background-color: #000; 
+            color: #00FFFF; 
+            box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; 
+        }
+        #results { 
+            margin-top: 20px; 
+            text-align: left; 
+            display: inline-block; 
+        }
+        .prompt { 
+            font-size: 24px; 
+            margin: 10px 0; 
+            font-weight: bold; 
+        }
+        .searchable { 
+            font-size: 20px; 
+            margin: 15px 0; 
+        }
+        .hacks-list li { 
+            font-size: 18px; 
+            margin: 10px 0; 
+        }
+        .hacks-prompt { 
+            font-size: 24px; 
+            margin-bottom: 20px; 
+            font-style: italic; 
+        }
+        .disclosure { 
+            font-size: 16px; 
+            color: #00FFFF; 
+            margin: 10px 0; 
+            font-style: italic; 
+        }
+        .hacks-list button { 
+            margin-left: 10px; 
+            padding: 5px 10px; 
+            background-color: #00FFFF; 
+            color: #000; 
+            border: 1px solid #00FFFF; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
+        .hacks-list button:hover { 
+            background-color: #000; 
+            color: #00FFFF; 
+        }
+        .fun-stuff-score { 
+            font-size: 14px; 
+            color: #FF00FF; 
+            margin-left: 10px; 
+            font-weight: bold; 
+        }
+        .vote-buttons { 
+            display: inline-block; 
+            margin-left: 10px; 
+        }
+        .vote-buttons button { 
+            padding: 4px 8px; 
+            font-size: 16px; 
+            background-color: #FF00FF; 
+            color: #000; 
+            border: 1px solid #FF00FF; 
+            cursor: pointer; 
+        }
+        .vote-buttons button:hover { 
+            background-color: #000; 
+            color: #FF00FF; 
+        }
+        .promo-video { 
+            width: 100%; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            display: block; 
+            border: 2px solid #00FFFF; 
+            box-shadow: 0 0 10px #00FFFF; 
+        }
+        .mystery-product-section { 
+            margin: 20px 0; 
+        }
+        .mystery-button { 
+            font-size: 20px; 
+            padding: 10px 20px; 
+            background-color: #FF00FF; 
+            color: #000; 
+            border: 2px solid #FF00FF; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            box-shadow: 0 0 10px #FF00FF, 0 0 20px #FF00FF; 
+            transition: box-shadow 0.3s ease; 
+        }
+        .mystery-button:hover { 
+            background-color: #000; 
+            color: #FF00FF; 
+            box-shadow: 0 0 20px #FF00FF, 0 0 30px #FF00FF; 
+        }
+        .mystery-product { 
+            margin-top: 20px; 
+            font-size: 18px; 
+            color: #00FFFF; 
+            display: none; 
+        }
+        @media (max-width: 600px) {
+            header img {
+                width: 100px; 
+            }
+            h1 {
+                font-size: 24px; 
+            }
+            #find-form input {
+                width: 100%; 
+                margin-bottom: 10px;
+            }
+            #find-form button {
+                width: 100%; 
+            }
+            .image-container {
+                flex-direction: column; 
+                align-items: center;
+            }
+            .funny-image {
+                width: 100%; 
+                max-width: 300px;
+                margin: 10px 0; 
+            }
+            .hacks-list li {
+                font-size: 14px; 
+            }
+            .hacks-list button {
+                font-size: 12px; 
+                padding: 3px 6px;
+            }
+            .fun-stuff-score {
+                display: block; 
+                margin-left: 0; 
+                font-size: 12px; 
+            }
+            .vote-buttons {
+                display: block; 
+                margin-left: 0; 
+                margin-top: 5px; 
+            }
+            .vote-buttons button {
+                padding: 3px 6px; 
+                font-size: 14px; 
+            }
+            .promo-video {
+                width: 100%; 
+                max-width: 300px; 
+            }
+            .mystery-button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
+    </header>
+    <div style="margin: 20px;">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
+            <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
+        </div>
+        <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
+        <video class="promo-video" controls>
+            <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="mystery-product-section">
+            <button class="mystery-button" onclick="revealMysteryProduct()">Reveal Mystery Product!</button>
+            <div class="mystery-product" id="mysteryProduct"></div>
+        </div>
+        <p class="hacks-prompt">Click these links for funny and quirky products!</p>
+        <ul class="hacks-list">
+            <li>
+                <a href="https://amzn.to/4hBxujc" target="_blank">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a>
+                <span class="fun-stuff-score" data-id="wooden-clothes-pins">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('wooden-clothes-pins', 1)">⬆</button>
+                    <button onclick="vote('wooden-clothes-pins', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Wooden clothes pins', 'https://amzn.to/4hBxujc')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kQ39A7" target="_blank">Fart whistles, loads of fun</a>
+                <span class="fun-stuff-score" data-id="fart-whistles">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('fart-whistles', 1)">⬆</button>
+                    <button onclick="vote('fart-whistles', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Fart whistles', 'https://amzn.to/4kQ39A7')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kRem3n" target="_blank">Bear claw pencils, the only pencil you ever need</a>
+                <span class="fun-stuff-score" data-id="bear-claw-pencils">Fun Stuff Score: <span class="score-value">6</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('bear-claw-pencils', 1)">⬆</button>
+                    <button onclick="vote('bear-claw-pencils', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Bear claw pencils', 'https://amzn.to/4kRem3n')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kVaBtW" target="_blank">Expresso cups in poo colors</a>
+                <span class="fun-stuff-score" data-id="expresso-cups">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('expresso-cups', 1)">⬆</button>
+                    <button onclick="vote('expresso-cups', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Expresso cups in poo colors', 'https://amzn.to/4kVaBtW')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iTYRG5" target="_blank">Unicorn meat (canned) - emergency snack for mythical cravings</a>
+                <span class="fun-stuff-score" data-id="unicorn-meat">Fun Stuff Score: <span class="score-value">10</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('unicorn-meat', 1)">⬆</button>
+                    <button onclick="vote('unicorn-meat', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Unicorn meat (canned)', 'https://amzn.to/4iTYRG5')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4l56Diq" target="_blank">Screaming goat button - instant stress relief</a>
+                <span class="fun-stuff-score" data-id="screaming-goat-button">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('screaming-goat-button', 1)">⬆</button>
+                    <button onclick="vote('screaming-goat-button', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Screaming goat button', 'https://amzn.to/4l56Diq')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bSGxLj" target="_blank">Inflatable tube man - mini desktop wacky waving guy</a>
+                <span class="fun-stuff-score" data-id="inflatable-tube-man">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('inflatable-tube-man', 1)">⬆</button>
+                    <button onclick="vote('inflatable-tube-man', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Inflatable tube man', 'https://amzn.to/4bSGxLj')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bWHClp" target="_blank">Bacon bandages - heal with pork power</a>
+                <span class="fun-stuff-score" data-id="bacon-bandages">Fun Stuff Score: <span class="score-value">6</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('bacon-bandages', 1)">⬆</button>
+                    <button onclick="vote('bacon-bandages', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Bacon bandages', 'https://amzn.to/4bWHClp')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hF36V4" target="_blank">Toilet bowl night light - glow-in-the-dark potty guide</a>
+                <span class="fun-stuff-score" data-id="toilet-bowl-night-light">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('toilet-bowl-night-light', 1)">⬆</button>
+                    <button onclick="vote('toilet-bowl-night-light', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Toilet bowl night light', 'https://amzn.to/4hF36V4')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ixKqYC" target="_blank">Bird Feeder - Watch Them Hang Upside Down</a>
+                <span class="fun-stuff-score" data-id="bird-feeder">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('bird-feeder', 1)">⬆</button>
+                    <button onclick="vote('bird-feeder', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Bird Feeder', 'https://amzn.to/4ixKqYC')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bZsWC2" target="_blank">Mini Disco Ball - Instant Party Vibes</a>
+                <span class="fun-stuff-score" data-id="mini-disco-ball">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('mini-disco-ball', 1)">⬆</button>
+                    <button onclick="vote('mini-disco-ball', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Mini Disco Ball', 'https://amzn.to/4bZsWC2')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hEoA4v" target="_blank">Fake Poop - Prank Your Friends</a>
+                <span class="fun-stuff-score" data-id="fake-poop">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('fake-poop', 1)">⬆</button>
+                    <button onclick="vote('fake-poop', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Fake Poop', 'https://amzn.to/4hEoA4v')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iUjSQZ" target="_blank">Cat Butt Magnets - Fridge Decoration Gone Wild</a>
+                <span class="fun-stuff-score" data-id="cat-butt-magnets">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('cat-butt-magnets', 1)">⬆</button>
+                    <button onclick="vote('cat-butt-magnets', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Cat Butt Magnets', 'https://amzn.to/4iUjSQZ')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4kVwlWw" target="_blank">Dinosaur Taco Holder - Prehistoric Dining</a>
+                <span class="fun-stuff-score" data-id="dinosaur-taco-holder">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('dinosaur-taco-holder', 1)">⬆</button>
+                    <button onclick="vote('dinosaur-taco-holder', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Dinosaur Taco Holder', 'https://amzn.to/4kVwlWw')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hAMdL5" target="_blank">Rubber Chicken Purse - Cluck in Style</a>
+                <span class="fun-stuff-score" data-id="rubber-chicken-purse">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('rubber-chicken-purse', 1)">⬆</button>
+                    <button onclick="vote('rubber-chicken-purse', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Rubber Chicken Purse', 'https://amzn.to/4hAMdL5')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ipnOJH" target="_blank">Zombie Garden Gnome - Undead Lawn Vibes</a>
+                <span class="fun-stuff-score" data-id="zombie-garden-gnome">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('zombie-garden-gnome', 1)">⬆</button>
+                    <button onclick="vote('zombie-garden-gnome', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Zombie Garden Gnome', 'https://amzn.to/4ipnOJH')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4ixPvAa" target="_blank">Burrito Blanket - Wrap Yourself in Taco Glory</a>
+                <span class="fun-stuff-score" data-id="burrito-blanket">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('burrito-blanket', 1)">⬆</button>
+                    <button onclick="vote('burrito-blanket', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Burrito Blanket', 'https://amzn.to/4ixPvAa')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4hx9r4M" target="_blank">Singing Pasta Timer - Croons While You Cook</a>
+                <span class="fun-stuff-score" data-id="singing-pasta-timer">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('singing-pasta-timer', 1)">⬆</button>
+                    <button onclick="vote('singing-pasta-timer', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Singing Pasta Timer', 'https://amzn.to/4hx9r4M')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4bZyeNU" target="_blank">Toaster Grilled Cheese Bags - Burnt Bread Begone</a>
+                <span class="fun-stuff-score" data-id="toaster-grilled-cheese-bags">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('toaster-grilled-cheese-bags', 1)">⬆</button>
+                    <button onclick="vote('toaster-grilled-cheese-bags', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Toaster Grilled Cheese Bags', 'https://amzn.to/4bZyeNU')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iQ1Pvh" target="_blank">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a>
+                <span class="fun-stuff-score" data-id="skeleton-onesie">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('skeleton-onesie', 1)">⬆</button>
+                    <button onclick="vote('skeleton-onesie', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Glow-in-the-Dark Skeleton Onesie', 'https://amzn.to/4iQ1Pvh')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/41S2SUK" target="_blank">Unicorn Pool Float - Float Like a Mythical Beast</a>
+                <span class="fun-stuff-score" data-id="unicorn-pool-float">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('unicorn-pool-float', 1)">⬆</button>
+                    <button onclick="vote('unicorn-pool-float', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Unicorn Pool Float', 'https://amzn.to/41S2SUK')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4i5b2PL" target="_blank">Giant Googly Eyes - Stick Them Anywhere for Instant Chaos</a>
+                <span class="fun-stuff-score" data-id="giant-googly-eyes">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('giant-googly-eyes', 1)">⬆</button>
+                    <button onclick="vote('giant-googly-eyes', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Giant Googly Eyes', 'https://amzn.to/4i5b2PL')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3DV7tNV" target="_blank">Inflatable Turkey - Thanksgiving Prank Ready</a>
+                <span class="fun-stuff-score" data-id="inflatable-turkey">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('inflatable-turkey', 1)">⬆</button>
+                    <button onclick="vote('inflatable-turkey', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Inflatable Turkey', 'https://amzn.to/3DV7tNV')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3FEOBDn" target="_blank">Singing Fish Plaque - Wall-Mounted Karaoke Star</a>
+                <span class="fun-stuff-score" data-id="singing-fish-plaque">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('singing-fish-plaque', 1)">⬆</button>
+                    <button onclick="vote('singing-fish-plaque', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Singing Fish Plaque', 'https://amzn.to/3FEOBDn')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3DHPsTg" target="_blank">Potato Chip Grabber - Keep Your Fingers Clean</a>
+                <span class="fun-stuff-score" data-id="potato-chip-grabber">Fun Stuff Score: <span class="score-value">6</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('potato-chip-grabber', 1)">⬆</button>
+                    <button onclick="vote('potato-chip-grabber', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Potato Chip Grabber', 'https://amzn.to/3DHPsTg')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4j498Qe" target="_blank">Finger Hands - Tiny Hands for Your Fingers</a>
+                <span class="fun-stuff-score" data-id="finger-hands">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('finger-hands', 1)">⬆</button>
+                    <button onclick="vote('finger-hands', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Finger Hands', 'https://amzn.to/4j498Qe')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4iFZWl4" target="_blank">Banana Phone - Make Calls with a Fruit</a>
+                <span class="fun-stuff-score" data-id="banana-phone">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('banana-phone', 1)">⬆</button>
+                    <button onclick="vote('banana-phone', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Banana Phone', 'https://amzn.to/4iFZWl4')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/3XYJrby" target="_blank">Squishy Stress Poop - Squeeze Away Your Worries</a>
+                <span class="fun-stuff-score" data-id="squishy-stress-poop">Fun Stuff Score: <span class="score-value">7</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('squishy-stress-poop', 1)">⬆</button>
+                    <button onclick="vote('squishy-stress-poop', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Squishy Stress Poop', 'https://amzn.to/3XYJrby')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4c8lggL" target="_blank">Stormtrooper Inspired Storm Pooper Parody Vinyl Decal</a>
+                <span class="fun-stuff-score" data-id="storm-pooper-decal">Fun Stuff Score: <span class="score-value">8</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('storm-pooper-decal', 1)">⬆</button>
+                    <button onclick="vote('storm-pooper-decal', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Stormtrooper Inspired Storm Pooper Parody Vinyl Decal', 'https://amzn.to/4c8lggL')">Share</button>
+            </li>
+            <li>
+                <a href="https://amzn.to/4l41QNZ" target="_blank">Silly String Shooter - Spray Chaos Everywhere</a>
+                <span class="fun-stuff-score" data-id="silly-string-shooter">Fun Stuff Score: <span class="score-value">9</span>/10</span>
+                <span class="vote-buttons">
+                    <button onclick="vote('silly-string-shooter', 1)">⬆</button>
+                    <button onclick="vote('silly-string-shooter', -1)">⬇</button>
+                </span>
+                <button onclick="shareProduct('Silly String Shooter', 'https://amzn.to/4l41QNZ')">Share</button>
+            </li>
+        </ul>
+        <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
+        <p class="prompt">Enter products below and click "FIND PRODUCTS" to see results:</p>
+        <div id="find-form">
+            <input type="text" id="product-input" placeholder="Enter products (comma-separated, e.g., laptop, yoga mat)">
+            <button onclick="findProducts()">FIND PRODUCTS</button>
+        </div>
+        <div id="results"></div>
+        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
+        <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
+    </div>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+    </footer>
+    <!-- Default Statcounter code for Shopping Assistant Beta https://shopping-assistant-5m0q.onrender.com/ -->
+    <script type="text/javascript">
+        var sc_project=13107765; 
+        var sc_invisible=0; 
+        var sc_security="da1ff213"; 
+        var scJsHost = "https://";
+        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
+        "statcounter.com/counter/counter.js'></"+"script>");
+    </script>
+    <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+    <script>
+        function findProducts() {
+            const input = document.getElementById('product-input').value;
+            console.log('Input:', input); // Debug input
+            if (!input) {
+                document.getElementById('results').innerHTML = '<p>Please enter products to find.</p>';
+                return;
+            }
+            const products = input.split(',').map(p => p.trim());
+            console.log('Products:', products); // Debug products array
+            fetch('/find', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ products: products })
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // Debug response status
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data); // Debug data
+                const results = document.getElementById('results');
+                results.innerHTML = '';
+                if (data.error) {
+                    results.innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    for (const [name, info] of Object.entries(data.comparisons)) {
+                        results.innerHTML += `
+                            <h3>${name}</h3>
+                            <p>Price: $${info.price}</p>
+                            <p>Rating: ${info.rating}</p>
+                            <p>Positive Reviews: ${info.review_summary.positive}</p>
+                            <p>Negative Reviews: ${info.review_summary.negative}</p>
+                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
+                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
+                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
+                        `;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // Debug error
+                document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+
+        function shareProduct(name, url) {
+            const shareText = `Found this hilarious ${name} on Barlito’s Bazaar, Beta Version! Check it out: ${url} #GrokBuilt #DumbStuffChallenge`;
+            if (navigator.share) {
+                navigator.share({
+                    title: name,
+                    text: shareText,
+                    url: url
+                }).catch(err => console.error('Share failed:', err));
+            } else {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
+        }
+
+        function vote(productId, change) {
+            const scoreElement = document.querySelector(`.fun-stuff-score[data-id="${productId}"] .score-value`);
+            let score = parseInt(scoreElement.textContent);
+            score = Math.max(0, Math.min(10, score + change)); // Keep score between 0 and 10
+            scoreElement.textContent = score;
+            localStorage.setItem(`fun-stuff-score-${productId}`, score); // Save to localStorage
+        }
+
+        function revealMysteryProduct() {
+            const mysteryProduct = { name: "Fart whistles, loads of fun", url: "https://amzn.to/4kQ39A7" };
+            const mysteryDiv = document.getElementById('mysteryProduct');
+            mysteryDiv.innerHTML = `Mystery Product: <a href="${mysteryProduct.url}" target="_blank">${mysteryProduct.name}</a>`;
+            mysteryDiv.style.display = 'block';
+        }
+
+        // Load scores from localStorage on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.fun-stuff-score').forEach(element => {
+                const productId = element.getAttribute('data-id');
+                const savedScore = localStorage.getItem(`fun-stuff-score-${productId}`);
+                if (savedScore !== null) {
+                    element.querySelector('.score-value').textContent = savedScore;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

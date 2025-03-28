@@ -1,0 +1,87 @@
+2025-03-15 12:41:07,249 INFO: Starting server at 2025-03-15 12:41:07.249408
+2025-03-15 12:41:07,644 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 12:41:07,644 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 12:41:07,655 INFO:  * Restarting with stat
+2025-03-15 12:41:07,976 INFO: Starting server at 2025-03-15 12:41:07.976324
+2025-03-15 12:41:07,994 WARNING:  * Debugger is active!
+2025-03-15 12:41:07,998 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 12:42:03,029 INFO: Starting server at 2025-03-15 12:42:03.029739
+2025-03-15 12:42:03,061 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 12:42:03,061 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 12:42:03,062 INFO:  * Restarting with stat
+2025-03-15 12:42:03,377 INFO: Starting server at 2025-03-15 12:42:03.377877
+2025-03-15 12:42:03,394 WARNING:  * Debugger is active!
+2025-03-15 12:42:03,398 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 12:44:00,896 INFO: Starting server at 2025-03-15 12:44:00.896928
+2025-03-15 12:44:00,927 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 12:44:00,927 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 12:44:00,928 INFO:  * Restarting with stat
+2025-03-15 12:44:01,212 INFO: Starting server at 2025-03-15 12:44:01.212912
+2025-03-15 12:44:01,229 WARNING:  * Debugger is active!
+2025-03-15 12:44:01,232 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 12:45:20,981 INFO: Received request to compare: ['Product A', 'Product B']
+2025-03-15 12:45:20,981 DEBUG: Comparison result: {'Product A': {'price': 50, 'rating': 4.2, 'review_summary': {'positive': 1, 'negative': 1}}, 'Product B': {'price': 70, 'rating': 4.5, 'review_summary': {'positive': 1, 'negative': 1}}}
+2025-03-15 12:45:20,983 INFO: 127.0.0.1 - - [15/Mar/2025 12:45:20] "POST /compare HTTP/1.1" 200 -
+2025-03-15 12:55:30,757 INFO:  * Detected change in 'C:\\Users\\bshoe\\OneDrive\\Desktop\\game_theory\\shopping\\app.py', reloading
+2025-03-15 12:55:30,794 INFO:  * Restarting with stat
+2025-03-15 12:56:11,595 INFO: Starting server at 2025-03-15 12:56:11.595576
+2025-03-15 12:56:11,626 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 12:56:11,627 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 12:56:11,628 INFO:  * Restarting with stat
+2025-03-15 12:56:12,524 INFO: Starting server at 2025-03-15 12:56:12.524237
+2025-03-15 12:56:12,542 WARNING:  * Debugger is active!
+2025-03-15 12:56:12,545 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 12:56:51,126 INFO: Starting server at 2025-03-15 12:56:51.126016
+2025-03-15 12:56:51,155 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 12:56:51,156 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 12:56:51,157 INFO:  * Restarting with stat
+2025-03-15 12:56:51,985 INFO: Starting server at 2025-03-15 12:56:51.985421
+2025-03-15 12:56:52,002 WARNING:  * Debugger is active!
+2025-03-15 12:56:52,006 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 12:57:16,471 INFO: Received request to compare: ['Product A', 'Product B']
+2025-03-15 12:57:16,472 DEBUG: Comparison result: {'Product A': {'price': 49.99, 'rating': 4.3, 'review_summary': {'positive': 1, 'negative': 1}}, 'Product B': {'price': 69.99, 'rating': 4.6, 'review_summary': {'positive': 1, 'negative': 1}}}
+2025-03-15 12:57:16,474 INFO: 127.0.0.1 - - [15/Mar/2025 12:57:16] "POST /compare HTTP/1.1" 200 -
+2025-03-15 13:07:59,023 INFO:  * Detected change in 'C:\\Users\\bshoe\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\tests\\__init__.py', reloading
+2025-03-15 13:07:59,077 INFO:  * Restarting with stat
+2025-03-15 13:07:59,977 INFO: Starting server at 2025-03-15 13:07:59.977758
+2025-03-15 13:07:59,996 WARNING:  * Debugger is active!
+2025-03-15 13:08:00,000 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 13:09:48,081 INFO:  * Detected change in 'C:\\Users\\bshoe\\OneDrive\\Desktop\\game_theory\\shopping\\app.py', reloading
+2025-03-15 13:09:48,132 INFO:  * Restarting with stat
+2025-03-15 13:12:24,876 INFO: Starting server at 2025-03-15 13:12:24.875986
+2025-03-15 13:12:24,900 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.240:5000
+2025-03-15 13:12:24,901 INFO: [33mPress CTRL+C to quit[0m
+2025-03-15 13:12:24,902 INFO:  * Restarting with stat
+2025-03-15 13:12:25,280 INFO: Starting server at 2025-03-15 13:12:25.280350
+2025-03-15 13:12:25,290 WARNING:  * Debugger is active!
+2025-03-15 13:12:25,293 INFO:  * Debugger PIN: 409-074-888
+2025-03-15 13:12:45,592 INFO: 127.0.0.1 - - [15/Mar/2025 13:12:45] "GET / HTTP/1.1" 200 -
+2025-03-15 13:12:45,866 INFO: 127.0.0.1 - - [15/Mar/2025 13:12:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-15 13:13:02,483 INFO: Received request to compare: ['wireless earbuds']
+2025-03-15 13:13:02,484 DEBUG: Comparison result: {'wireless earbuds': {'price': 49.99, 'rating': 4.3, 'review_summary': {'positive': 2, 'negative': 1, 'keywords': {'love': 1, 'broke': 1, 'best': 1}}}}
+2025-03-15 13:13:02,484 INFO: 127.0.0.1 - - [15/Mar/2025 13:13:02] "POST /compare HTTP/1.1" 200 -
+2025-03-15 13:13:35,538 INFO: Received request to compare: ['blue tooth speaker']
+2025-03-15 13:13:35,539 WARNING: Product not found: blue tooth speaker
+2025-03-15 13:13:35,539 DEBUG: Comparison result: {}
+2025-03-15 13:13:35,539 INFO: 127.0.0.1 - - [15/Mar/2025 13:13:35] "POST /compare HTTP/1.1" 200 -
+2025-03-15 13:13:40,906 INFO: Received request to compare: ['bluetooth speaker']
+2025-03-15 13:13:40,906 DEBUG: Comparison result: {'bluetooth speaker': {'price': 69.99, 'rating': 4.6, 'review_summary': {'positive': 2, 'negative': 1, 'keywords': {'awesome': 1, 'pricey': 1, 'excellent': 1}}}}
+2025-03-15 13:13:40,907 INFO: 127.0.0.1 - - [15/Mar/2025 13:13:40] "POST /compare HTTP/1.1" 200 -
