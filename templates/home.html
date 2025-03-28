@@ -806,17 +806,21 @@ twq('config','pdq4g');
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
     <!-- End of Statcounter Code -->
     <script>
-function trackAffiliateClick(productName) {
-    if (typeof twq !== 'undefined') {
-        twq('track', 'Custom', {
-            value: 1.00,
-            currency: 'USD',
-            contents: productName,
-            conversion_id: 'affiliate-click-' + Date.now()
-        });
-    }
-}
-}
+        function trackAffiliateClick(productName) {
+            if (typeof twq !== 'undefined') {
+                const eventData = {
+                    value: 1.00,
+                    currency: 'USD',
+                    contents: productName,
+                    conversion_id: 'affiliate-click-' + Date.now()
+                };
+                console.log('Tracking affiliate click:', JSON.stringify(eventData));
+                twq('track', 'Custom', eventData);
+            } else {
+                console.error('Twitter pixel not loaded');
+            }
+        }
+
         function findProducts() {
             const input = document.getElementById('product-input').value;
             console.log('Input:', input); // Debug input
