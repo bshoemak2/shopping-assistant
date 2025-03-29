@@ -5,12 +5,24 @@
     <meta name="description" content="Shopping Assistant helps you find funny gag gifts and pranks on Amazon. Learn more about our mission to make shopping for dumb stuff easy!">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
+        html {
+            font-size: 16px;
+        }
         body { 
             font-family: 'Courier New', monospace; 
             margin: 20px; 
             text-align: center; 
             background-color: black; 
             color: #00FFFF; 
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         header { 
             background-color: black; 
@@ -40,8 +52,6 @@
             padding: 10px; 
             text-align: center; 
             border-top: 2px solid #00FFFF; 
-            position: fixed; 
-            bottom: 0; 
             width: calc(100% - 40px); 
         }
         .funny-image { 
@@ -51,33 +61,53 @@
             display: block; 
             border: 2px solid #00FFFF; 
         }
+        .btn {
+            min-width: 48px;
+            min-height: 48px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            touch-action: manipulation;
+            display: inline-block;
+        }
+        @media (max-width: 600px) {
+            html {
+                font-size: 14px;
+            }
+            header img {
+                width: 100px; 
+            }
+            h1 {
+                font-size: 1.5rem; 
+            }
+            .funny-image {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
     </style>
-<!-- Twitter conversion tracking base code -->
-<script>
-!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','pdq4g');
-</script>
-<!-- End Twitter conversion tracking base code -->
+    <script>
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        twq('config','pdq4g');
+    </script>
 </head>
 <body>
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
         <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
-    <div style="margin: 20px;">
+    <div class="container">
         <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
         <h1>ABOUT SHOPPING ASSISTANT</h1>
         <p>THIS APP HELPS YOU FIND FUNNY PRODUCTS THAT MAKE FOLKS LAUGH AND BREATH EASY</p>
         <p>BUILT BY GAME THEORY TO SIMPLIFY ONLINE SHOPPING FOR DUMB STUFF</p>
         <p>CHECK OUT OUR <a href="{{ url_for('blog_post', post_slug='best-gag-gift-for-brothers-wedding') }}">FUNNY GIFT GUIDES</a> FOR MORE LAUGHS!</p>
-        <p><a href="/">HOME</a></p>
+        <p><a href="/" class="btn">HOME</a></p>
     </div>
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
-    <!-- Statcounter Code -->
     <script type="text/javascript">
         var sc_project=13107765; 
         var sc_invisible=0; 

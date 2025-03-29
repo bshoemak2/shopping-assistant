@@ -13,7 +13,7 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG,
 
 app.static_folder = 'static'
 
-# Configure Flask-Mail with environment variables
+# Configure Flask-Mail with environment variables and new app-specific password
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -35,6 +35,7 @@ def init_db():
 init_db()
 
 def fetch_amazon_products(product_names):
+    # Updated mock API response to match searchable products in home.html
     mock_api_response = {
         "laptop": {
             "price": 999.99,
@@ -96,31 +97,32 @@ def privacy():
 
 @app.route('/blog/<post_slug>')
 def blog_post(post_slug):
+    # Mock blog posts for SEO with quirky long-tail keywords
     blog_posts = {
         "best-gag-gift-for-brothers-wedding": {
             "title": "The Best Gag Gift for Your Brother’s Wedding (He’ll Laugh, She’ll Cringe!)",
-            "meta_description": "Need the best gag gift for your brother’s wedding? Check out these hilarious Amazon finds!",
+            "meta_description": "Need the best gag gift for your brother’s wedding? Check out these hilarious Amazon finds that’ll make him laugh!",
             "content": """
                 <h2>Make His Big Day Hilarious!</h2>
-                <p>Weddings are all about love, but who says you can’t add a little laughter? Here are our top picks for gag gifts.</p>
+                <p>Weddings are all about love, but who says you can’t add a little laughter? Here are our top picks for gag gifts that’ll have your brother (and the groomsmen) in stitches.</p>
                 <ul>
-                    <li><strong>Fart Whistles:</strong> <a href="https://amzn.to/4kQ39A7" target="_blank">Get it</a>.</li>
-                    <li><strong>Expresso Cups in Poo Colors:</strong> <a href="https://amzn.to/4kVaBtW" target="_blank">Shop now</a>.</li>
+                    <li><strong>Fart Whistles:</strong> Slip this under his chair for a reception surprise! <a href="https://amzn.to/4kQ39A7" target="_blank">Get it on Amazon</a>.</li>
+                    <li><strong>Expresso Cups in Poo Colors:</strong> Wrap his real gift in this for a laugh. <a href="https://amzn.to/4kVaBtW" target="_blank">Shop now</a>.</li>
                 </ul>
-                <p>More on our <a href="/">homepage</a>!</p>
+                <p>Check out more funny ideas on our <a href="/">homepage</a>!</p>
             """
         },
         "funny-office-prank-ideas": {
             "title": "Funny Office Prank Ideas to Make Your Boss LOL—Top Amazon Picks",
-            "meta_description": "Funny office prank ideas for April Fools’ Day with Amazon prank products!",
+            "meta_description": "Looking for funny office prank ideas? These Amazon prank products will have your coworkers laughing this April Fools’ Day!",
             "content": """
-                <h2>Prank Your Way to Office Legend!</h2>
-                <p>April Fools’ Day is here—time to prank! Favorites:</p>
+                <h2>Prank Your Way to Office Legend Status!</h2>
+                <p>April Fools’ Day is coming, and it’s time to bring some humor to the office. Here are our favorite prank ideas and products to pull them off.</p>
                 <ul>
-                    <li><strong>Fake Poop:</strong> <a href="https://amzn.to/4hEoA4v" target="_blank">Get it</a>.</li>
-                    <li><strong>Fart Whistles:</strong> <a href="https://amzn.to/4kQ39A7" target="_blank">Shop now</a>.</li>
+                    <li><strong>Fake Poop:</strong> Place this on your boss’s desk for a scream-worthy moment! <a href="https://amzn.to/4hEoA4v" target="_blank">Get it on Amazon</a>.</li>
+                    <li><strong>Fart Whistles:</strong> A classic that never fails. <a href="https://amzn.to/4kQ39A7" target="_blank">Shop now</a>.</li>
                 </ul>
-                <p>More on our <a href="/">homepage</a>!</p>
+                <p>Want more ideas? Visit our <a href="/">homepage</a> for more funny products!</p>
             """
         }
     }
@@ -134,8 +136,10 @@ def subscribe():
     try:
         email = request.form.get('email')
         if not email:
+            logging.error("No email provided in subscription request")
             return jsonify({"error": "Email is required"}), 400
         
+        # Store email in SQLite database
         conn = sqlite3.connect('emails.db')
         c = conn.cursor()
         c.execute("INSERT INTO subscribers (email, signup_date) VALUES (?, ?)",
@@ -143,26 +147,35 @@ def subscribe():
         conn.commit()
         conn.close()
         
-        msg = Message(
-            subject="Your Prank Cheat Sheet Is Here! 🎉",
-            recipients=[email],
-            body=f"""
-            Hey,
+        # Send welcome email with freebie
+        try:
+            msg = Message(
+                subject="Your Prank Cheat Sheet Is Here! Let the Fun Begin 🎉",
+                recipients=[email],
+                body=f"""
+                Hey there,
 
-            Welcome to the Prank Party! 🎉 Free cheat sheet: {url_for('static', filename='prank_cheat_sheet.pdf', _external=True)}
+                Welcome to the Prank Party! 🎉 Here's your free "Ultimate Prank Cheat Sheet":
+                Download it here: {url_for('static', filename='prank_cheat_sheet.pdf', _external=True)}
 
-            Stay tuned for monthly gag gift blasts!
+                Stay tuned for our monthly blast—next up, the dumbest Amazon gag gifts you’ll love!
 
-            Manage subscription: {url_for('manage_subscription', _external=True)}
+                To manage your subscription, visit: {url_for('manage_subscription', _external=True)}
 
-            Happy pranking,
-            The Team
-            """
-        )
-        mail.send(msg)
-        logging.info(f"Welcome email sent to {email}")
+                Happy pranking,
+                The Shopping Assistant Team
+                """
+            )
+            mail.send(msg)
+            logging.info(f"Welcome email sent to {email}")
+        except Exception as email_error:
+            logging.error(f"Failed to send welcome email to {email}: {str(email_error)}")
+            return jsonify({"error": f"Failed to send welcome email: {str(email_error)}"}), 500
+        
+        logging.info(f"New subscriber: {email}")
         return redirect(url_for('thank_you'))
     except sqlite3.IntegrityError:
+        logging.warning(f"Email already exists: {email}")
         return jsonify({"error": "Email already subscribed"}), 400
     except Exception as e:
         logging.error(f"Error in subscribe: {str(e)}")
@@ -173,8 +186,9 @@ def manage_subscription():
     if request.method == 'POST':
         email = request.form.get('email')
         if not email:
-            return render_template('manage_subscription.html', message="Enter an email.")
+            return render_template('manage_subscription.html', message="Please enter an email address.")
 
+        # Check if the email exists in the database
         conn = sqlite3.connect('emails.db')
         c = conn.cursor()
         c.execute("SELECT signup_date FROM subscribers WHERE email = ?", (email,))
@@ -182,17 +196,22 @@ def manage_subscription():
         conn.close()
 
         if result:
-            return render_template('manage_subscription.html', message=f"Subscribed since {result[0]}.", email=email, subscribed=True)
+            signup_date = result[0]
+            message = f"You are subscribed since {signup_date}."
+            return render_template('manage_subscription.html', message=message, email=email, subscribed=True)
         else:
-            return render_template('manage_subscription.html', message="Not subscribed.", subscribed=False)
+            message = "You are not subscribed with this email."
+            return render_template('manage_subscription.html', message=message, subscribed=False)
+
     return render_template('manage_subscription.html')
 
 @app.route('/unsubscribe', methods=['POST'])
 def unsubscribe():
     email = request.form.get('email')
     if not email:
-        return render_template('manage_subscription.html', message="Enter an email.")
+        return render_template('manage_subscription.html', message="Please enter an email address.")
 
+    # Remove the email from the database
     conn = sqlite3.connect('emails.db')
     c = conn.cursor()
     c.execute("DELETE FROM subscribers WHERE email = ?", (email,))
@@ -200,7 +219,7 @@ def unsubscribe():
     conn.close()
 
     logging.info(f"Unsubscribed: {email}")
-    return render_template('manage_subscription.html', message="Unsubscribed successfully.", subscribed=False)
+    return render_template('manage_subscription.html', message="You have been unsubscribed successfully.", subscribed=False)
 
 @app.route('/thank-you')
 def thank_you():
@@ -211,9 +230,12 @@ def find_products():
     try:
         data = request.get_json()
         product_names = data.get('products', [])
+        logging.info(f"POST request received with products: {product_names}")
         if not product_names:
+            logging.error("No products provided in POST request")
             return jsonify({"error": "No products provided"}), 400
         products = fetch_amazon_products(product_names)
+        logging.info(f"Fetched products: {products}")
         comparisons = {}
         for name, product in products.items():
             if product:
@@ -225,40 +247,48 @@ def find_products():
                     "amazon_url": product.get("amazon_url", "#"),
                     "is_search_page": product.get("is_search_page", False)
                 }
+            else:
+                logging.warning(f"Product not found: {name}")
         if not comparisons:
+            logging.warning("No valid products found")
             return jsonify({"error": "No matching products"}), 404
+        logging.debug(f"Returning comparisons: {comparisons}")
         return jsonify({"comparisons": comparisons}), 200
     except Exception as e:
         logging.error(f"Error in find_products: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
+# Script to send monthly email blasts (run as a scheduled task)
 def send_monthly_blast():
+    # Fetch all subscribers
     conn = sqlite3.connect('emails.db')
     c = conn.cursor()
     c.execute("SELECT email FROM subscribers")
     subscribers = [row[0] for row in c.fetchall()]
     conn.close()
     
-    subject = "April Fools’ Pranks That’ll Fool Everyone!"
+    # Example: April Fools' Day blast
+    subject = "April Fools’ Pranks That’ll Fool Everyone—Shop Now!"
     body = """
     Hey Prankster,
 
-    April Fools’ is here! Top pranks:
+    April Fools’ Day is here, and we’ve got the best pranks to fool your friends! Check out these hilarious Amazon finds:
 
-    - Fake Poop: https://amzn.to/4hEoA4v
-    - Fart Whistles: https://amzn.to/4kQ39A7
+    - Fake Poop: Scare your coworker silly! Get it here: https://amzn.to/4hEoA4v
+    - Fart Whistles: A classic that never fails. Shop now: https://amzn.to/4kQ39A7
 
-    Manage subscription: {url}
+    To manage your subscription, visit: {url}
 
     Happy pranking,
-    The Team
+    The Shopping Assistant Team
     """.format(url=url_for('manage_subscription', _external=True))
     
     for email in subscribers:
         msg = Message(subject=subject, recipients=[email], body=body)
         mail.send(msg)
-        logging.info(f"Sent blast to {email}")
+        logging.info(f"Sent monthly blast to {email}")
 
+# Schedule monthly blast
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=send_monthly_blast, trigger="cron", day=1, hour=9, minute=0)
 scheduler.start()

@@ -4,6 +4,9 @@
     <title>Manage Subscription - Barlito’s Bazaar</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
+        html {
+            font-size: 16px;
+        }
         body { 
             font-family: 'Courier New', monospace; 
             margin: 20px; 
@@ -12,11 +15,20 @@
             color: #00FFFF; 
             background: linear-gradient(45deg, #000, #1a1a1a); 
             animation: glitch 5s linear infinite; 
+            line-height: 1.5;
         }
         @keyframes glitch {
             0% { background-position: 0 0; }
             50% { background-position: 2px 2px; }
             100% { background-position: 0 0; }
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         header { 
             background-color: black; 
@@ -46,8 +58,6 @@
             padding: 10px; 
             text-align: center; 
             border-top: 2px solid #00FFFF; 
-            position: fixed; 
-            bottom: 0; 
             width: calc(100% - 40px); 
         }
         .subscription-form {
@@ -61,11 +71,11 @@
         }
         .subscription-form h2 {
             color: #FF00FF;
-            font-size: 24px;
+            font-size: 1.5rem;
             margin-bottom: 10px;
         }
         .subscription-form p {
-            font-size: 16px;
+            font-size: 1rem;
             margin-bottom: 15px;
         }
         .subscription-form form {
@@ -79,33 +89,56 @@
             background-color: #000;
             color: #00FFFF;
             border: 1px solid #00FFFF;
-            font-size: 16px;
+            font-size: 1rem;
         }
-        .subscription-form button {
-            padding: 10px 20px;
+        .subscription-form .btn {
+            min-width: 48px;
+            min-height: 48px;
+            padding: 12px 16px;
             background-color: #FF00FF;
             color: #000;
             border: 2px solid #FF00FF;
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
+            touch-action: manipulation;
             margin-left: 10px;
         }
-        .subscription-form button:hover {
+        .subscription-form .btn:hover {
             background-color: #000;
             color: #FF00FF;
         }
         .message {
             color: #FF00FF;
-            font-size: 18px;
+            font-size: 1.125rem;
             margin: 20px 0;
         }
+        .btn {
+            min-width: 48px;
+            min-height: 48px;
+            padding: 12px 16px;
+            background-color: #FF00FF;
+            color: #000;
+            border: 2px solid #FF00FF;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            touch-action: manipulation;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #000;
+            color: #FF00FF;
+        }
         @media (max-width: 600px) {
+            html {
+                font-size: 14px;
+            }
             header img {
                 width: 100px; 
             }
             h1 {
-                font-size: 24px; 
+                font-size: 1.5rem; 
             }
             .subscription-form form {
                 flex-direction: column;
@@ -114,33 +147,32 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
-            .subscription-form button {
+            .subscription-form .btn {
                 width: 100%;
+                margin-left: 0;
             }
         }
     </style>
-<!-- Twitter conversion tracking base code -->
-<script>
-!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','pdq4g');
-</script>
-<!-- End Twitter conversion tracking base code -->
+    <script>
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        twq('config','pdq4g');
+    </script>
 </head>
 <body>
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
         <h1 style="margin: 0;">Barlito’s Bazaar</h1>
     </header>
-    <div style="margin: 20px;">
+    <div class="container">
         <h1>MANAGE YOUR SUBSCRIPTION</h1>
         <div class="subscription-form">
             <h2>Check or Unsubscribe</h2>
             <p>Enter your email to check your subscription status or unsubscribe.</p>
             <form action="{{ url_for('manage_subscription') }}" method="POST">
                 <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit">Check Subscription</button>
+                <button type="submit" class="btn">Check Subscription</button>
             </form>
         </div>
         {% if message %}
@@ -148,14 +180,11 @@ twq('config','pdq4g');
             {% if subscribed %}
                 <form action="{{ url_for('unsubscribe') }}" method="POST">
                     <input type="hidden" name="email" value="{{ email }}">
-                    <button type="submit" style="padding: 10px 20px; background-color: #FF00FF; color: #000; border: 2px solid #FF00FF; font-weight: bold; cursor: pointer; font-size: 16px;">Unsubscribe</button>
+                    <button type="submit" class="btn">Unsubscribe</button>
                 </form>
             {% endif %}
         {% endif %}
-        <p><a href="/">BACK TO HOME</a></p>
+        <p><a href="/" class="btn">BACK TO HOME</a></p>
     </div>
     <footer>
-        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
-    </footer>
-</body>
-</html>
+        <a

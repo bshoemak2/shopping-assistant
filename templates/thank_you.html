@@ -5,12 +5,24 @@
     <meta name="description" content="Thanks for joining Shopping Assistant! Download your free Prank Cheat Sheet and start pranking today!">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
+        html {
+            font-size: 16px; /* Base size for readability */
+        }
         body { 
             font-family: 'Courier New', monospace; 
             margin: 20px; 
             text-align: center; 
             background-color: black; 
             color: #00FFFF; 
+            line-height: 1.5; /* Improved readability */
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         header { 
             background-color: black; 
@@ -40,35 +52,49 @@
             padding: 10px; 
             text-align: center; 
             border-top: 2px solid #00FFFF; 
-            position: fixed; 
-            bottom: 0; 
             width: calc(100% - 40px); 
         }
+        .btn {
+            min-width: 48px; /* Thumb-friendly */
+            min-height: 48px;
+            padding: 12px 16px;
+            font-size: 1rem; /* Scales with base */
+            touch-action: manipulation; /* Prevents zoom */
+            display: inline-block; /* Ensures proper rendering */
+        }
+        @media (max-width: 600px) {
+            html {
+                font-size: 14px; /* Adjust for smaller screens */
+            }
+            header img {
+                width: 100px; 
+            }
+            h1 {
+                font-size: 1.5rem; 
+            }
+        }
     </style>
-<!-- Twitter conversion tracking base code -->
-<script>
-!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','pdq4g');
-</script>
-<!-- End Twitter conversion tracking base code -->
+    <script>
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        twq('config','pdq4g');
+    </script>
 </head>
 <body>
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
         <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
     </header>
-    <div style="margin: 20px;">
+    <div class="container">
         <h1>THANKS FOR JOINING THE PRANK PARTY! 🎉</h1>
         <p>Check your email for "The Ultimate Prank Cheat Sheet" (or download it <a href="{{ url_for('static', filename='prank_cheat_sheet.pdf') }}">here</a>).</p>
         <p>We’ll send you monthly blasts with the funniest Amazon gags—stay tuned!</p>
-        <p><a href="/">BACK TO HOME</a></p>
+        <p><a href="/" class="btn">BACK TO HOME</a></p>
     </div>
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
     </footer>
-    <!-- Statcounter Code -->
     <script type="text/javascript">
         var sc_project=13107765; 
         var sc_invisible=0; 
