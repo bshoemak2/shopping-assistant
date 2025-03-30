@@ -10,9 +10,23 @@
         Your browser does not support the video tag.
     </video>
     <div class="mystery-product-section">
-        <button class="mystery-button" onclick="revealMysteryProduct()">Reveal Mystery Product!</button>
-        <div class="mystery-product" id="mysteryProduct"></div>
+        <button class="mystery-button" onclick="revealMysteryProduct()">Daily Mystery Reveal!</button>
+        <div class="mystery-product" id="mysteryProduct">
+            {% if mystery_product %}
+                Mystery Product: <a href="{{ mystery_product.url }}" target="_blank" onclick="trackAffiliateClick('{{ mystery_product.name }} (Mystery)')">{{ mystery_product.name }}</a>
+            {% endif %}
+        </div>
     </div>
+
+    {% if seasonal_highlights %}
+    <div class="product-section" id="seasonal-highlights">
+        <h2>🌟 Seasonal Highlights</h2>
+        <p>Perfect picks for the season!</p>
+        {% with products=seasonal_highlights %}
+            {% include 'product_list.html' %}
+        {% endwith %}
+    </div>
+    {% endif %}
 
     <div class="popular-picks" id="popular-picks">
         <h2>⭐ Popular Picks</h2>
@@ -180,7 +194,7 @@
         }
 
         function shareProduct(name, url) {
-            const shareText = `Found this hilarious ${name} on Barlito’s Bazaar! Check it out: ${url} #BarlitosChaos`;
+            const shareText = `Found this hilarious ${name} on Barlito’s Bazaar! Check it out: ${url} #PrankWithBarlito`;
             if (navigator.share) {
                 navigator.share({
                     title: name,
@@ -188,7 +202,15 @@
                     url: url
                 }).catch(err => console.error('Share failed:', err));
             } else {
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank');
+                const platforms = {
+                    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
+                    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+                    whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`
+                };
+                const platform = prompt('Share via: Twitter, Facebook, WhatsApp', 'Twitter');
+                if (platform && platforms[platform.toLowerCase()]) {
+                    window.open(platforms[platform.toLowerCase()], '_blank');
+                }
             }
         }
 
@@ -201,10 +223,7 @@
         }
 
         function revealMysteryProduct() {
-            const mysteryProduct = { name: "Fart Whistles, Loads of Fun", url: "https://amzn.to/4kQ39A7" };
-            const mysteryDiv = document.getElementById('mysteryProduct');
-            mysteryDiv.innerHTML = `Mystery Product: <a href="${mysteryProduct.url}" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Mystery)')">${mysteryProduct.name}</a>`;
-            mysteryDiv.style.display = 'block';
+            document.getElementById('mysteryProduct').style.display = 'block';
         }
 
         function submitReview(event) {

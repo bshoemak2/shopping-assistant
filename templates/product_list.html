@@ -8,7 +8,8 @@
             <button class="btn" onclick="vote('{{ product.id }}', 1)">⬆</button>
             <button class="btn" onclick="vote('{{ product.id }}', -1)">⬇</button>
         </span>
-        <button class="btn" onclick="shareProduct('{{ product.name }}', '{{ product.url }}')">Share</button>
+        <button class="buy-now-btn" onclick="window.open('{{ product.url }}', '_blank')">Buy Now</button>
+        <button class="btn share-btn" onclick="shareProduct('{{ product.name }}', '{{ product.url }}')"><i class="fas fa-share-alt"></i></button>
     </li>
     {% endfor %}
 </ul>
