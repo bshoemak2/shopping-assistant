@@ -1,271 +1,111 @@
-# Trigger redeploy to fix SSL issue - March 2025
-from flask import Flask, request, jsonify, render_template, redirect, url_for
-import logging
-from datetime import datetime
+from flask import Flask, render_template, request, jsonify
 import sqlite3
-import os
-from flask_mail import Mail, Message
-from apscheduler.schedulers.background import BackgroundScheduler
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
-logging.basicConfig(filename='app.log', level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)s: %(message)s')
 
-app.static_folder = 'static'
-
-# Configure Flask-Mail with environment variables
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'bshoemak2@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'vzug hygx grwt frkn')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME', 'bshoemak2@gmail.com')
-
-mail = Mail(app)
-
-# Initialize SQLite database for email storage
-def init_db():
-    conn = sqlite3.connect('emails.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS subscribers
-                 (email TEXT PRIMARY KEY, signup_date TEXT)''')
-    conn.commit()
-    conn.close()
-
-init_db()
-
-def fetch_amazon_products(product_names):
-    mock_api_response = {
-        "laptop": {
-            "price": 999.99,
-            "rating": 4.5,
-            "reviews": ["Fast performance", "Battery could be better", "Great for work"],
-            "amazon_url": "https://amzn.to/4kVu4dW",
-            "is_search_page": False
-        },
-        "yoga mat": {
-            "price": 29.99,
-            "rating": 4.5,
-            "reviews": ["Non-slip", "Thin padding", "Easy to carry"],
-            "amazon_url": "https://amzn.to/41SGXN5",
-            "is_search_page": False
-        },
-        "beef tallow": {
-            "price": 19.99,
-            "rating": 4.3,
-            "reviews": ["Great for cooking", "Strong smell", "Good quality"],
-            "amazon_url": "https://amzn.to/41WPu1H",
-            "is_search_page": False
-        }
-    }
-    return {name: mock_api_response.get(name, {}) for name in product_names}
-
-def analyze_reviews(reviews):
-    positive_words = {"great": 1, "love": 1, "best": 1.5, "awesome": 1, "excellent": 1}
-    negative_words = {"broke": -1, "poor": -1, "pricey": -0.5, "bad": -1, "terrible": -1}
-    sentiment_score = 0
-    keywords = {}
-    for review in reviews:
-        for word in review.lower().split():
-            if word in positive_words:
-                sentiment_score += positive_words[word]
-                keywords[word] = keywords.get(word, 0) + 1
-            elif word in negative_words:
-                sentiment_score += negative_words[word]
-                keywords[word] = keywords.get(word, 0) + 1
-    positive = sum(1 for r in reviews if any(w in r.lower() for w in positive_words))
-    negative = sum(1 for r in reviews if any(w in r.lower() for w in negative_words))
-    return {
-        "positive": positive,
-        "negative": negative,
-        "keywords": keywords,
-        "sentiment_score": round(sentiment_score, 2)
-    }
+# Full product list with 43 items
+products = [
+    {"name": "Rubber Chicken Purse - Cluck in Style", "url": "https://amzn.to/4hAMdL5", "image": "https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg", "id": "rubber-chicken-purse", "score": 8, "category_id": "wearable-pranks"},
+    {"name": "Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas", "url": "https://amzn.to/4iQ1Pvh", "image": "https://m.media-amazon.com/images/I/71K5xA6A0qL._AC_SX466_.jpg", "id": "skeleton-onesie", "score": 8, "category_id": "wearable-pranks"},
+    {"name": "Burrito Blanket - Wrap Yourself in Taco Glory", "url": "https://amzn.to/4ixPvAa", "image": "https://m.media-amazon.com/images/I/71UBejR9GWL._AC_SX466_.jpg", "id": "burrito-blanket", "score": 9, "category_id": "wearable-pranks"},
+    {"name": "Screaming Goat Button - Instant Stress Relief", "url": "https://amzn.to/4l56Diq", "image": "https://m.media-amazon.com/images/I/71o5qV+8MPL._AC_SX466_.jpg", "id": "screaming-goat-button", "score": 8, "category_id": "desk-disasters"},
+    {"name": "Inflatable Tube Man - Mini Desktop Wacky Waving Guy", "url": "https://amzn.to/4bSGxLj", "image": "https://m.media-amazon.com/images/I/51nWvYp6zGL._AC_SX466_.jpg", "id": "inflatable-tube-man", "score": 7, "category_id": "desk-disasters"},
+    {"name": "Fake Poop - Prank Your Friends", "url": "https://amzn.to/4hEoA4v", "image": "https://m.media-amazon.com/images/I/51S8rV+8MPL._AC_SX466_.jpg", "id": "fake-poop", "score": 8, "category_id": "desk-disasters"},
+    {"name": "Toilet Bowl Night Light - Glow-in-the-Dark Potty Guide", "url": "https://amzn.to/4hF36V4", "image": "https://m.media-amazon.com/images/I/61nWvYp6zGL._AC_SX466_.jpg", "id": "toilet-bowl-night-light", "score": 8, "category_id": "home-hilarity"},
+    {"name": "Zombie Garden Gnome - Undead Lawn Vibes", "url": "https://amzn.to/4ipnOJH", "image": "https://m.media-amazon.com/images/I/61S8rV+8MPL._AC_SX466_.jpg", "id": "zombie-garden-gnome", "score": 7, "category_id": "home-hilarity"},
+    {"name": "Cat Butt Magnets - Fridge Decoration Gone Wild", "url": "https://amzn.to/4iUjSQZ", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "cat-butt-magnets", "score": 7, "category_id": "home-hilarity"},
+    {"name": "Wooden Clothes Pins for Sealing Potato Chip Bags and Pinching People with Bad Mojo", "url": "https://amzn.to/4hBxujc", "image": "https://m.media-amazon.com/images/I/81vW9xO2VML._AC_SX466_.jpg", "id": "wooden-clothes-pins", "score": 7, "category_id": "all-products"},
+    {"name": "Fart Whistles, Loads of Fun", "url": "https://amzn.to/4kQ39A7", "image": "https://m.media-amazon.com/images/I/81XzV+1jZBL._AC_SX466_.jpg", "id": "fart-whistles", "score": 9, "category_id": "all-products"},
+    {"name": "Bear Claw Pencils, The Only Pencil You Ever Need", "url": "https://amzn.to/4kRem3n", "image": "https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SX466_.jpg", "id": "bear-claw-pencils", "score": 6, "category_id": "all-products"},
+    {"name": "Expresso Cups in Poo Colors", "url": "https://amzn.to/4kVaBtW", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "expresso-cups", "score": 8, "category_id": "all-products"},
+    {"name": "Unicorn Meat (Canned) - Emergency Snack for Mythical Cravings", "url": "https://amzn.to/4iTYRG5", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "unicorn-meat", "score": 10, "category_id": "all-products"},
+    {"name": "Bacon Bandages - Heal with Pork Power", "url": "https://amzn.to/4bWHClp", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "bacon-bandages", "score": 6, "category_id": "all-products"},
+    {"name": "Bird Feeder - Watch Them Hang Upside Down", "url": "https://amzn.to/4ixKqYC", "image": "https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SX466_.jpg", "id": "bird-feeder", "score": 7, "category_id": "all-products"},
+    {"name": "Mini Disco Ball - Instant Party Vibes", "url": "https://amzn.to/4bZsWC2", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "mini-disco-ball", "score": 9, "category_id": "all-products"},
+    {"name": "Dinosaur Taco Holder - Prehistoric Dining", "url": "https://amzn.to/4kVwlWw", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "dinosaur-taco-holder", "score": 9, "category_id": "all-products"},
+    {"name": "Singing Pasta Timer - Croons While You Cook", "url": "https://amzn.to/4hx9r4M", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "singing-pasta-timer", "score": 8, "category_id": "all-products"},
+    {"name": "Toaster Grilled Cheese Bags - Burnt Bread Begone", "url": "https://amzn.to/4bZyeNU", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "toaster-grilled-cheese-bags", "score": 7, "category_id": "all-products"},
+    {"name": "Unicorn Pool Float - Float Like a Mythical Beast", "url": "https://amzn.to/41S2SUK", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "unicorn-pool-float", "score": 9, "category_id": "all-products"},
+    {"name": "Giant Googly Eyes - Stick Them Anywhere for Instant Chaos", "url": "https://amzn.to/4i5b2PL", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "giant-googly-eyes", "score": 8, "category_id": "all-products"},
+    {"name": "Inflatable Turkey - Thanksgiving Prank Ready", "url": "https://amzn.to/3DV7tNV", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "inflatable-turkey", "score": 7, "category_id": "all-products"},
+    {"name": "Singing Fish Plaque - Wall-Mounted Karaoke Star", "url": "https://amzn.to/3FEOBDn", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "singing-fish-plaque", "score": 9, "category_id": "all-products"},
+    {"name": "Potato Chip Grabber - Keep Your Fingers Clean", "url": "https://amzn.to/3DHPsTg", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "potato-chip-grabber", "score": 6, "category_id": "all-products"},
+    {"name": "Finger Hands - Tiny Hands for Your Fingers", "url": "https://amzn.to/4j498Qe", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "finger-hands", "score": 8, "category_id": "all-products"},
+    {"name": "Banana Phone - Make Calls with a Fruit", "url": "https://amzn.to/4iFZWl4", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "banana-phone", "score": 8, "category_id": "all-products"},
+    {"name": "Squishy Stress Poop - Squeeze Away Your Worries", "url": "https://amzn.to/3XYJrby", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "squishy-stress-poop", "score": 7, "category_id": "all-products"},
+    {"name": "Stormtrooper Inspired Storm Pooper Parody Vinyl Decal", "url": "https://amzn.to/4c8lggL", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "storm-pooper-decal", "score": 8, "category_id": "all-products"},
+    {"name": "Silly String Shooter - Spray Chaos Everywhere", "url": "https://amzn.to/4l41QNZ", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "silly-string-shooter", "score": 9, "category_id": "all-products"},
+    {"name": "Prank Pregnancy Test - Always Positive for Maximum Shock", "url": "https://amzn.to/3FGAspn", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "prank-pregnancy-test", "score": 9, "category_id": "all-products"},
+    {"name": "Invisible Ink Pen - Write Secret Messages That Disappear", "url": "https://amzn.to/3DXswiK", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "invisible-ink-pen", "score": 7, "category_id": "all-products"},
+    {"name": "Shock Pen - Give a Jolt with Every Click", "url": "https://amzn.to/428bSFk", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "shock-pen", "score": 8, "category_id": "all-products"},
+    {"name": "Prank Spider - Realistic Tarantula to Scare Everyone", "url": "https://amzn.to/422vPgz", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "prank-spider", "score": 9, "category_id": "all-products"},
+    {"name": "Exploding Golf Balls - Tee Off with a Bang", "url": "https://amzn.to/43pmDFx", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "exploding-golf-balls", "score": 7, "category_id": "all-products"},
+    {"name": "Fake Parking Ticket - Fool Your Friends with a Fine", "url": "https://amzn.to/4hTpNVw", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "fake-parking-ticket", "score": 8, "category_id": "all-products"},
+    {"name": "Squirting Flower Lapel - Classic Clown Prank", "url": "https://amzn.to/4j6rIac", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "squirting-flower-lapel", "score": 7, "category_id": "all-products"},
+    {"name": "Itching Powder - Sneaky Prank for a Good Scratch", "url": "https://amzn.to/4iJLVCT", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "itching-powder", "score": 7, "category_id": "all-products"},
+    {"name": "Fake Lottery Tickets - Win Big (Not Really!)", "url": "https://amzn.to/42c21yp", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "fake-lottery-tickets", "score": 9, "category_id": "all-products"},
+    {"name": "Prank Hand Buzzer - Shake Hands, Get a Shock", "url": "https://amzn.to/4ccTsrA", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "prank-hand-buzzer", "score": 8, "category_id": "all-products"},
+    {"name": "Disappearing Ink - Spill It, Watch It Vanish", "url": "https://amzn.to/43uODHN", "image": "https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SX466_.jpg", "id": "disappearing-ink", "score": 7, "category_id": "all-products"},
+    {"name": "Fake Cockroach - Realistic Bug for a Screaming Good Time", "url": "https://amzn.to/3RoizxW", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "fake-cockroach", "score": 8, "category_id": "all-products"},
+]
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    wearable_pranks = [p for p in products if p['category_id'] == 'wearable-pranks']
+    desk_disasters = [p for p in products if p['category_id'] == 'desk-disasters']
+    home_hilarity = [p for p in products if p['category_id'] == 'home-hilarity']
+    all_products = products  # Show all products in "Browse All"
+    return render_template('home.html', 
+                           wearable_pranks=wearable_pranks, 
+                           desk_disasters=desk_disasters, 
+                           home_hilarity=home_hilarity, 
+                           all_products=all_products)
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/privacy')
-def privacy():
-    return render_template('privacy.html')
-
-@app.route('/blog/<post_slug>')
-def blog_post(post_slug):
-    blog_posts = {
-        "best-gag-gift-for-brothers-wedding": {
-            "title": "The Best Gag Gift for Your Brother’s Wedding (He’ll Laugh, She’ll Cringe!)",
-            "meta_description": "Need the best gag gift for your brother’s wedding? Check out these hilarious Amazon finds!",
-            "content": """
-                <h2>Make His Big Day Hilarious!</h2>
-                <p>Weddings are all about love, but who says you can’t add a little laughter? Here are our top picks for gag gifts.</p>
-                <ul>
-                    <li><strong>Fart Whistles:</strong> <a href="https://amzn.to/4kQ39A7" target="_blank">Get it</a>.</li>
-                    <li><strong>Expresso Cups in Poo Colors:</strong> <a href="https://amzn.to/4kVaBtW" target="_blank">Shop now</a>.</li>
-                </ul>
-                <p>More on our <a href="/">homepage</a>!</p>
-            """
-        },
-        "funny-office-prank-ideas": {
-            "title": "Funny Office Prank Ideas to Make Your Boss LOL—Top Amazon Picks",
-            "meta_description": "Funny office prank ideas for April Fools’ Day with Amazon prank products!",
-            "content": """
-                <h2>Prank Your Way to Office Legend!</h2>
-                <p>April Fools’ Day is here—time to prank! Favorites:</p>
-                <ul>
-                    <li><strong>Fake Poop:</strong> <a href="https://amzn.to/4hEoA4v" target="_blank">Get it</a>.</li>
-                    <li><strong>Fart Whistles:</strong> <a href="https://amzn.to/4kQ39A7" target="_blank">Shop now</a>.</li>
-                </ul>
-                <p>More on our <a href="/">homepage</a>!</p>
-            """
-        }
-    }
-    post = blog_posts.get(post_slug, None)
-    if not post:
-        return render_template('404.html'), 404
-    return render_template('blog_post.html', post=post)
+@app.route('/find', methods=['POST'])
+def find():
+    data = request.get_json()
+    products = data.get('products', [])
+    comparisons = {}
+    for product in products:
+        url = f"https://www.amazon.com/s?k={product.replace(' ', '+')}"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            item = soup.select_one('.s-result-item')
+            if item:
+                price = item.select_one('.a-price .a-offscreen')
+                price = float(price.text.replace('$', '')) if price else 0.0
+                rating = item.select_one('.a-icon-alt')
+                rating = float(rating.text.split()[0]) if rating else 0.0
+                reviews = ["Sample review"]  # Placeholder; real scraping needs more logic
+                comparisons[product] = {
+                    'price': price,
+                    'rating': rating,
+                    'review_summary': {'positive': 'Good', 'negative': 'None', 'sentiment_score': 0.5, 'keywords': ['fun']},
+                    'amazon_url': url,
+                    'is_search_page': True
+                }
+    return jsonify({'comparisons': comparisons})
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
-    try:
-        email = request.form.get('email')
-        if not email:
-            return jsonify({"error": "Email is required"}), 400
-        
-        conn = sqlite3.connect('emails.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO subscribers (email, signup_date) VALUES (?, ?)",
-                  (email, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-        conn.commit()
-        conn.close()
-        
-        msg = Message(
-            subject="Your Prank Cheat Sheet Is Here! 🎉",
-            recipients=[email],
-            body=f"""
-            Hey,
-
-            Welcome to the Prank Party! 🎉 Free cheat sheet: {url_for('static', filename='prank_cheat_sheet.pdf', _external=True)}
-
-            Stay tuned for monthly gag gift blasts!
-
-            Manage subscription: {url_for('manage_subscription', _external=True)}
-
-            Happy pranking,
-            The Team
-            """
-        )
-        mail.send(msg)
-        logging.info(f"Welcome email sent to {email}")
-        return redirect(url_for('thank_you'))
-    except sqlite3.IntegrityError:
-        return jsonify({"error": "Email already subscribed"}), 400
-    except Exception as e:
-        logging.error(f"Error in subscribe: {str(e)}")
-        return jsonify({"error": "Internal server error"}), 500
-
-@app.route('/manage-subscription', methods=['GET', 'POST'])
-def manage_subscription():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        if not email:
-            return render_template('manage_subscription.html', message="Enter an email.")
-
-        conn = sqlite3.connect('emails.db')
-        c = conn.cursor()
-        c.execute("SELECT signup_date FROM subscribers WHERE email = ?", (email,))
-        result = c.fetchone()
-        conn.close()
-
-        if result:
-            return render_template('manage_subscription.html', message=f"Subscribed since {result[0]}.", email=email, subscribed=True)
-        else:
-            return render_template('manage_subscription.html', message="Not subscribed.", subscribed=False)
-    return render_template('manage_subscription.html')
-
-@app.route('/unsubscribe', methods=['POST'])
-def unsubscribe():
     email = request.form.get('email')
-    if not email:
-        return render_template('manage_subscription.html', message="Enter an email.")
-
-    conn = sqlite3.connect('emails.db')
-    c = conn.cursor()
-    c.execute("DELETE FROM subscribers WHERE email = ?", (email,))
-    conn.commit()
-    conn.close()
-
-    logging.info(f"Unsubscribed: {email}")
-    return render_template('manage_subscription.html', message="Unsubscribed successfully.", subscribed=False)
-
-@app.route('/thank-you')
-def thank_you():
-    return render_template('thank_you.html')
-
-@app.route('/find', methods=['POST'])
-def find_products():
-    try:
-        data = request.get_json()
-        product_names = data.get('products', [])
-        if not product_names:
-            return jsonify({"error": "No products provided"}), 400
-        products = fetch_amazon_products(product_names)
-        comparisons = {}
-        for name, product in products.items():
-            if product:
-                review_summary = analyze_reviews(product["reviews"])
-                comparisons[name] = {
-                    "price": product["price"],
-                    "rating": product["rating"],
-                    "review_summary": review_summary,
-                    "amazon_url": product.get("amazon_url", "#"),
-                    "is_search_page": product.get("is_search_page", False)
-                }
-        if not comparisons:
-            return jsonify({"error": "No matching products"}), 404
-        return jsonify({"comparisons": comparisons}), 200
-    except Exception as e:
-        logging.error(f"Error in find_products: {str(e)}")
-        return jsonify({"error": "Internal server error"}), 500
-
-def send_monthly_blast():
-    conn = sqlite3.connect('emails.db')
-    c = conn.cursor()
-    c.execute("SELECT email FROM subscribers")
-    subscribers = [row[0] for row in c.fetchall()]
-    conn.close()
-    
-    subject = "April Fools’ Pranks That’ll Fool Everyone!"
-    body = """
-    Hey Prankster,
-
-    April Fools’ is here! Top pranks:
-
-    - Fake Poop: https://amzn.to/4hEoA4v
-    - Fart Whistles: https://amzn.to/4kQ39A7
-
-    Manage subscription: {url}
-
-    Happy pranking,
-    The Team
-    """.format(url=url_for('manage_subscription', _external=True))
-    
-    for email in subscribers:
-        msg = Message(subject=subject, recipients=[email], body=body)
-        mail.send(msg)
-        logging.info(f"Sent blast to {email}")
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=send_monthly_blast, trigger="cron", day=1, hour=9, minute=0)
-scheduler.start()
+    if email:
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute('CREATE TABLE IF NOT EXISTS subscribers (email TEXT UNIQUE)')
+        try:
+            c.execute('INSERT INTO subscribers (email) VALUES (?)', (email,))
+            conn.commit()
+            return jsonify({'message': 'Subscribed successfully!'}), 200
+        except sqlite3.IntegrityError:
+            return jsonify({'message': 'Email already subscribed!'}), 400
+        finally:
+            conn.close()
+    return jsonify({'message': 'Email required!'}), 400
 
 if __name__ == '__main__':
-    try:
-        logging.info(f"Starting server at {datetime.now()}")
-        app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
-    except (KeyboardInterrupt, SystemExit):
-        scheduler.shutdown()
+    app.run(debug=True)

@@ -1,699 +1,101 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Barlito’s Bazaar - Best Gag Gifts & Prank Ideas</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <meta name="description" content="Discover the best gag gifts for brother's wedding, funny office prank ideas, and more at Barlito’s Bazaar! Hilarious Amazon finds await.">
-    <meta name="keywords" content="best gag gift for brother's wedding, funny office prank ideas, secret santa gag gifts, quirky amazon products, Barlito’s Bazaar">
-    <meta property="og:title" content="Barlito’s Bazaar - Hilarious Gag Gifts & Pranks">
-    <meta property="og:description" content="Find the funniest gag gifts and prank ideas for any occasion! From fart whistles to unicorn meat, we've got your silly needs covered.">
-    <meta property="og:image" content="{{ url_for('static', filename='funny_image_2.jpg') }}">
-    <meta property="og:url" content="https://shopping-assistant-5m0q.onrender.com/">
-    <script>
-      !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-      twq('init','pdq4g');
-      twq('track','PageView');
-    </script>
-    <style>
-        html {
-            font-size: 16px;
-        }
-        body { 
-            font-family: 'Courier New', monospace; 
-            margin: 20px; 
-            text-align: center; 
-            background-color: black; 
-            color: #00FFFF; 
-            overflow-y: auto; 
-            background: linear-gradient(45deg, #000, #1a1a1a); 
-            animation: glitch 5s linear infinite; 
-            line-height: 1.5;
-        }
-        @keyframes glitch {
-            0% { background-position: 0 0; }
-            50% { background-position: 2px 2px; }
-            100% { background-position: 0 0; }
-        }
-        .container {
-            max-width: 100%;
-            padding: 0 15px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        header { 
-            background-color: black; 
-            color: #00FFFF; 
-            padding: 10px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-bottom: 2px solid #00FFFF; 
-        }
-        header img { 
-            width: 150px; 
-            height: auto; 
-            margin-right: 10px; 
-        }
-        nav {
-            background-color: #1a1a1a;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #FF00FF;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: #FF00FF;
-            font-size: 1rem;
-            margin: 0 10px;
-        }
-        a { 
-            color: #00FFFF; 
-            text-decoration: none; 
-            padding: 0 10px; 
-        }
-        a:hover { 
-            text-decoration: underline; 
-        }
-        footer { 
-            background-color: black; 
-            color: #00FFFF; 
-            padding: 10px; 
-            text-align: center; 
-            border-top: 2px solid #00FFFF; 
-            width: calc(100% - 40px); 
-        }
-        .image-container {
-            display: flex; 
-            justify-content: center; 
-            flex-wrap: wrap; 
-            margin: 20px 0; 
-        }
-        .funny-image { 
-            width: 300px; 
-            height: auto; 
-            margin: 10px; 
-            display: block; 
-            border: 2px solid #00FFFF; 
-        }
-        h1 { 
-            font-size: 2.25rem; 
-            margin: 20px 0; 
-        }
-        #find-form {
-            margin: 20px 0;
-        }
-        #find-form input { 
-            font-size: 1.25rem; 
-            padding: 12px; 
-            width: 350px; 
-            background-color: #000; 
-            color: #00FFFF; 
-            border: 1px solid #00FFFF; 
-            margin-right: 10px; 
-        }
-        #find-form select {
-            font-size: 1rem;
-            padding: 12px;
-            background-color: #000;
-            color: #00FFFF;
-            border: 1px solid #00FFFF;
-            margin-right: 10px;
-        }
-        #find-form .btn { 
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            font-size: 1.25rem;
-            background-color: #00FFFF;
-            color: #000;
-            border: 2px solid #00FFFF;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
-            transition: box-shadow 0.3s ease;
-            touch-action: manipulation;
-        }
-        #find-form .btn:hover { 
-            background-color: #000; 
-            color: #00FFFF; 
-            box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; 
-        }
-        #results { 
-            margin-top: 20px; 
-            text-align: left; 
-            display: inline-block; 
-        }
-        .prompt { 
-            font-size: 1.5rem; 
-            margin: 10px 0; 
-            font-weight: bold; 
-        }
-        .searchable { 
-            font-size: 1.25rem; 
-            margin: 15px 0; 
-        }
-        .hacks-list li { 
-            font-size: 1.125rem; 
-            margin: 10px 0; 
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .hacks-list img {
-            width: 100px;
-            height: auto;
-            margin-right: 10px;
-            border: 1px solid #00FFFF;
-        }
-        .hacks-prompt { 
-            font-size: 1.5rem; 
-            margin-bottom: 20px; 
-            font-style: italic; 
-        }
-        .disclosure { 
-            font-size: 1rem; 
-            color: #00FFFF; 
-            margin: 10px 0; 
-            font-style: italic; 
-        }
-        .hacks-list .btn { 
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            background-color: #00FFFF;
-            color: #000;
-            border: 1px solid #00FFFF;
-            cursor: pointer;
-            font-size: 0.875rem;
-            touch-action: manipulation;
-            margin-left: 10px;
-        }
-        .hacks-list .btn:hover { 
-            background-color: #000; 
-            color: #00FFFF; 
-        }
-        .fun-stuff-score { 
-            font-size: 0.875rem; 
-            color: #FF00FF; 
-            margin-left: 10px; 
-            font-weight: bold; 
-        }
-        .vote-buttons { 
-            display: inline-block; 
-            margin-left: 10px; 
-        }
-        .vote-buttons .btn { 
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            font-size: 1rem;
-            background-color: #FF00FF;
-            color: #000;
-            border: 1px solid #FF00FF;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
-        .vote-buttons .btn:hover { 
-            background-color: #000; 
-            color: #FF00FF; 
-        }
-        .promo-video { 
-            width: 100%; 
-            max-width: 600px; 
-            margin: 20px auto; 
-            display: block; 
-            border: 2px solid #00FFFF; 
-            box-shadow: 0 0 10px #00FFFF; 
-        }
-        .mystery-product-section { 
-            margin: 20px 0; 
-        }
-        .mystery-button { 
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            font-size: 1.25rem;
-            background-color: #FF00FF;
-            color: #000;
-            border: 2px solid #FF00FF;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px #FF00FF, 0 0 20px #FF00FF;
-            transition: box-shadow 0.3s ease;
-            touch-action: manipulation;
-        }
-        .mystery-button:hover { 
-            background-color: #000; 
-            color: #FF00FF; 
-            box-shadow: 0 0 20px #FF00FF, 0 0 30px #FF00FF; 
-        }
-        .mystery-product { 
-            margin-top: 20px; 
-            font-size: 1.125rem; 
-            color: #00FFFF; 
-            display: none; 
-        }
-        .email-signup {
-            background-color: #1a1a1a;
-            padding: 20px;
-            border: 2px solid #FF00FF;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 500px;
-            box-shadow: 0 0 10px #FF00FF;
-        }
-        .email-signup h2 {
-            color: #FF00FF;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        .email-signup p {
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-        .email-signup form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .email-signup input[type="email"] {
-            width: 70%;
-            padding: 10px;
-            background-color: #000;
-            color: #00FFFF;
-            border: 1px solid #00FFFF;
-            font-size: 1rem;
-        }
-        .email-signup .btn {
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            background-color: #FF00FF;
-            color: #000;
-            border: 2px solid #FF00FF;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            touch-action: manipulation;
-            margin-left: 10px;
-        }
-        .email-signup .btn:hover {
-            background-color: #000;
-            color: #FF00FF;
-        }
-        .product-section {
-            margin: 20px 0;
-            padding: 15px;
-            border: 2px solid #00FFFF;
-            border-radius: 10px;
-        }
-        .product-section h2 {
-            color: #FF00FF;
-            font-size: 1.5rem;
-        }
-        .product-section ul {
-            list-style: none;
-            padding: 0;
-        }
-        .product-section li {
-            font-size: 1.125rem;
-            margin: 10px 0;
-        }
-        .reviews-section {
-            margin: 20px 0;
-            padding: 15px;
-            border: 2px solid #00FFFF;
-            border-radius: 10px;
-        }
-        .reviews-section h2 {
-            color: #FF00FF;
-            font-size: 1.5rem;
-        }
-        .reviews-section p {
-            font-size: 1rem;
-            margin: 10px 0;
-        }
-        .reviews-section form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .reviews-section textarea {
-            width: 100%;
-            max-width: 500px;
-            height: 100px;
-            padding: 10px;
-            background-color: #000;
-            color: #00FFFF;
-            border: 1px solid #00FFFF;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-        @media (max-width: 600px) {
-            html {
-                font-size: 14px;
-            }
-            header img {
-                width: 100px; 
-            }
-            h1 {
-                font-size: 1.5rem; 
-            }
-            #find-form input, #find-form select {
-                width: 100%; 
-                margin-bottom: 10px;
-            }
-            #find-form .btn {
-                width: 100%; 
-                margin-left: 0;
-            }
-            .image-container {
-                flex-direction: column; 
-                align-items: center;
-            }
-            .funny-image {
-                width: 100%; 
-                max-width: 300px;
-                margin: 10px 0; 
-            }
-            .hacks-list li {
-                font-size: 0.875rem; 
-            }
-            .hacks-list img {
-                width: 80px;
-            }
-            .hacks-list .btn {
-                font-size: 0.75rem; 
-                padding: 8px 12px;
-            }
-            .fun-stuff-score {
-                display: block; 
-                margin-left: 0; 
-                font-size: 0.75rem; 
-            }
-            .vote-buttons {
-                display: block; 
-                margin-left: 0; 
-                margin-top: 5px; 
-            }
-            .vote-buttons .btn {
-                padding: 8px 12px;
-                font-size: 0.875rem; 
-            }
-            .promo-video {
-                width: 100%; 
-                max-width: 300px; 
-            }
-            .mystery-button {
-                font-size: 1rem;
-                padding: 8px 12px;
-            }
-            .email-signup form {
-                flex-direction: column;
-            }
-            .email-signup input[type="email"] {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .email-signup .btn {
-                width: 100%;
-                margin-left: 0;
-            }
-            .product-section h2 {
-                font-size: 1.25rem;
-            }
-            .product-section li {
-                font-size: 0.875rem;
-            }
-            .reviews-section h2 {
-                font-size: 1.25rem;
-            }
-            .reviews-section textarea {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
-        <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
-    </header>
-    <nav>
-        <a href="#wearable-pranks">Wearable Pranks</a> |
-        <a href="#desk-disasters">Desk Disasters</a> |
-        <a href="#home-hilarity">Home Hilarity</a> |
-        <a href="#all-products">All Products</a>
-    </nav>
-    <div class="container">
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
-            <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
-        </div>
-        <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
-        <video class="promo-video" controls>
-            <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="mystery-product-section">
-            <button class="mystery-button" onclick="revealMysteryProduct()">Reveal Mystery Product!</button>
-            <div class="mystery-product" id="mysteryProduct"></div>
-        </div>
-        <div class="product-section" id="wearable-pranks">
-            <h2>Wearable Pranks</h2>
-            <p>Gag gifts you can wear to cause a scene!</p>
-            <ul class="hacks-list">
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61fD5Y8O0JL._AC_SL1500_.jpg" alt="Rubber Chicken Purse">
-                    <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse')">Rubber Chicken Purse - Cluck in Style</a>
-                    <span class="fun-stuff-score" data-id="rubber-chicken-purse">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('rubber-chicken-purse', 1)">⬆</button>
-                        <button class="btn" onclick="vote('rubber-chicken-purse', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Rubber Chicken Purse', 'https://amzn.to/4hAMdL5')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/81zL5n7nDPL._AC_SL1500_.jpg" alt="Glow-in-the-Dark Skeleton Onesie">
-                    <a href="https://amzn.to/4iQ1Pvh" target="_blank" onclick="trackAffiliateClick('Glow-in-the-Dark Skeleton Onesie')">Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas</a>
-                    <span class="fun-stuff-score" data-id="skeleton-onesie">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('skeleton-onesie', 1)">⬆</button>
-                        <button class="btn" onclick="vote('skeleton-onesie', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Glow-in-the-Dark Skeleton Onesie', 'https://amzn.to/4iQ1Pvh')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61vW9xO2VML._AC_SL1500_.jpg" alt="Burrito Blanket">
-                    <a href="https://amzn.to/4ixPvAa" target="_blank" onclick="trackAffiliateClick('Burrito Blanket')">Burrito Blanket - Wrap Yourself in Taco Glory</a>
-                    <span class="fun-stuff-score" data-id="burrito-blanket">Fun Stuff Score: <span class="score-value">9</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('burrito-blanket', 1)">⬆</button>
-                        <button class="btn" onclick="vote('burrito-blanket', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Burrito Blanket', 'https://amzn.to/4ixPvAa')">Share</button>
-                </li>
-            </ul>
-        </div>
-        <div class="product-section" id="desk-disasters">
-            <h2>Desk Disasters</h2>
-            <p>Pranks to chaos-ify your workspace!</p>
-            <ul class="hacks-list">
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SL1500_.jpg" alt="Screaming Goat Button">
-                    <a href="https://amzn.to/4l56Diq" target="_blank" onclick="trackAffiliateClick('Screaming goat button')">Screaming goat button - instant stress relief</a>
-                    <span class="fun-stuff-score" data-id="screaming-goat-button">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('screaming-goat-button', 1)">⬆</button>
-                        <button class="btn" onclick="vote('screaming-goat-button', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Screaming goat button', 'https://amzn.to/4l56Diq')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61zL5n7nDPL._AC_SL1500_.jpg" alt="Inflatable Tube Man">
-                    <a href="https://amzn.to/4bSGxLj" target="_blank" onclick="trackAffiliateClick('Inflatable tube man')">Inflatable tube man - mini desktop wacky waving guy</a>
-                    <span class="fun-stuff-score" data-id="inflatable-tube-man">Fun Stuff Score: <span class="score-value">7</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('inflatable-tube-man', 1)">⬆</button>
-                        <button class="btn" onclick="vote('inflatable-tube-man', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Inflatable tube man', 'https://amzn.to/4bSGxLj')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SL1500_.jpg" alt="Fake Poop">
-                    <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop')">Fake Poop - Prank Your Friends</a>
-                    <span class="fun-stuff-score" data-id="fake-poop">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('fake-poop', 1)">⬆</button>
-                        <button class="btn" onclick="vote('fake-poop', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Fake Poop', 'https://amzn.to/4hEoA4v')">Share</button>
-                </li>
-            </ul>
-        </div>
-        <div class="product-section" id="home-hilarity">
-            <h2>Home Hilarity</h2>
-            <p>Gag gifts to turn your home into a prank zone!</p>
-            <ul class="hacks-list">
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SL1500_.jpg" alt="Toilet Bowl Night Light">
-                    <a href="https://amzn.to/4hF36V4" target="_blank" onclick="trackAffiliateClick('Toilet bowl night light')">Toilet bowl night light - glow-in-the-dark potty guide</a>
-                    <span class="fun-stuff-score" data-id="toilet-bowl-night-light">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('toilet-bowl-night-light', 1)">⬆</button>
-                        <button class="btn" onclick="vote('toilet-bowl-night-light', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Toilet bowl night light', 'https://amzn.to/4hF36V4')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61zL5n7nDPL._AC_SL1500_.jpg" alt="Zombie Garden Gnome">
-                    <a href="https://amzn.to/4ipnOJH" target="_blank" onclick="trackAffiliateClick('Zombie Garden Gnome')">Zombie Garden Gnome - Undead Lawn Vibes</a>
-                    <span class="fun-stuff-score" data-id="zombie-garden-gnome">Fun Stuff Score: <span class="score-value">7</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('zombie-garden-gnome', 1)">⬆</button>
-                        <button class="btn" onclick="vote('zombie-garden-gnome', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Zombie Garden Gnome', 'https://amzn.to/4ipnOJH')">Share</button>
-                </li>
-                <li>
-                    <img src="https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SL1500_.jpg" alt="Cat Butt Magnets">
-                    <a href="https://amzn.to/4iUjSQZ" target="_blank" onclick="trackAffiliateClick('Cat Butt Magnets')">Cat Butt Magnets - Fridge Decoration Gone Wild</a>
-                    <span class="fun-stuff-score" data-id="cat-butt-magnets">Fun Stuff Score: <span class="score-value">7</span>/10</span>
-                    <span class="vote-buttons">
-                        <button class="btn" onclick="vote('cat-butt-magnets', 1)">⬆</button>
-                        <button class="btn" onclick="vote('cat-butt-magnets', -1)">⬇</button>
-                    </span>
-                    <button class="btn" onclick="shareProduct('Cat Butt Magnets', 'https://amzn.to/4iUjSQZ')">Share</button>
-                </li>
-            </ul>
-        </div>
-        <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
-        <ul class="hacks-list">
-            <li>
-                <img src="https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SL1500_.jpg" alt="Wooden Clothes Pins">
-                <a href="https://amzn.to/4hBxujc" target="_blank" onclick="trackAffiliateClick('Wooden clothes pins')">Wooden clothes pins for sealing potato chip bags and pinching people with bad mojo</a>
-                <span class="fun-stuff-score" data-id="wooden-clothes-pins">Fun Stuff Score: <span class="score-value">7</span>/10</span>
-                <span class="vote-buttons">
-                    <button class="btn" onclick="vote('wooden-clothes-pins', 1)">⬆</button>
-                    <button class="btn" onclick="vote('wooden-clothes-pins', -1)">⬇</button>
-                </span>
-                <button class="btn" onclick="shareProduct('Wooden clothes pins', 'https://amzn.to/4hBxujc')">Share</button>
-            </li>
-            <li>
-                <img src="https://m.media-amazon.com/images/I/71zXzV+1jZBL._AC_SL1500_.jpg" alt="Fart Whistles">
-                <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart whistles')">Fart whistles, loads of fun</a>
-                <span class="fun-stuff-score" data-id="fart-whistles">Fun Stuff Score: <span class="score-value">9</span>/10</span>
-                <span class="vote-buttons">
-                    <button class="btn" onclick="vote('fart-whistles', 1)">⬆</button>
-                    <button class="btn" onclick="vote('fart-whistles', -1)">⬇</button>
-                </span>
-                <button class="btn" onclick="shareProduct('Fart whistles', 'https://amzn.to/4kQ39A7')">Share</button>
-            </li>
-            <li>
-                <img src="https://m.media-amazon.com/images/I/61zL5n7nDPL._AC_SL1500_.jpg" alt="Bear Claw Pencils">
-                <a href="https://amzn.to/4kRem3n" target="_blank" onclick="trackAffiliateClick('Bear claw pencils')">Bear claw pencils, the only pencil you ever need</a>
-                <span class="fun-stuff-score" data-id="bear-claw-pencils">Fun Stuff Score: <span class="score-value">6</span>/10</span>
-                <span class="vote-buttons">
-                    <button class="btn" onclick="vote('bear-claw-pencils', 1)">⬆</button>
-                    <button class="btn" onclick="vote('bear-claw-pencils', -1)">⬇</button>
-                </span>
-                <button class="btn" onclick="shareProduct('Bear claw pencils', 'https://amzn.to/4kRem3n')">Share</button>
-            </li>
-            <li>
-                <img src="https://m.media-amazon.com/images/I/61zXzV+1jZBL._AC_SL1500_.jpg" alt="Expresso Cups in Poo Colors">
-                <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso cups in poo colors')">Expresso cups in poo colors</a>
-                <span class="fun-stuff-score" data-id="expresso-cups">Fun Stuff Score: <span class="score-value">8</span>/10</span>
-                <span class="vote-buttons">
-                    <button class="btn" onclick="vote('expresso-cups', 1)">⬆</button>
-                    <button class="btn" onclick="vote('expresso-cups', -1)">⬇</button>
-                </span>
-                <button class="btn" onclick="shareProduct('Expresso cups in poo colors', 'https://amzn.to/4kVaBtW')">Share</button>
-            </li>
-            <li>
-                <img src="https://m.media-amazon.com/images/I/71zL5n7nDPL._AC_SL1500_.jpg" alt="Unicorn Meat (Canned)">
-                <a href="https://amzn.to/4iTYRG5" target="_blank" onclick="trackAffiliateClick('Unicorn meat (canned)')">Unicorn meat (canned) - emergency snack for mythical cravings</a>
-                <span class="fun-stuff-score" data-id="unicorn-meat">Fun Stuff Score: <span class="score-value">10</span>/10</span>
-                <span class="vote-buttons">
-                    <button class="btn" onclick="vote('unicorn-meat', 1)">⬆</button>
-                    <button class="btn" onclick="vote('unicorn-meat', -1)">⬇</button>
-                </span>
-                <button class="btn" onclick="shareProduct('Unicorn meat (canned)', 'https://amzn.to/4iTYRG5')">Share</button>
-            </li>
-            <!-- Add remaining products with images here; truncated for brevity -->
-        </ul>
-        <div class="product-section">
-            <h2>🎉 Best Gag Gift for Your Brother’s Wedding</h2>
-            <p>Add some humor to the big day with these hilarious picks!</p>
-            <ul>
-                <li><a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')">Fart Whistles - Loads of Fun for the Reception</a></li>
-                <li><a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a></li>
-                <li><a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')">Rubber Chicken Purse - Cluck in Style at the After-Party</a></li>
-            </ul>
-        </div>
-        <div class="product-section">
-            <h2>🤡 Funny Office Prank Ideas for April Fools</h2>
-            <p>Make your coworkers laugh with these prank-ready products!</p>
-            <ul>
-                <li><a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')">Fake Poop - Leave It on a Desk for a Scream</a></li>
-                <li><a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')">Silly String Shooter - Spray Chaos in the Break Room</a></li>
-                <li><a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')">Giant Googly Eyes - Stick Them on Office Supplies</a></li>
-            </ul>
-        </div>
-        <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
-        <p class="prompt">Enter products below and filter your search:</p>
-        <div id="find-form">
-            <input type="text" id="product-input" placeholder="Enter products (e.g., laptop, yoga mat)">
-            <select id="filter">
-                <option value="all">All</option>
-                <option value="under-20">Under $20</option>
-                <option value="top-rated">Top Rated (4+)</option>
-            </select>
-            <button class="btn" onclick="findProducts()">FIND PRODUCTS</button>
-        </div>
-        <div id="results"></div>
-        <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
-        <div class="reviews-section">
-            <h2>Prankster Reviews</h2>
-            <p>Share your prank success story!</p>
-            <form id="review-form" onsubmit="submitReview(event)">
-                <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
-                <button type="submit" class="btn">Submit Review</button>
-            </form>
-            <div id="reviews-list">
-                <p>"Left the Fake Poop on my boss’s desk—screamed like a banshee! 10/10" - PrankMaster3000</p>
-            </div>
-        </div>
-        <div class="email-signup">
-            <h2>JOIN THE PRANK PARTY! 🎉</h2>
-            <p>Get "The Ultimate Prank Cheat Sheet" for FREE and never miss a laugh!</p>
-            <form action="{{ url_for('subscribe') }}" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn">Sign Me Up for the Shenanigans!</button>
-            </form>
-            <p style="font-size: 0.75rem; margin-top: 10px;">
-                By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
-            </p>
-        </div>
-        <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
+{% extends "base.html" %}
+{% block content %}
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
+        <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
     </div>
-    <footer>
-        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
-    </footer>
-    <script type="text/javascript">
-        var sc_project=13107765; 
-        var sc_invisible=0; 
-        var sc_security="da1ff213"; 
-        var scJsHost = "https://";
-        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
-        "statcounter.com/counter/counter.js'></"+"script>");
-    </script>
-    <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
+    <video class="promo-video" controls>
+        <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="mystery-product-section">
+        <button class="mystery-button" onclick="revealMysteryProduct()">Reveal Mystery Product!</button>
+        <div class="mystery-product" id="mysteryProduct"></div>
+    </div>
+
+    <div class="product-section" id="wearable-pranks">
+        <h2>Wearable Pranks</h2>
+        <p>Gag gifts you can wear to cause a scene!</p>
+        {% include 'product_list.html' with products=wearable_pranks %}
+    </div>
+
+    <div class="product-section" id="desk-disasters">
+        <h2>Desk Disasters</h2>
+        <p>Pranks to chaos-ify your workspace!</p>
+        {% include 'product_list.html' with products=desk_disasters %}
+    </div>
+
+    <div class="product-section" id="home-hilarity">
+        <h2>Home Hilarity</h2>
+        <p>Gag gifts to turn your home into a prank zone!</p>
+        {% include 'product_list.html' with products=home_hilarity %}
+    </div>
+
+    <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
+    {% include 'product_list.html' with products=all_products %}
+
+    <div class="product-section">
+        <h2>🎉 Best Gag Gift for Your Brother’s Wedding</h2>
+        <p>Add some humor to the big day with these hilarious picks!</p>
+        <ul>
+            <li><a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')">Fart Whistles - Loads of Fun for the Reception</a></li>
+            <li><a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a></li>
+            <li><a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')">Rubber Chicken Purse - Cluck in Style at the After-Party</a></li>
+        </ul>
+    </div>
+
+    <div class="product-section">
+        <h2>🤡 Funny Office Prank Ideas for April Fools</h2>
+        <p>Make your coworkers laugh with these prank-ready products!</p>
+        <ul>
+            <li><a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')">Fake Poop - Leave It on a Desk for a Scream</a></li>
+            <li><a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')">Silly String Shooter - Spray Chaos in the Break Room</a></li>
+            <li><a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')">Giant Googly Eyes - Stick Them on Office Supplies</a></li>
+        </ul>
+    </div>
+
+    <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
+    <p class="prompt">Enter products below and filter your search:</p>
+    <div id="find-form">
+        <input type="text" id="product-input" placeholder="Enter products (e.g., laptop, yoga mat)">
+        <select id="filter">
+            <option value="all">All</option>
+            <option value="under-20">Under $20</option>
+            <option value="top-rated">Top Rated (4+)</option>
+        </select>
+        <button class="btn" onclick="findProducts()">FIND PRODUCTS</button>
+    </div>
+    <div id="results"></div>
+    <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
+
+    <div class="reviews-section">
+        <h2>Prankster Reviews</h2>
+        <p>Share your prank success story!</p>
+        <form id="review-form" onsubmit="submitReview(event)">
+            <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
+            <button type="submit" class="btn">Submit Review</button>
+        </form>
+        <div id="reviews-list">
+            <p>"Left the Fake Poop on my boss’s desk—screamed like a banshee! 10/10" - PrankMaster3000</p>
+        </div>
+    </div>
+
+    <div class="email-signup">
+        <h2>JOIN THE PRANK PARTY! 🎉</h2>
+        <p>Get "The Ultimate Prank Cheat Sheet" for FREE and never miss a laugh!</p>
+        <form action="{{ url_for('subscribe') }}" method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn">Sign Me Up for the Shenanigans!</button>
+        </form>
+        <p style="font-size: 0.75rem; margin-top: 10px;">
+            By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
+        </p>
+    </div>
+    <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
+{% endblock %}
+
+{% block scripts %}
     <script>
         function trackAffiliateClick(productName) {
             if (typeof twq !== 'undefined') {
@@ -713,7 +115,6 @@
         function findProducts() {
             const input = document.getElementById('product-input').value;
             const filter = document.getElementById('filter').value;
-            console.log('Input:', input, 'Filter:', filter);
             if (!input) {
                 document.getElementById('results').innerHTML = '<p>Please enter products to find.</p>';
                 return;
@@ -729,7 +130,6 @@
                 return response.json();
             })
             .then(data => {
-                console.log('Data received:', data);
                 const results = document.getElementById('results');
                 results.innerHTML = '';
                 if (data.error) {
@@ -752,7 +152,6 @@
                 }
             })
             .catch(error => {
-                console.error('Fetch error:', error);
                 document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
             });
         }
@@ -779,9 +178,9 @@
         }
 
         function revealMysteryProduct() {
-            const mysteryProduct = { name: "Fart whistles, loads of fun", url: "https://amzn.to/4kQ39A7" };
+            const mysteryProduct = { name: "Fart Whistles, Loads of Fun", url: "https://amzn.to/4kQ39A7" };
             const mysteryDiv = document.getElementById('mysteryProduct');
-            mysteryDiv.innerHTML = `Mystery Product: <a href="${mysteryProduct.url}" target="_blank" onclick="trackAffiliateClick('Fart whistles (Mystery)')">${mysteryProduct.name}</a>`;
+            mysteryDiv.innerHTML = `Mystery Product: <a href="${mysteryProduct.url}" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Mystery)')">${mysteryProduct.name}</a>`;
             mysteryDiv.style.display = 'block';
         }
 
@@ -803,5 +202,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
