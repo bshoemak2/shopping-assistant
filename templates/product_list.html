@@ -1,0 +1,14 @@
+<ul class="hacks-list">
+    {% for product in products %}
+    <li id="{{ product.category_id }}">
+        <img src="{{ product.image }}" alt="{{ product.name }}">
+        <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+        <span class="fun-stuff-score" data-id="{{ product.id }}">Fun Stuff Score: <span class="score-value">{{ product.score }}</span>/10</span>
+        <span class="vote-buttons">
+            <button class="btn" onclick="vote('{{ product.id }}', 1)">⬆</button>
+            <button class="btn" onclick="vote('{{ product.id }}', -1)">⬇</button>
+        </span>
+        <button class="btn" onclick="shareProduct('{{ product.name }}', '{{ product.url }}')">Share</button>
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Barlito’s Bazaar - Best Gag Gifts & Prank Ideas{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta name="description" content="Discover the best gag gifts for brother's wedding, funny office prank ideas, and more at Barlito’s Bazaar! Hilarious Amazon finds await.">
+    <meta name="keywords" content="best gag gift for brother's wedding, funny office prank ideas, secret santa gag gifts, quirky amazon products, Barlito’s Bazaar">
+    <meta property="og:title" content="Barlito’s Bazaar - Hilarious Gag Gifts & Pranks">
+    <meta property="og:description" content="Find the funniest gag gifts and prank ideas for any occasion! From fart whistles to unicorn meat, we've got your silly needs covered.">
+    <meta property="og:image" content="{{ url_for('static', filename='funny_image_2.jpg') }}">
+    <meta property="og:url" content="https://shopping-assistant-5m0q.onrender.com/">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+      !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+      twq('init','pdq4g');
+      twq('track','PageView');
+    </script>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
+    </header>
+    <nav>
+        <a href="#wearable-pranks">Wearable Pranks</a> |
+        <a href="#desk-disasters">Desk Disasters</a> |
+        <a href="#home-hilarity">Home Hilarity</a> |
+        <a href="#all-products">All Products</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+    </footer>
+    <script type="text/javascript">
+        var sc_project=13107765; 
+        var sc_invisible=0; 
+        var sc_security="da1ff213"; 
+        var scJsHost = "https://";
+        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
+        "statcounter.com/counter/counter.js'></"+"script>");
+    </script>
+    <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
