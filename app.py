@@ -153,7 +153,7 @@ def subscribe():
             conn.commit()
             return jsonify({'message': 'Subscribed successfully!'}), 200
         except sqlite3.IntegrityError:
-            return jsonify({'message': "Email already subscribed!'}), 400
+            return jsonify({'message': 'Email already subscribed!'}), 400
         finally:
             conn.close()
     return jsonify({'message': 'Email required!'}), 400
