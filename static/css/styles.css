@@ -1,5 +1,5 @@
 html {
-    font-size: 20px;
+    font-size: 24px; /* Increased from 20px to 24px for larger base text */
 }
 body { 
     font-family: 'Courier New', monospace; 
@@ -50,7 +50,7 @@ nav {
 }
 nav a {
     color: #FF00FF;
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Increased from 1.1rem */
     margin: 0 10px;
 }
 a { 
@@ -83,14 +83,14 @@ footer {
     border: 2px solid #00FFFF; 
 }
 h1 { 
-    font-size: 2.5rem; 
+    font-size: 3rem; /* Increased from 2.5rem */
     margin: 20px 0; 
 }
 #find-form {
     margin: 20px 0;
 }
 #find-form input { 
-    font-size: 1.3rem; 
+    font-size: 1.5rem; /* Increased from 1.3rem */
     padding: 12px; 
     width: 350px; 
     background-color: #000; 
@@ -99,7 +99,7 @@ h1 {
     margin-right: 10px; 
 }
 #find-form select {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     padding: 12px;
     background-color: #000;
     color: #00FFFF;
@@ -110,7 +110,7 @@ h1 {
     min-width: 48px;
     min-height: 48px;
     padding: 12px 16px;
-    font-size: 1.3rem;
+    font-size: 1.5rem; /* Increased from 1.3rem */
     background-color: #00FFFF;
     color: #000;
     border: 2px solid #00FFFF;
@@ -130,19 +130,19 @@ h1 {
     margin-top: 20px; 
     text-align: left; 
     display: inline-block; 
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
 }
 .prompt { 
-    font-size: 1.6rem; 
+    font-size: 1.8rem; /* Increased from 1.6rem */
     margin: 10px 0; 
     font-weight: bold; 
 }
 .searchable { 
-    font-size: 1.3rem; 
+    font-size: 1.5rem; /* Increased from 1.3rem */
     margin: 15px 0; 
 }
 .hacks-list li { 
-    font-size: 1.2rem; 
+    font-size: 1.4rem; /* Increased from 1.2rem */
     margin: 10px 0; 
     display: flex;
     align-items: center;
@@ -155,12 +155,12 @@ h1 {
     border: 1px solid #00FFFF;
 }
 .hacks-prompt { 
-    font-size: 1.6rem; 
+    font-size: 1.8rem; /* Increased from 1.6rem */
     margin-bottom: 20px; 
     font-style: italic; 
 }
 .disclosure { 
-    font-size: 1.1rem; 
+    font-size: 1.3rem; /* Increased from 1.1rem */
     color: #00FFFF; 
     margin: 10px 0; 
     font-style: italic; 
@@ -173,7 +173,7 @@ h1 {
     color: #000;
     border: 1px solid #00FFFF;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem; /* Increased from 1rem */
     touch-action: manipulation;
     margin-left: 10px;
 }
@@ -182,7 +182,7 @@ h1 {
     color: #00FFFF; 
 }
 .fun-stuff-score { 
-    font-size: 1rem; 
+    font-size: 1.2rem; /* Increased from 1rem */
     color: #FF00FF; 
     margin-left: 10px; 
     font-weight: bold; 
@@ -195,7 +195,7 @@ h1 {
     min-width: 48px;
     min-height: 48px;
     padding: 12px 16px;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     background-color: #FF00FF;
     color: #000;
     border: 1px solid #FF00FF;
@@ -221,7 +221,7 @@ h1 {
     min-width: 48px;
     min-height: 48px;
     padding: 12px 16px;
-    font-size: 1.3rem;
+    font-size: 1.5rem; /* Increased from 1.3rem */
     background-color: #FF00FF;
     color: #000;
     border: 2px solid #FF00FF;
@@ -239,7 +239,7 @@ h1 {
 }
 .mystery-product { 
     margin-top: 20px; 
-    font-size: 1.2rem;
+    font-size: 1.4rem; /* Increased from 1.2rem */
     color: #00FFFF; 
     display: none; 
 }
@@ -254,11 +254,11 @@ h1 {
 }
 .email-signup h2 {
     color: #FF00FF;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Increased from 1.8rem */
     margin-bottom: 10px;
 }
 .email-signup p {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     margin-bottom: 15px;
 }
 .email-signup form {
@@ -272,7 +272,7 @@ h1 {
     background-color: #000;
     color: #00FFFF;
     border: 1px solid #00FFFF;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
 }
 .email-signup .btn {
     min-width: 48px;
@@ -283,7 +283,7 @@ h1 {
     border: 2px solid #FF00FF;
     font-weight: bold;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     touch-action: manipulation;
     margin-left: 10px;
 }
@@ -299,14 +299,14 @@ h1 {
 }
 .product-section h2 {
     color: #FF00FF;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Increased from 1.8rem */
 }
 .product-section ul {
     list-style: none;
     padding: 0;
 }
 .product-section li {
-    font-size: 1.2rem;
+    font-size: 1.4rem; /* Increased from 1.2rem */
     margin: 10px 0;
 }
 .reviews-section {
@@ -317,10 +317,10 @@ h1 {
 }
 .reviews-section h2 {
     color: #FF00FF;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Increased from 1.8rem */
 }
 .reviews-section p {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     margin: 10px 0;
 }
 .reviews-section form {
@@ -336,26 +336,28 @@ h1 {
     background-color: #000;
     color: #00FFFF;
     border: 1px solid #00FFFF;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased from 1.1rem */
     margin-bottom: 10px;
 }
 @media (max-width: 600px) {
     html {
-        font-size: 16px;
+        font-size: 18px; /* Increased from 16px */
     }
     header img {
         width: 100px; 
     }
     h1 {
-        font-size: 2rem; 
+        font-size: 2.5rem; /* Increased from 2rem */
     }
     #find-form input, #find-form select {
         width: 100%; 
         margin-bottom: 10px;
+        font-size: 1.3rem; /* Adjusted proportionally */
     }
     #find-form .btn {
         width: 100%; 
         margin-left: 0;
+        font-size: 1.3rem; /* Adjusted proportionally */
     }
     .image-container {
         flex-direction: column; 
@@ -367,19 +369,19 @@ h1 {
         margin: 10px 0; 
     }
     .hacks-list li {
-        font-size: 1rem; 
+        font-size: 1.2rem; /* Increased from 1rem */
     }
     .hacks-list img {
         width: 80px;
     }
     .hacks-list .btn {
-        font-size: 0.9rem; 
+        font-size: 1rem; /* Increased from 0.9rem */
         padding: 8px 12px;
     }
     .fun-stuff-score {
         display: block; 
         margin-left: 0; 
-        font-size: 0.9rem; 
+        font-size: 1rem; /* Increased from 0.9rem */
     }
     .vote-buttons {
         display: block; 
@@ -388,14 +390,14 @@ h1 {
     }
     .vote-buttons .btn {
         padding: 8px 12px;
-        font-size: 1rem; 
+        font-size: 1.1rem; /* Increased from 1rem */
     }
     .promo-video {
         width: 100%; 
         max-width: 300px; 
     }
     .mystery-button {
-        font-size: 1.2rem;
+        font-size: 1.3rem; /* Increased from 1.2rem */
         padding: 8px 12px;
     }
     .email-signup form {
@@ -404,21 +406,24 @@ h1 {
     .email-signup input[type="email"] {
         width: 100%;
         margin-bottom: 10px;
+        font-size: 1.2rem; /* Adjusted proportionally */
     }
     .email-signup .btn {
         width: 100%;
         margin-left: 0;
+        font-size: 1.2rem; /* Adjusted proportionally */
     }
     .product-section h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem; /* Increased from 1.5rem */
     }
     .product-section li {
-        font-size: 1rem;
+        font-size: 1.2rem; /* Increased from 1rem */
     }
     .reviews-section h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem; /* Increased from 1.5rem */
     }
     .reviews-section textarea {
         width: 100%;
+        font-size: 1.2rem; /* Adjusted proportionally */
     }
 }
