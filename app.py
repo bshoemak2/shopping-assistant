@@ -59,12 +59,22 @@ def home():
     home_hilarity = [p for p in products if p['category_id'] == 'home-hilarity']
     all_products = products
     popular_picks = [p for p in products if p['id'] in ['bacon-bandages', 'banana-bandages', 'pineapple-bandages']]
+    
+    # Load reviews from database
+    conn = sqlite3.connect('subscribers.db')
+    c = conn.cursor()
+    c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
+    c.execute('SELECT text, author FROM reviews')
+    reviews = [{'text': row[0], 'author': row[1]} for row in c.fetchall()]
+    conn.close()
+    
     return render_template('home.html', 
                            wearable_pranks=wearable_pranks, 
                            desk_disasters=desk_disasters, 
                            home_hilarity=home_hilarity, 
                            all_products=all_products,
-                           popular_picks=popular_picks)
+                           popular_picks=popular_picks,
+                           reviews=reviews)
 
 @app.route('/find', methods=['POST'])
 def find():
@@ -109,6 +119,21 @@ def subscribe():
         finally:
             conn.close()
     return jsonify({'message': 'Email required!'}), 400
+
+@app.route('/submit_review', methods=['POST'])
+def submit_review():
+    data = request.get_json()
+    review_text = data.get('text')
+    author = data.get('author', 'Anonymous Prankster')
+    if review_text:
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
+        c.execute('INSERT INTO reviews (text, author) VALUES (?, ?)', (review_text, author))
+        conn.commit()
+        conn.close()
+        return jsonify({'message': 'Review submitted successfully!'}), 200
+    return jsonify({'message': 'Review text required!'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)

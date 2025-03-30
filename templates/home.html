@@ -14,6 +14,19 @@
         <div class="mystery-product" id="mysteryProduct"></div>
     </div>
 
+    <div class="popular-picks" id="popular-picks">
+        <h2>⭐ Popular Picks</h2>
+        <p>Our top-selling bandages for pranksters!</p>
+        <ul>
+            {% for product in popular_picks %}
+            <li>
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <div class="product-section" id="wearable-pranks">
         <h2>Wearable Pranks</h2>
         <p>Gag gifts you can wear to cause a scene!</p>
@@ -36,19 +49,6 @@
         {% with products=home_hilarity %}
             {% include 'product_list.html' %}
         {% endwith %}
-    </div>
-
-    <div class="popular-picks">
-        <h2>⭐ Popular Picks</h2>
-        <p>Our top-selling bandages for pranksters!</p>
-        <ul>
-            {% for product in popular_picks %}
-            <li>
-                <img src="{{ product.image }}" alt="{{ product.name }}">
-                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
     </div>
 
     <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
@@ -98,7 +98,9 @@
             <button type="submit" class="btn">Submit Review</button>
         </form>
         <div id="reviews-list">
-            <p>"Left the Fake Poop on my boss’s desk—screamed like a banshee! 10/10" - PrankMaster3000</p>
+            {% for review in reviews %}
+                <p>"{{ review.text }}" - {{ review.author }}</p>
+            {% endfor %}
         </div>
     </div>
 
@@ -208,9 +210,22 @@
         function submitReview(event) {
             event.preventDefault();
             const reviewText = document.querySelector('#review-form textarea').value;
-            const reviewsList = document.getElementById('reviews-list');
-            reviewsList.innerHTML += `<p>"${reviewText}" - Anonymous Prankster</p>`;
-            document.querySelector('#review-form').reset();
+            fetch('/submit_review', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: reviewText, author: 'Anonymous Prankster' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Review submitted successfully!') {
+                    const reviewsList = document.getElementById('reviews-list');
+                    reviewsList.innerHTML += `<p>"${reviewText}" - Anonymous Prankster</p>`;
+                    document.querySelector('#review-form').reset();
+                } else {
+                    alert('Failed to submit review: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error submitting review:', error));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
