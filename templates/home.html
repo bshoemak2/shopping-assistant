@@ -17,23 +17,31 @@
     <div class="product-section" id="wearable-pranks">
         <h2>Wearable Pranks</h2>
         <p>Gag gifts you can wear to cause a scene!</p>
-        {% include 'product_list.html' with products=wearable_pranks %}
+        {% with products=wearable_pranks %}
+            {% include 'product_list.html' %}
+        {% endwith %}
     </div>
 
     <div class="product-section" id="desk-disasters">
         <h2>Desk Disasters</h2>
         <p>Pranks to chaos-ify your workspace!</p>
-        {% include 'product_list.html' with products=desk_disasters %}
+        {% with products=desk_disasters %}
+            {% include 'product_list.html' %}
+        {% endwith %}
     </div>
 
     <div class="product-section" id="home-hilarity">
         <h2>Home Hilarity</h2>
         <p>Gag gifts to turn your home into a prank zone!</p>
-        {% include 'product_list.html' with products=home_hilarity %}
+        {% with products=home_hilarity %}
+            {% include 'product_list.html' %}
+        {% endwith %}
     </div>
 
     <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
-    {% include 'product_list.html' with products=all_products %}
+    {% with products=all_products %}
+        {% include 'product_list.html' %}
+    {% endwith %}
 
     <div class="product-section">
         <h2>🎉 Best Gag Gift for Your Brother’s Wedding</h2>
