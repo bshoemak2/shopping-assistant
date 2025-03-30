@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-# Full product list with 43 items and corrected image links
 products = [
     {"name": "Rubber Chicken Purse - Cluck in Style", "url": "https://amzn.to/4hAMdL5", "image": "https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg", "id": "rubber-chicken-purse", "score": 8, "category_id": "wearable-pranks"},
     {"name": "Glow-in-the-Dark Skeleton Onesie - Spooky Pajamas", "url": "https://amzn.to/4iQ1Pvh", "image": "https://m.media-amazon.com/images/I/71aihrZ+zKL._AC_SY606_.jpg", "id": "skeleton-onesie", "score": 8, "category_id": "wearable-pranks"},
@@ -40,7 +39,7 @@ products = [
     {"name": "Prank Pregnancy Test - Always Positive for Maximum Shock", "url": "https://amzn.to/3FGAspn", "image": "https://m.media-amazon.com/images/I/71p43VT8P3L._AC_SY450_.jpg", "id": "prank-pregnancy-test", "score": 9, "category_id": "all-products"},
     {"name": "Invisible Ink Pen - Write Secret Messages That Disappear", "url": "https://amzn.to/3DXswiK", "image": "https://m.media-amazon.com/images/I/81ChKmEdHrL._AC_SX355_.jpg", "id": "invisible-ink-pen", "score": 7, "category_id": "all-products"},
     {"name": "Shock Pen - Give a Jolt with Every Click", "url": "https://amzn.to/428bSFk", "image": "https://m.media-amazon.com/images/I/61C472C3EvL._AC_SY355_.jpg", "id": "shock-pen", "score": 8, "category_id": "all-products"},
-    {"name": "Prank Spider - Realistic Tarantula to Scare Everyone", "url": "https://amzn.to/422vPgz", "image": "https://m.media-amazon.com/images/I/71nWvYp6zGL._AC_SX466_.jpg", "id": "prank-spider", "score": 9, "category_id": "all-products"},
+    {"name": "Prank Spider - Realistic Tarantula to Scare Everyone", "url": "https://amzn.to/422vPgz", "image": "https://m.media-amazon.com/images/I/812Q16keLLL._AC_SX466_.jpg", "id": "prank-spider", "score": 9, "category_id": "all-products"},
     {"name": "Exploding Golf Balls - Tee Off with a Bang", "url": "https://amzn.to/43pmDFx", "image": "https://m.media-amazon.com/images/I/9192btAkakL._AC_SY450_.jpg", "id": "exploding-golf-balls", "score": 7, "category_id": "all-products"},
     {"name": "Fake Parking Ticket - Fool Your Friends with a Fine", "url": "https://amzn.to/4hTpNVw", "image": "https://m.media-amazon.com/images/I/81T+xOqOfoL._AC_SY355_.jpg", "id": "fake-parking-ticket", "score": 8, "category_id": "all-products"},
     {"name": "Squirting Flower Lapel - Classic Clown Prank", "url": "https://amzn.to/4j6rIac", "image": "https://m.media-amazon.com/images/I/41czfTBHxoL._AC_.jpg", "id": "squirting-flower-lapel", "score": 7, "category_id": "all-products"},
@@ -49,6 +48,8 @@ products = [
     {"name": "Prank Hand Buzzer - Shake Hands, Get a Shock", "url": "https://amzn.to/4ccTsrA", "image": "https://m.media-amazon.com/images/I/61N30-9dOgL._AC_SY355_.jpg", "id": "prank-hand-buzzer", "score": 8, "category_id": "all-products"},
     {"name": "Disappearing Ink - Spill It, Watch It Vanish", "url": "https://amzn.to/43uODHN", "image": "https://m.media-amazon.com/images/I/719l-Vo5ajL._AC_SY355_.jpg", "id": "disappearing-ink", "score": 7, "category_id": "all-products"},
     {"name": "Fake Cockroach - Realistic Bug for a Screaming Good Time", "url": "https://amzn.to/3RoizxW", "image": "https://m.media-amazon.com/images/I/71Be0N71mBL._AC_SY355_.jpg", "id": "fake-cockroach", "score": 8, "category_id": "all-products"},
+    {"name": "Banana Bandages - Heal with Fruit Flair", "url": "https://amzn.to/426U6SO", "image": "https://m.media-amazon.com/images/I/81o05QPkfEL._AC_SX679_.jpg", "id": "banana-bandages", "score": 7, "category_id": "all-products"},
+    {"name": "Pineapple Bandages - Tropical Healing Fun", "url": "https://amzn.to/3Y7Ptqg", "image": "https://m.media-amazon.com/images/I/91flowprqVL._AC_SY450_.jpg", "id": "pineapple-bandages", "score": 7, "category_id": "all-products"},
 ]
 
 @app.route('/')
@@ -56,12 +57,14 @@ def home():
     wearable_pranks = [p for p in products if p['category_id'] == 'wearable-pranks']
     desk_disasters = [p for p in products if p['category_id'] == 'desk-disasters']
     home_hilarity = [p for p in products if p['category_id'] == 'home-hilarity']
-    all_products = products  # Show all products in "Browse All"
+    all_products = products
+    popular_picks = [p for p in products if p['id'] in ['bacon-bandages', 'banana-bandages', 'pineapple-bandages']]
     return render_template('home.html', 
                            wearable_pranks=wearable_pranks, 
                            desk_disasters=desk_disasters, 
                            home_hilarity=home_hilarity, 
-                           all_products=all_products)
+                           all_products=all_products,
+                           popular_picks=popular_picks)
 
 @app.route('/find', methods=['POST'])
 def find():
@@ -80,7 +83,7 @@ def find():
                 price = float(price.text.replace('$', '')) if price else 0.0
                 rating = item.select_one('.a-icon-alt')
                 rating = float(rating.text.split()[0]) if rating else 0.0
-                reviews = ["Sample review"]  # Placeholder; real scraping needs more logic
+                reviews = ["Sample review"]
                 comparisons[product] = {
                     'price': price,
                     'rating': rating,

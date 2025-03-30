@@ -38,13 +38,26 @@
         {% endwith %}
     </div>
 
+    <div class="popular-picks">
+        <h2>⭐ Popular Picks</h2>
+        <p>Our top-selling bandages for pranksters!</p>
+        <ul>
+            {% for product in popular_picks %}
+            <li>
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
     {% with products=all_products %}
         {% include 'product_list.html' %}
     {% endwith %}
 
     <div class="product-section">
-        <h2>🎉 Best Gag Gift for Your Brother’s Wedding</h2>
+        <h2>🎉 Best Gag Gift for Weddings</h2>
         <p>Add some humor to the big day with these hilarious picks!</p>
         <ul>
             <li><a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')">Fart Whistles - Loads of Fun for the Reception</a></li>
