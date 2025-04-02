@@ -5,17 +5,30 @@ body {
     font-family: 'Courier New', monospace; 
     margin: 20px; 
     text-align: center; 
-    background-color: black; 
-    color: #00FFFF; 
+    background: linear-gradient(135deg, #00FF00, #FF00FF); /* Neon green to hot pink */
+    color: #FFFF00; /* Caution-tape yellow text */
     overflow-y: auto; 
-    background: linear-gradient(45deg, #000, #1a1a1a); 
-    animation: glitch 5s linear infinite; 
+    animation: glitch-bg 3s infinite; 
     line-height: 1.5;
+    position: relative;
 }
-@keyframes glitch {
+@keyframes glitch-bg {
     0% { background-position: 0 0; }
-    50% { background-position: 2px 2px; }
+    10% { background-position: 5px 5px; }
+    20% { background-position: -5px -5px; }
+    30% { background-position: 3px -3px; }
     100% { background-position: 0 0; }
+}
+body::after { /* Static overlay */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==') repeat;
+    opacity: 0.05;
+    pointer-events: none;
 }
 .container {
     max-width: 100%;
@@ -26,47 +39,58 @@ body {
     gap: 10px;
 }
 header { 
-    background-color: black; 
-    color: #00FFFF; 
+    background: rgba(0, 0, 0, 0.8); 
+    color: #FFFF00; 
     padding: 10px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    border-bottom: 2px solid #00FFFF; 
+    border-bottom: 4px solid #00FF00; /* Neon green border */
+    animation: glitch-text 2s infinite;
+}
+@keyframes glitch-text {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, 0); }
+    80% { transform: translate(2px, 0); }
+    100% { transform: translate(0); }
 }
 header img { 
     width: 150px; 
     height: auto; 
     margin-right: 10px; 
+    filter: drop-shadow(0 0 5px #FF00FF);
 }
 nav {
-    background-color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.7);
     padding: 10px;
     margin: 10px 0;
-    border: 2px solid #FF00FF;
+    border: 4px solid #FFFF00; /* Caution-tape yellow */
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 nav a {
-    color: #FF00FF;
+    color: #00FF00; /* Neon green */
     font-size: 1.2rem;
     margin: 0 10px;
 }
 a { 
-    color: #00FFFF; 
+    color: #FFFF00; 
     text-decoration: none; 
     padding: 0 10px; 
 }
 a:hover { 
     text-decoration: underline; 
+    color: #FF00FF; /* Hot pink on hover */
 }
 footer { 
-    background-color: black; 
-    color: #00FFFF; 
+    background: rgba(0, 0, 0, 0.8); 
+    color: #FFFF00; 
     padding: 10px; 
     text-align: center; 
-    border-top: 2px solid #00FFFF; 
+    border-top: 4px solid #00FF00; 
     width: calc(100% - 40px); 
 }
 .image-container {
@@ -80,11 +104,13 @@ footer {
     height: auto; 
     margin: 10px; 
     display: block; 
-    border: 2px solid #00FFFF; 
+    border: 4px solid #FF00FF; /* Hot pink border */
+    filter: drop-shadow(0 0 10px #00FF00);
 }
 h1 { 
     font-size: 3rem;
     margin: 20px 0; 
+    animation: glitch-text 2s infinite;
 }
 #find-form {
     margin: 20px 0;
@@ -93,17 +119,17 @@ h1 {
     font-size: 1.5rem;
     padding: 12px; 
     width: 350px; 
-    background-color: #000; 
-    color: #00FFFF; 
-    border: 1px solid #00FFFF; 
+    background: rgba(0, 0, 0, 0.9); 
+    color: #FFFF00; 
+    border: 2px solid #00FF00; 
     margin-right: 10px; 
 }
 #find-form select {
     font-size: 1.3rem;
     padding: 12px;
-    background-color: #000;
-    color: #00FFFF;
-    border: 1px solid #00FFFF;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #00FF00;
     margin-right: 10px;
 }
 #find-form .btn { 
@@ -111,26 +137,28 @@ h1 {
     min-height: 48px;
     padding: 12px 16px;
     font-size: 1.5rem;
-    background-color: #00FFFF;
+    background-color: #FFFF00;
     color: #000;
-    border: 2px solid #00FFFF;
+    border: 2px solid #FF00FF;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
-    box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
-    transition: box-shadow 0.3s ease;
-    touch-action: manipulation;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
 }
 #find-form .btn:hover { 
-    background-color: #000; 
-    color: #00FFFF; 
-    box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF; 
+    background-color: #FF00FF; 
+    color: #000; 
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00; 
 }
 #results { 
     margin-top: 20px; 
     text-align: left; 
     display: inline-block; 
     font-size: 1.3rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border: 2px solid #FFFF00;
 }
 .prompt { 
     font-size: 1.8rem;
@@ -143,25 +171,30 @@ h1 {
 }
 .hacks-list li { 
     font-size: 1.4rem;
-    margin: 10px 0; 
+    margin: 15px 0; 
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border: 2px dashed #00FF00;
 }
 .hacks-list img {
     width: 200px;
     height: auto;
-    margin-right: 10px;
-    border: 1px solid #00FFFF;
+    margin-right: 15px;
+    border: 2px solid #FF00FF;
+    filter: drop-shadow(0 0 5px #FFFF00);
 }
 .hacks-prompt { 
     font-size: 1.8rem;
     margin-bottom: 20px; 
     font-style: italic; 
+    text-shadow: 0 0 5px #00FF00;
 }
 .disclosure { 
     font-size: 1.3rem;
-    color: #00FFFF; 
+    color: #FFFF00; 
     margin: 10px 0; 
     font-style: italic; 
 }
@@ -169,49 +202,51 @@ h1 {
     min-width: 48px;
     min-height: 48px;
     padding: 12px 16px;
-    background-color: #00FFFF;
+    background-color: #FFFF00;
     color: #000;
-    border: 1px solid #00FFFF;
+    border: 2px solid #FF00FF;
     cursor: pointer;
     font-size: 1.2rem;
     touch-action: manipulation;
     margin-left: 10px;
 }
 .hacks-list .btn:hover { 
-    background-color: #000; 
-    color: #00FFFF; 
+    background-color: #FF00FF; 
+    color: #000; 
 }
 .buy-now-btn {
-    background-color: #00FFFF;
+    background-color: #00FF00;
     color: #000;
     font-size: 1.2rem;
     padding: 12px 16px;
-    border: 2px solid #00FFFF;
+    border: 2px solid #FFFF00;
     cursor: pointer;
     margin-left: 10px;
 }
 .buy-now-btn:hover {
-    background-color: #000;
-    color: #00FFFF;
+    background-color: #FFFF00;
+    color: #000;
+    box-shadow: 0 0 15px #FF00FF;
 }
 .share-btn {
     background-color: #FF00FF;
     color: #000;
     font-size: 1.2rem;
     padding: 12px 16px;
-    border: 1px solid #FF00FF;
+    border: 2px solid #00FF00;
     cursor: pointer;
     margin-left: 10px;
 }
 .share-btn:hover {
-    background-color: #000;
-    color: #FF00FF;
+    background-color: #00FF00;
+    color: #000;
 }
 .fun-stuff-score { 
     font-size: 1.2rem;
     color: #FF00FF; 
-    margin-left: 10px; 
+    margin-left: 15px; 
     font-weight: bold; 
+    text-shadow: 0 0 3px #FFFF00;
 }
 .vote-buttons { 
     display: inline-block; 
@@ -224,63 +259,64 @@ h1 {
     font-size: 1.3rem;
     background-color: #FF00FF;
     color: #000;
-    border: 1px solid #FF00FF;
+    border: 2px solid #FFFF00;
     cursor: pointer;
     touch-action: manipulation;
 }
 .vote-buttons .btn:hover { 
-    background-color: #000; 
-    color: #FF00FF; 
+    background-color: #00FF00; 
+    color: #000; 
 }
 .promo-video { 
     width: 100%; 
     max-width: 600px; 
     margin: 20px auto; 
     display: block; 
-    border: 2px solid #00FFFF; 
-    box-shadow: 0 0 10px #00FFFF; 
+    border: 4px solid #00FF00; 
+    box-shadow: 0 0 15px #FF00FF; 
 }
 .mystery-product-section { 
     margin: 20px 0; 
 }
 .mystery-button { 
-    min-width: 48px;
-    min-height: 48px;
-    padding: 12px 16px;
+    min-width: 60px;
+    min-height: 60px;
+    padding: 15px 20px;
     font-size: 1.5rem;
-    background-color: #FF00FF;
+    background-color: #FFFF00;
     color: #000;
-    border: 2px solid #FF00FF;
+    border: 4px solid #FF00FF;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
-    box-shadow: 0 0 10px #FF00FF, 0 0 20px #FF00FF;
-    transition: box-shadow 0.3s ease;
-    touch-action: manipulation;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
 }
 .mystery-button:hover { 
-    background-color: #000; 
-    color: #FF00FF; 
-    box-shadow: 0 0 20px #FF00FF, 0 0 30px #FF00FF; 
+    background-color: #FF00FF; 
+    color: #000; 
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00; 
 }
 .mystery-product { 
     margin-top: 20px; 
     font-size: 1.4rem;
-    color: #00FFFF; 
+    color: #FFFF00; 
+    text-shadow: 0 0 5px #FF00FF;
 }
 .email-signup {
-    background-color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.8);
     padding: 20px;
-    border: 2px solid #FF00FF;
+    border: 4px dashed #00FF00;
     border-radius: 10px;
     margin: 20px auto;
     max-width: 500px;
-    box-shadow: 0 0 10px #FF00FF;
+    box-shadow: 0 0 15px #FF00FF;
 }
 .email-signup h2 {
     color: #FF00FF;
     font-size: 2rem;
     margin-bottom: 10px;
+    animation: glitch-text 2s infinite;
 }
 .email-signup p {
     font-size: 1.3rem;
@@ -294,18 +330,18 @@ h1 {
 .email-signup input[type="email"] {
     width: 70%;
     padding: 10px;
-    background-color: #000;
-    color: #00FFFF;
-    border: 1px solid #00FFFF;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #FF00FF;
     font-size: 1.3rem;
 }
 .email-signup .btn {
     min-width: 48px;
     min-height: 48px;
     padding: 12px 16px;
-    background-color: #FF00FF;
+    background-color: #00FF00;
     color: #000;
-    border: 2px solid #FF00FF;
+    border: 2px solid #FFFF00;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.3rem;
@@ -313,18 +349,20 @@ h1 {
     margin-left: 10px;
 }
 .email-signup .btn:hover {
-    background-color: #000;
-    color: #FF00FF;
+    background-color: #FFFF00;
+    color: #000;
 }
 .product-section {
     margin: 20px 0;
     padding: 15px;
-    border: 2px solid #00FFFF;
+    border: 4px solid #FF00FF;
     border-radius: 10px;
+    background: rgba(0, 0, 0, 0.6);
 }
 .product-section h2 {
-    color: #FF00FF;
+    color: #00FF00;
     font-size: 2rem;
+    animation: glitch-text 2s infinite;
 }
 .product-section ul {
     list-style: none;
@@ -337,12 +375,14 @@ h1 {
 .reviews-section {
     margin: 20px 0;
     padding: 15px;
-    border: 2px solid #00FFFF;
+    border: 4px solid #FFFF00;
     border-radius: 10px;
+    background: rgba(0, 0, 0, 0.6);
 }
 .reviews-section h2 {
     color: #FF00FF;
     font-size: 2rem;
+    animation: glitch-text 2s infinite;
 }
 .reviews-section p {
     font-size: 1.3rem;
@@ -358,9 +398,9 @@ h1 {
     max-width: 500px;
     height: 100px;
     padding: 10px;
-    background-color: #000;
-    color: #00FFFF;
-    border: 1px solid #00FFFF;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #00FF00;
     font-size: 1.3rem;
     margin-bottom: 10px;
 }
@@ -369,32 +409,32 @@ h1 {
     min-height: 80px;
     padding: 20px 24px;
     font-size: 1.8rem;
-    background-color: #00FFFF;
+    background-color: #FFFF00;
     color: #000;
-    border: 2px solid #00FFFF;
+    border: 4px solid #FF00FF;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
-    box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
-    transition: box-shadow 0.3s ease;
-    touch-action: manipulation;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
 }
 .reviews-section .btn:hover {
-    background-color: #000;
-    color: #00FFFF;
-    box-shadow: 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+    background-color: #FF00FF;
+    color: #000;
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00;
 }
 .popular-picks {
     margin: 20px 0;
     padding: 15px;
-    border: 2px solid #FF00FF;
+    border: 4px solid #00FF00;
     border-radius: 10px;
-    background-color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.7);
 }
 .popular-picks h2 {
-    color: #FF00FF;
+    color: #FFFF00;
     font-size: 2.2rem;
     margin-bottom: 15px;
+    animation: glitch-text 2s infinite;
 }
 .popular-picks ul {
     list-style: none;
@@ -411,8 +451,26 @@ h1 {
     width: 250px;
     height: auto;
     margin-right: 15px;
-    border: 2px solid #FF00FF;
-    box-shadow: 0 0 10px #FF00FF;
+    border: 4px solid #FF00FF;
+    box-shadow: 0 0 10px #00FF00;
+}
+#loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #FF00FF;
+    z-index: 9999;
+    transition: width 0.5s ease;
+}
+#barlito-mascot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    display: none;
+    z-index: 1000;
 }
 @media (max-width: 600px) {
     html {
@@ -512,5 +570,8 @@ h1 {
     }
     .popular-picks img {
         width: 200px;
+    }
+    #barlito-mascot {
+        width: 80px;
     }
 }

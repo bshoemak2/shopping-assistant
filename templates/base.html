@@ -18,6 +18,8 @@
     </script>
 </head>
 <body>
+    <div id="loading-bar"></div>
+    <img id="barlito-mascot" src="https://cdn-icons-png.flaticon.com/512/2592/2592656.png" alt="Barlito Mascot">
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
         <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
@@ -47,6 +49,38 @@
         "statcounter.com/counter/counter.js'></"+"script>");
     </script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <script>
+        // Fake loading bar animation
+        window.onload = function() {
+            const bar = document.getElementById('loading-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width < 99) {
+                    width += Math.random() * 10;
+                    bar.style.width = `${Math.min(width, 99)}%`;
+                } else {
+                    setTimeout(() => {
+                        bar.style.width = '100%';
+                        setTimeout(() => bar.style.display = 'none', 500);
+                    }, 500);
+                    clearInterval(interval);
+                }
+            }, 100);
+            
+            // Barlito mascot popup
+            const mascot = document.getElementById('barlito-mascot');
+            const tips = [
+                "Try Fart Spray for instant chaos!",
+                "Bacon Bandages: Heal with style!",
+                "Prank Spider: Scare ‘em silly!"
+            ];
+            setTimeout(() => {
+                mascot.style.display = 'block';
+                mascot.title = tips[Math.floor(Math.random() * tips.length)];
+                setTimeout(() => mascot.style.display = 'none', 5000);
+            }, 3000);
+        };
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
