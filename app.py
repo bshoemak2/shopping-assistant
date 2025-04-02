@@ -6,6 +6,7 @@ import random
 import time
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True  # Add this line
 
 products = [
     {"name": "Rubber Chicken Purse - Cluck in Style", "url": "https://amzn.to/4hAMdL5", "image": "https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg", "id": "rubber-chicken-purse", "score": 8, "category_id": "wearable-pranks"},

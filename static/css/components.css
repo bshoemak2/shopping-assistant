@@ -1,0 +1,178 @@
+a { 
+    color: #FFD700;
+    text-decoration: none; 
+    padding: 0 10px; 
+    text-shadow: 0 0 2px #000000;
+}
+a:hover { 
+    text-decoration: underline; 
+    color: #FF00FF;
+}
+#find-form input { 
+    font-size: 1.5rem;
+    padding: 12px; 
+    width: 350px; 
+    background: rgba(0, 0, 0, 0.9); 
+    color: #FFFF00; 
+    border: 2px solid #00FF00; 
+    margin-right: 10px; 
+}
+#find-form select {
+    font-size: 1.3rem;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #00FF00;
+    margin-right: 10px;
+}
+#find-form .btn { 
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 1.5rem;
+    background-color: #FFFF00;
+    color: #000;
+    border: 2px solid #FF00FF;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
+}
+#find-form .btn:hover { 
+    background-color: #FF00FF; 
+    color: #000; 
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00; 
+}
+.hacks-list .btn { 
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px 16px;
+    background-color: #FFFF00;
+    color: #000;
+    border: 2px solid #FF00FF;
+    cursor: pointer;
+    font-size: 1.2rem;
+    touch-action: manipulation;
+    margin-left: 10px;
+}
+.hacks-list .btn:hover { 
+    background-color: #FF00FF; 
+    color: #000; 
+}
+.buy-now-btn {
+    background-color: #00FF00;
+    color: #000;
+    font-size: 1.2rem;
+    padding: 12px 16px;
+    border: 2px solid #FFFF00;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.buy-now-btn:hover {
+    background-color: #FFFF00;
+    color: #000;
+    box-shadow: 0 0 15px #FF00FF;
+}
+.share-btn {
+    background-color: #FF00FF;
+    color: #000;
+    font-size: 1.2rem;
+    padding: 12px 16px;
+    border: 2px solid #00FF00;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.share-btn:hover {
+    background-color: #00FF00;
+    color: #000;
+}
+.vote-buttons .btn { 
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 1.3rem;
+    background-color: #FF00FF;
+    color: #000;
+    border: 2px solid #FFFF00;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.vote-buttons .btn:hover { 
+    background-color: #00FF00; 
+    color: #000; 
+}
+.mystery-button { 
+    min-width: 60px;
+    min-height: 60px;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    background-color: #FFFF00;
+    color: #000;
+    border: 4px solid #FF00FF;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
+}
+.mystery-button:hover { 
+    background-color: #FF00FF; 
+    color: #000; 
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00; 
+}
+.email-signup input[type="email"] {
+    width: 70%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #FF00FF;
+    font-size: 1.3rem;
+}
+.email-signup .btn {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px 16px;
+    background-color: #00FF00;
+    color: #000;
+    border: 2px solid #FFFF00;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.3rem;
+    touch-action: manipulation;
+    margin-left: 10px;
+}
+.email-signup .btn:hover {
+    background-color: #FFFF00;
+    color: #000;
+}
+.reviews-section textarea {
+    width: 100%;
+    max-width: 500px;
+    height: 100px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFFF00;
+    border: 2px solid #00FF00;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+.reviews-section .btn {
+    min-width: 80px;
+    min-height: 80px;
+    padding: 20px 24px;
+    font-size: 1.8rem;
+    background-color: #FFFF00;
+    color: #000;
+    border: 4px solid #FF00FF;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #FF00FF;
+    transition: all 0.3s ease;
+}
+.reviews-section .btn:hover {
+    background-color: #FF00FF;
+    color: #000;
+    box-shadow: 0 0 20px #FFFF00, 0 0 30px #00FF00;
+}

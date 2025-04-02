@@ -1,0 +1,65 @@
+#barlito-mascot {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 250px;
+    display: block !important;
+    z-index: 10000;
+    filter: drop-shadow(0 0 10px #00FF00) drop-shadow(0 0 15px #FF00FF);
+    animation: bounce 1.5s infinite;
+    cursor: pointer;
+    border: 3px solid #FF00FF;
+    border-radius: 50%;
+}
+#barlito-mascot::before {
+    content: "Barlito";
+    position: absolute;
+    bottom: -35px;
+    right: 50%;
+    transform: translateX(50%);
+    color: #FFD700;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-shadow: 0 0 3px #000000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px 8px;
+    border-radius: 5px;
+    z-index: 10001;
+}
+#barlito-mascot::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -100px;
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #FFD700;
+    border: 2px solid #00FF00;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    text-align: center;
+    text-shadow: 0 0 3px #000000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10001;
+}
+#barlito-mascot.show-tooltip::after {
+    opacity: 1 !important;
+}
+@media (max-width: 600px) {
+    #barlito-mascot {
+        width: 200px;
+        bottom: 20px;
+        right: 20px;
+    }
+    #barlito-mascot::after {
+        width: 160px;
+        font-size: 1.2rem;
+        top: -80px;
+    }
+    #barlito-mascot::before {
+        font-size: 1.2rem;
+        bottom: -30px;
+    }
+}

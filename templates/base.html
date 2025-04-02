@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="loading-bar"></div>
-    <img id="barlito-mascot" src="https://cdn-icons-png.flaticon.com/512/2592/2592656.png" alt="Barlito Mascot">
+    <img id="barlito-mascot" src="{{ url_for('static', filename='barlito.jpg') }}" alt="Barlito the Prankster" data-tooltip="Cluck yeah, prank on!" style="display: block;" onerror="console.log('Failed to load Barlito image. Check path: static/barlito.jpg')">
     <header>
         <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
         <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
@@ -45,8 +45,12 @@
         var sc_invisible=0; 
         var sc_security="da1ff213"; 
         var scJsHost = "https://";
-        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
-        "statcounter.com/counter/counter.js'></"+"script>");
+        (function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = scJsHost + 'statcounter.com/counter/counter.js';
+            document.head.appendChild(script);
+        })();
     </script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
     <script>
@@ -66,20 +70,41 @@
                     clearInterval(interval);
                 }
             }, 100);
-            
-            // Barlito mascot popup
-            const mascot = document.getElementById('barlito-mascot');
-            const tips = [
-                "Try Fart Spray for instant chaos!",
-                "Bacon Bandages: Heal with style!",
-                "Prank Spider: Scare ‘em silly!"
-            ];
-            setTimeout(() => {
-                mascot.style.display = 'block';
-                mascot.title = tips[Math.floor(Math.random() * tips.length)];
-                setTimeout(() => mascot.style.display = 'none', 5000);
-            }, 3000);
         };
+
+        // Enhanced Barlito interactivity with cheeky comments
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded event fired'); // Debug log
+            const barlitoTips = [
+                "Oi, drop some Fake Poop and watch ‘em squirm!",
+                "Screaming Goat Button? More like scream-and-run, mate!",
+                "Shock Pen’s my fave—zap ‘em when they least expect it!",
+                "Burrito Blanket: Wrap up and fart in style, yeah?",
+                "Fart Whistles at a wedding? You’re a legend!",
+                "Stick Giant Googly Eyes on their chair—freak ‘em out!"
+            ];
+            const barlitoMascot = document.getElementById('barlito-mascot');
+            console.log('Barlito script running:', barlitoMascot);
+            if (barlitoMascot) {
+                barlitoMascot.style.display = 'block';
+                barlitoMascot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Click event triggered on Barlito'); // Debug log
+                    const randomTip = barlitoTips[Math.floor(Math.random() * barlitoTips.length)];
+                    console.log('Barlito clicked, new tip:', randomTip);
+                    barlitoMascot.setAttribute('data-tooltip', randomTip);
+                    barlitoMascot.classList.add('show-tooltip');
+                    console.log('Tooltip class added:', barlitoMascot.classList.contains('show-tooltip'));
+                    setTimeout(() => {
+                        barlitoMascot.classList.remove('show-tooltip');
+                        console.log('Tooltip class removed');
+                    }, 3000);
+                });
+            } else {
+                console.error('Barlito mascot element not found!');
+            }
+        });
     </script>
     {% block scripts %}{% endblock %}
 </body>
