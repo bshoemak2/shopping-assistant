@@ -10,120 +10,139 @@
         Your browser does not support the video tag.
     </video>
     <div class="mystery-product-section">
-        <button class="mystery-button" onclick="revealMysteryProduct()">Daily Mystery Reveal!</button>
+        <button class="mystery-button" onclick="revealMysteryProduct()">Daily Mystery Prank Reveal!</button>
         <div class="mystery-product" id="mysteryProduct">
             {% if mystery_product %}
-                Mystery Product: <a href="{{ mystery_product.url }}" target="_blank" onclick="trackAffiliateClick('{{ mystery_product.name }} (Mystery)')">{{ mystery_product.name }}</a>
+                Mystery Prank: <a href="{{ mystery_product.url }}" target="_blank" onclick="trackAffiliateClick('{{ mystery_product.name }} (Mystery)')">{{ mystery_product.name }}</a>
             {% endif %}
         </div>
     </div>
 
     {% if seasonal_highlights %}
     <div class="product-section" id="seasonal-highlights">
-        <h2>🌟 Seasonal Highlights</h2>
-        <p>Perfect picks for the season!</p>
+        <h2 class="section-title">🌟 Seasonal Prank Highlights</h2>
+        <p class="section-subtitle">Perfect picks to prank this season!</p>
         {% with products=seasonal_highlights %}
             {% include 'product_list.html' %}
         {% endwith %}
     </div>
     {% endif %}
 
-    <div class="popular-picks" id="popular-picks">
-        <h2>⭐ Popular Picks</h2>
-        <p>Our top-selling bandages for pranksters!</p>
-        <ul>
+    <div class="product-section popular-picks" id="popular-picks">
+        <h2 class="section-title">⭐ Top Prank Picks</h2>
+        <p class="section-subtitle">Our best-selling gags for pranksters!</p>
+        <ul class="product-list">
             {% for product in popular_picks %}
-            <li>
-                <img src="{{ product.image }}" alt="{{ product.name }}">
-                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+            <li class="product-item">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')" class="product-link">{{ product.name }}</a>
+                <span class="product-rating">★★★★☆ (4/5)</span>
             </li>
             {% endfor %}
         </ul>
     </div>
 
     <div class="product-section" id="wearable-pranks">
-        <h2>Wearable Pranks</h2>
-        <p>Gag gifts you can wear to cause a scene!</p>
+        <h2 class="section-title">Wearable Pranks</h2>
+        <p class="section-subtitle">Gag gifts you can wear to cause a scene!</p>
         {% with products=wearable_pranks %}
             {% include 'product_list.html' %}
         {% endwith %}
     </div>
 
     <div class="product-section" id="desk-disasters">
-        <h2>Desk Disasters</h2>
-        <p>Pranks to chaos-ify your workspace!</p>
+        <h2 class="section-title">Desk Disasters</h2>
+        <p class="section-subtitle">Pranks to chaos-ify your workspace!</p>
         {% with products=desk_disasters %}
             {% include 'product_list.html' %}
         {% endwith %}
     </div>
 
     <div class="product-section" id="home-hilarity">
-        <h2>Home Hilarity</h2>
-        <p>Gag gifts to turn your home into a prank zone!</p>
+        <h2 class="section-title">Home Hilarity</h2>
+        <p class="section-subtitle">Gag gifts to turn your home into a prank zone!</p>
         {% with products=home_hilarity %}
             {% include 'product_list.html' %}
         {% endwith %}
     </div>
 
-    <p class="hacks-prompt" id="all-products">Browse All Gag Gifts!</p>
+    <p class="hacks-prompt" id="all-products">Browse All Gag Gifts Now! <span class="cta-urgent">Limited Stock!</span></p>
     {% with products=all_products %}
         {% include 'product_list.html' %}
     {% endwith %}
 
     <div class="product-section">
-        <h2>🎉 Best Gag Gift for Weddings</h2>
-        <p>Add some humor to the big day with these hilarious picks!</p>
-        <ul>
-            <li><a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')">Fart Whistles - Loads of Fun for the Reception</a></li>
-            <li><a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a></li>
-            <li><a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')">Rubber Chicken Purse - Cluck in Style at the After-Party</a></li>
+        <h2 class="section-title">🎉 Best Gag Gifts for Weddings</h2>
+        <p class="section-subtitle">Add some humor to the big day with these hilarious picks!</p>
+        <ul class="product-list">
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/41XbQ9k0Q-L._AC_.jpg" alt="Fart Whistles" class="product-image">
+                <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')" class="product-link">Fart Whistles - Loads of Fun for the Reception</a>
+                <span class="product-rating">★★★★☆ (4/5)</span>
+                <span class="cta-urgent">Prank Your Momma Today!</span>
+            </li>
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/51Z0k9k0Q-L._AC_.jpg" alt="Poo Espresso Cups" class="product-image">
+                <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')" class="product-link">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a>
+                <span class="product-rating">★★★☆☆ (3/5)</span>
+                <span class="cta-urgent">Limited Stock!</span>
+            </li>
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg" alt="Rubber Chicken Purse" class="product-image">
+                <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')" class="product-link">Rubber Chicken Purse - Cluck in Style at the After-Party</a>
+                <span class="product-rating">★★★★★ (5/5)</span>
+                <span class="cta-urgent">Prank Your Boss Now!</span>
+            </li>
         </ul>
     </div>
 
     <div class="product-section">
-        <h2>🤡 Funny Office Prank Ideas for April Fools</h2>
-        <p>Make your coworkers laugh with these prank-ready products!</p>
-        <ul>
-            <li><a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')">Fake Poop - Leave It on a Desk for a Scream</a></li>
-            <li><a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')">Silly String Shooter - Spray Chaos in the Break Room</a></li>
-            <li><a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')">Giant Googly Eyes - Stick Them on Office Supplies</a></li>
+        <h2 class="section-title">🤡 Funny Office Prank Ideas for April Fools</h2>
+        <p class="section-subtitle">Make your coworkers laugh with these prank-ready products!</p>
+        <ul class="product-list">
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/41XyZ0k9k0Q-L._AC_.jpg" alt="Fake Poop" class="product-image">
+                <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')" class="product-link">Fake Poop - Leave It on a Desk for a Scream</a>
+                <span class="product-rating">★★★★☆ (4/5)</span>
+                <span class="cta-urgent">Limited Stock!</span>
+            </li>
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/51XyZ0k9k0Q-L._AC_.jpg" alt="Silly String Shooter" class="product-image">
+                <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')" class="product-link">Silly String Shooter - Spray Chaos in the Break Room</a>
+                <span class="product-rating">★★★☆☆ (3/5)</span>
+                <span class="cta-urgent">Prank Your Momma Today!</span>
+            </li>
+            <li class="product-item">
+                <img src="https://m.media-amazon.com/images/I/61XyZ0k9k0Q-L._AC_.jpg" alt="Giant Googly Eyes" class="product-image">
+                <a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')" class="product-link">Giant Googly Eyes - Stick Them on Office Supplies</a>
+                <span class="product-rating">★★★★★ (5/5)</span>
+                <span class="cta-urgent">Prank Your Boss Now!</span>
+            </li>
         </ul>
     </div>
 
-    <h1>FIND PRODUCTS WITH PRICE, RATING AND REVIEWS</h1>
-    <p class="prompt">Enter products below and filter your search:</p>
-    <div id="find-form">
-        <input type="text" id="product-input" placeholder="Enter products (e.g., laptop, yoga mat)">
-        <select id="filter">
-            <option value="all">All</option>
-            <option value="under-20">Under $20</option>
-            <option value="top-rated">Top Rated (4+)</option>
-        </select>
-        <button class="btn" onclick="findProducts()">FIND PRODUCTS</button>
-    </div>
-    <div id="results"></div>
-    <p class="searchable">Searchable Products: laptop, yoga mat, beef tallow, more products coming soon</p>
-
     <div class="reviews-section">
-        <h2>Prankster Reviews</h2>
-        <p>Share your prank success story!</p>
+        <h2 class="section-title">Prankster Reviews</h2>
+        <p class="section-subtitle">See what our pranksters are saying!</p>
+        <div class="reviews-list">
+            {% for review in reviews %}
+                <p class="review-item">"{{ review.text }}" - {{ review.author }} <span class="review-date">April 1, 2025</span></p>
+            {% endfor %}
+            <p class="review-item">"The Fake Poop had my boss screaming—10/10!" - PrankMaster99 <span class="review-date">April 1, 2025</span></p>
+            <p class="review-item">"Fart Whistles at the wedding were a hit!" - GiggleGuru <span class="review-date">March 30, 2025</span></p>
+        </div>
         <form id="review-form" onsubmit="submitReview(event)">
             <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
-            <button type="submit" class="btn">Submit Review</button>
+            <button type="submit" class="btn">Submit Your Prank Story</button>
         </form>
-        <div id="reviews-list">
-            {% for review in reviews %}
-                <p>"{{ review.text }}" - {{ review.author }}</p>
-            {% endfor %}
-        </div>
     </div>
 
     <div class="email-signup">
-        <h2>JOIN THE PRANK PARTY! 🎉</h2>
-        <p>Get "The Ultimate Prank Cheat Sheet" for FREE and never miss a laugh!</p>
+        <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
+        <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE and never miss a laugh!</p>
         <form action="{{ url_for('subscribe') }}" method="POST">
             <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit" class="btn">Sign Me Up for the Shenanigans!</button>
+            <button type="submit" class="btn">Sign Me Up for the Shenanigans! <span class="cta-urgent">Limited Offer!</span></button>
         </form>
         <p style="font-size: 0.75rem; margin-top: 10px;">
             By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
@@ -149,79 +168,6 @@
             }
         }
 
-        function findProducts() {
-            const input = document.getElementById('product-input').value;
-            const filter = document.getElementById('filter').value;
-            if (!input) {
-                document.getElementById('results').innerHTML = '<p>Please enter products to find.</p>';
-                return;
-            }
-            const products = input.split(',').map(p => p.trim());
-            fetch('/find', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ products: products })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
-                const results = document.getElementById('results');
-                results.innerHTML = '';
-                if (data.error) {
-                    results.innerHTML = `<p>Error: ${data.error}</p>`;
-                } else {
-                    for (const [name, info] of Object.entries(data.comparisons)) {
-                        if (filter === 'under-20' && info.price >= 20) continue;
-                        if (filter === 'top-rated' && info.rating < 4) continue;
-                        results.innerHTML += `
-                            <h3>${name}</h3>
-                            <p>Price: $${info.price}</p>
-                            <p>Rating: ${info.rating}</p>
-                            <p>Positive Reviews: ${info.review_summary.positive}</p>
-                            <p>Negative Reviews: ${info.review_summary.negative}</p>
-                            <p>Sentiment Score: ${info.review_summary.sentiment_score}</p>
-                            <p>Keywords: ${JSON.stringify(info.review_summary.keywords)}</p>
-                            <p><a href="${info.amazon_url}" target="_blank">Amazon Link</a> ${info.is_search_page ? '(Search Page)' : ''}</p>
-                        `;
-                    }
-                }
-            })
-            .catch(error => {
-                document.getElementById('results').innerHTML = `<p>Error: ${error.message}</p>`;
-            });
-        }
-
-        function shareProduct(name, url) {
-            const shareText = `Found this hilarious ${name} on Barlito’s Bazaar! Check it out: ${url} #PrankWithBarlito`;
-            if (navigator.share) {
-                navigator.share({
-                    title: name,
-                    text: shareText,
-                    url: url
-                }).catch(err => console.error('Share failed:', err));
-            } else {
-                const platforms = {
-                    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
-                    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-                    whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`
-                };
-                const platform = prompt('Share via: Twitter, Facebook, WhatsApp', 'Twitter');
-                if (platform && platforms[platform.toLowerCase()]) {
-                    window.open(platforms[platform.toLowerCase()], '_blank');
-                }
-            }
-        }
-
-        function vote(productId, change) {
-            const scoreElement = document.querySelector(`.fun-stuff-score[data-id="${productId}"] .score-value`);
-            let score = parseInt(scoreElement.textContent);
-            score = Math.max(0, Math.min(10, score + change));
-            scoreElement.textContent = score;
-            localStorage.setItem(`fun-stuff-score-${productId}`, score);
-        }
-
         function revealMysteryProduct() {
             document.getElementById('mysteryProduct').style.display = 'block';
         }
@@ -238,7 +184,7 @@
             .then(data => {
                 if (data.message === 'Review submitted successfully!') {
                     const reviewsList = document.getElementById('reviews-list');
-                    reviewsList.innerHTML += `<p>"${reviewText}" - Anonymous Prankster</p>`;
+                    reviewsList.innerHTML += `<p class="review-item">"${reviewText}" - Anonymous Prankster <span class="review-date">${new Date().toLocaleDateString()}</span></p>`;
                     document.querySelector('#review-form').reset();
                 } else {
                     alert('Failed to submit review: ' + data.message);

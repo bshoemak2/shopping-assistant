@@ -57,24 +57,28 @@
         // Fake loading bar animation
         window.onload = function() {
             const bar = document.getElementById('loading-bar');
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width < 99) {
-                    width += Math.random() * 10;
-                    bar.style.width = `${Math.min(width, 99)}%`;
-                } else {
-                    setTimeout(() => {
-                        bar.style.width = '100%';
-                        setTimeout(() => bar.style.display = 'none', 500);
-                    }, 500);
-                    clearInterval(interval);
-                }
-            }, 100);
+            if (bar) {
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width < 99) {
+                        width += Math.random() * 10;
+                        bar.style.width = `${Math.min(width, 99)}%`;
+                    } else {
+                        setTimeout(() => {
+                            bar.style.width = '100%';
+                            setTimeout(() => bar.style.display = 'none', 500);
+                        }, 500);
+                        clearInterval(interval);
+                    }
+                }, 100);
+            } else {
+                console.error('Loading bar element not found!');
+            }
         };
 
         // Enhanced Barlito interactivity with cheeky comments
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOMContentLoaded event fired'); // Debug log
+            console.log('DOMContentLoaded event fired');
             const barlitoTips = [
                 "Oi, drop some Fake Poop and watch ‘em squirm!",
                 "Screaming Goat Button? More like scream-and-run, mate!",
@@ -90,7 +94,7 @@
                 barlitoMascot.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Click event triggered on Barlito'); // Debug log
+                    console.log('Click event triggered on Barlito');
                     const randomTip = barlitoTips[Math.floor(Math.random() * barlitoTips.length)];
                     console.log('Barlito clicked, new tip:', randomTip);
                     barlitoMascot.setAttribute('data-tooltip', randomTip);
@@ -100,7 +104,7 @@
                         barlitoMascot.classList.remove('show-tooltip');
                         console.log('Tooltip class removed');
                     }, 3000);
-                });
+                }, { passive: true }); // Add passive option to improve performance
             } else {
                 console.error('Barlito mascot element not found!');
             }

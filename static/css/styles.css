@@ -14,16 +14,6 @@
     h1 {
         font-size: 2.5rem;
     }
-    #find-form input, #find-form select {
-        width: 100%; 
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-    }
-    #find-form .btn {
-        width: 100%; 
-        margin-left: 0;
-        font-size: 1.3rem;
-    }
     .image-container {
         flex-direction: column; 
         align-items: center;
@@ -102,5 +92,26 @@
     }
     .popular-picks img {
         width: 200px;
+    }
+    #barlito-mascot {
+        width: 200px;
+        bottom: 20px;
+        right: 20px;
+    }
+    #barlito-mascot::after {
+        width: 160px;
+        font-size: 1.2rem;
+        top: -80px;
+    }
+    #barlito-mascot::before {
+        font-size: 1.2rem;
+        bottom: -30px;
+    }
+    .product-item {
+        width: 100%;
+        max-width: 250px;
+    }
+    .product-image {
+        width: 100%;
     }
 }
