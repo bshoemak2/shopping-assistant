@@ -3,109 +3,6 @@
 @import url('sections.css');
 @import url('barlito.css');
 
-/* Styles for giggle score separation and share buttons */
-.product-info {
-    margin-bottom: 10px;
-}
-
-.product-info a {
-    color: #ff9900;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.product-info a:hover {
-    text-decoration: underline;
-}
-
-.giggle-section {
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.giggle-score {
-    font-weight: bold;
-    color: #ff9900;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 5px; /* Reduced gap for more buttons */
-    justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping if needed */
-}
-
-.btn {
-    background-color: #ff9900;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.btn:hover {
-    background-color: #ff6600;
-}
-
-.buy-now-btn {
-    background-color: #28a745;
-}
-
-.buy-now-btn:hover {
-    background-color: #218838;
-}
-
-.share-btn {
-    padding: 8px; /* Smaller padding for icon-only buttons */
-    min-width: 40px; /* Ensure buttons are uniform */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem; /* Ensure icons are visible */
-}
-
-.share-btn i {
-    color: white; /* Ensure icons are white */
-}
-
-.share-twitter {
-    background-color: #1DA1F2;
-}
-
-.share-twitter:hover {
-    background-color: #0d8ddb;
-}
-
-.share-facebook {
-    background-color: #3b5998;
-}
-
-.share-facebook:hover {
-    background-color: #2d4373;
-}
-
-.share-whatsapp {
-    background-color: #25D366;
-}
-
-.share-whatsapp:hover {
-    background-color: #20b759;
-}
-
-.share-email {
-    background-color: #666;
-}
-
-.share-email:hover {
-    background-color: #4d4d4d;
-}
-
 /* Media queries for responsive adjustments */
 @media (max-width: 600px) {
     html {
@@ -216,17 +113,5 @@
     }
     .product-image {
         width: 100%;
-    }
-    .giggle-section {
-        flex-direction: column;
-        gap: 5px;
-    }
-    .action-buttons {
-        flex-direction: column;
-        gap: 5px;
-    }
-    .share-btn {
-        padding: 8px;
-        min-width: 40px;
     }
 }
