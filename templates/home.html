@@ -1,154 +1,267 @@
 {% extends "base.html" %}
+{% block header %}
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1>Barlito’s Prank Emporium—Unleash Chaos!</h1>
+    </header>
+{% endblock %}
 {% block content %}
-    <div class="image-container">
-        <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
-        <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
-    </div>
-    <p class="disclosure">As an Amazon Associate, I earn from qualifying purchases.</p>
-    <video class="promo-video" controls>
-        <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="mystery-product-section">
-        <button class="mystery-button" onclick="revealMysteryProduct()">Daily Mystery Prank Reveal!</button>
-        <div class="mystery-product" id="mysteryProduct">
-            {% if mystery_product %}
-                Mystery Prank: <a href="{{ mystery_product.url }}" target="_blank" onclick="trackAffiliateClick('{{ mystery_product.name }} (Mystery)')">{{ mystery_product.name }}</a>
-            {% endif %}
+    <div class="container">
+        <div class="prank-o-meter">
+            <h3>Prank-O-Meter: <span id="prank-level">Off the Charts!</span></h3>
+            <div class="meter-bar">
+                <div class="meter-fill"></div>
+            </div>
         </div>
-    </div>
-
-    {% if seasonal_highlights %}
-    <div class="product-section" id="seasonal-highlights">
-        <h2 class="section-title">🌟 Seasonal Prank Highlights</h2>
-        <p class="section-subtitle">Perfect picks to prank this season!</p>
-        {% with products=seasonal_highlights %}
-            {% include 'product_list.html' %}
-        {% endwith %}
-    </div>
-    {% endif %}
-
-    <div class="product-section popular-picks" id="popular-picks">
-        <h2 class="section-title">⭐ Top Prank Picks</h2>
-        <p class="section-subtitle">Our best-selling gags for pranksters!</p>
-        <ul class="product-list">
-            {% for product in popular_picks %}
-            <li class="product-item">
-                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
-                <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')" class="product-link">{{ product.name }}</a>
-                <span class="product-rating">★★★★☆ (4/5)</span>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="product-section" id="wearable-pranks">
-        <h2 class="section-title">Wearable Pranks</h2>
-        <p class="section-subtitle">Gag gifts you can wear to cause a scene!</p>
-        {% with products=wearable_pranks %}
-            {% include 'product_list.html' %}
-        {% endwith %}
-    </div>
-
-    <div class="product-section" id="desk-disasters">
-        <h2 class="section-title">Desk Disasters</h2>
-        <p class="section-subtitle">Pranks to chaos-ify your workspace!</p>
-        {% with products=desk_disasters %}
-            {% include 'product_list.html' %}
-        {% endwith %}
-    </div>
-
-    <div class="product-section" id="home-hilarity">
-        <h2 class="section-title">Home Hilarity</h2>
-        <p class="section-subtitle">Gag gifts to turn your home into a prank zone!</p>
-        {% with products=home_hilarity %}
-            {% include 'product_list.html' %}
-        {% endwith %}
-    </div>
-
-    <p class="hacks-prompt" id="all-products">Browse All Gag Gifts Now! <span class="cta-urgent">Limited Stock!</span></p>
-    {% with products=all_products %}
-        {% include 'product_list.html' %}
-    {% endwith %}
-
-    <div class="product-section">
-        <h2 class="section-title">🎉 Best Gag Gifts for Weddings</h2>
-        <p class="section-subtitle">Add some humor to the big day with these hilarious picks!</p>
-        <ul class="product-list">
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/41XbQ9k0Q-L._AC_.jpg" alt="Fart Whistles" class="product-image">
-                <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')" class="product-link">Fart Whistles - Loads of Fun for the Reception</a>
-                <span class="product-rating">★★★★☆ (4/5)</span>
-                <span class="cta-urgent">Prank Your Momma Today!</span>
-            </li>
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/51Z0k9k0Q-L._AC_.jpg" alt="Poo Espresso Cups" class="product-image">
-                <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')" class="product-link">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a>
-                <span class="product-rating">★★★☆☆ (3/5)</span>
-                <span class="cta-urgent">Limited Stock!</span>
-            </li>
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg" alt="Rubber Chicken Purse" class="product-image">
-                <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')" class="product-link">Rubber Chicken Purse - Cluck in Style at the After-Party</a>
-                <span class="product-rating">★★★★★ (5/5)</span>
-                <span class="cta-urgent">Prank Your Boss Now!</span>
-            </li>
-        </ul>
-    </div>
-
-    <div class="product-section">
-        <h2 class="section-title">🤡 Funny Office Prank Ideas for April Fools</h2>
-        <p class="section-subtitle">Make your coworkers laugh with these prank-ready products!</p>
-        <ul class="product-list">
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/41XyZ0k9k0Q-L._AC_.jpg" alt="Fake Poop" class="product-image">
-                <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')" class="product-link">Fake Poop - Leave It on a Desk for a Scream</a>
-                <span class="product-rating">★★★★☆ (4/5)</span>
-                <span class="cta-urgent">Limited Stock!</span>
-            </li>
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/51XyZ0k9k0Q-L._AC_.jpg" alt="Silly String Shooter" class="product-image">
-                <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')" class="product-link">Silly String Shooter - Spray Chaos in the Break Room</a>
-                <span class="product-rating">★★★☆☆ (3/5)</span>
-                <span class="cta-urgent">Prank Your Momma Today!</span>
-            </li>
-            <li class="product-item">
-                <img src="https://m.media-amazon.com/images/I/61XyZ0k9k0Q-L._AC_.jpg" alt="Giant Googly Eyes" class="product-image">
-                <a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')" class="product-link">Giant Googly Eyes - Stick Them on Office Supplies</a>
-                <span class="product-rating">★★★★★ (5/5)</span>
-                <span class="cta-urgent">Prank Your Boss Now!</span>
-            </li>
-        </ul>
-    </div>
-
-    <div class="reviews-section">
-        <h2 class="section-title">Prankster Reviews</h2>
-        <p class="section-subtitle">See what our pranksters are saying!</p>
-        <div class="reviews-list">
-            {% for review in reviews %}
-                <p class="review-item">"{{ review.text }}" - {{ review.author }} <span class="review-date">April 1, 2025</span></p>
-            {% endfor %}
-            <p class="review-item">"The Fake Poop had my boss screaming—10/10!" - PrankMaster99 <span class="review-date">April 1, 2025</span></p>
-            <p class="review-item">"Fart Whistles at the wedding were a hit!" - GiggleGuru <span class="review-date">March 30, 2025</span></p>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='funny_image_2.jpg') }}" alt="Cyberpunk Shopper Chaos" class="funny-image">
+            <img src="{{ url_for('static', filename='funny_image_4.jpg') }}" alt="Neon Bargain Hunt" class="funny-image">
         </div>
-        <form id="review-form" onsubmit="submitReview(event)">
-            <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
-            <button type="submit" class="btn">Submit Your Prank Story</button>
-        </form>
-    </div>
+        <p class="disclosure trust-badge">As an Amazon Associate, I earn from qualifying purchases. <span>Shop with Confidence!</span></p>
+        <p class="prank-warning">Prank responsibly—or don’t! 😈</p>
+        <p class="prank-microcopy">Warning: May cause uncontrollable giggles!</p>
+        <video class="promo-video" controls>
+            <source src="{{ url_for('static', filename='fart_chicken/EmojiMovie764632741.MOV') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="mystery-product-section">
+            <button class="mystery-button" onclick="revealMysteryProduct()">Daily Mystery Prank Reveal!</button>
+            <div class="mystery-product" id="mysteryProduct" style="display: none;">
+                {% if mystery_product %}
+                    Mystery Prank: <a href="{{ mystery_product.url }}" target="_blank" onclick="trackAffiliateClick('{{ mystery_product.name }} (Mystery)')">{{ mystery_product.name }}</a>
+                {% endif %}
+            </div>
+        </div>
 
-    <div class="email-signup">
-        <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
-        <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE and never miss a laugh!</p>
-        <form action="{{ url_for('subscribe') }}" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit" class="btn">Sign Me Up for the Shenanigans! <span class="cta-urgent">Limited Offer!</span></button>
-        </form>
-        <p style="font-size: 0.75rem; margin-top: 10px;">
-            By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
-        </p>
+        {% if seasonal_highlights %}
+        <div class="product-section" id="seasonal-highlights">
+            <h2 class="section-title">🌟 Seasonal Prank Highlights</h2>
+            <p class="section-subtitle">Perfect picks to prank this season!</p>
+            {% with products=seasonal_highlights %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+        {% endif %}
+
+        <div class="product-section popular-picks" id="popular-picks">
+            <h2 class="section-title">⭐ Top Prank Picks</h2>
+            <p class="section-subtitle">Our best-selling gags for pranksters!</p>
+            <ul class="product-list">
+                {% for product in popular_picks %}
+                <li class="product-item">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                    <div class="product-details">
+                        <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')" class="product-link">{{ product.name }}</a>
+                        <p class="product-description">A hilarious prank to surprise your friends!</p>
+                        <span class="product-rating">★★★★☆ (4/5)</span>
+                    </div>
+                    <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')" class="buy-now-btn">Buy Now!</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="product-section" id="wearable-pranks">
+            <h2 class="section-title">Wearable Pranks</h2>
+            <p class="section-subtitle">Gag gifts you can wear to cause a scene!</p>
+            {% with products=wearable_pranks %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="product-section" id="desk-disasters">
+            <h2 class="section-title">Desk Disasters</h2>
+            <p class="section-subtitle">Pranks to chaos-ify your workspace!</p>
+            {% with products=desk_disasters %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="product-section" id="home-hilarity">
+            <h2 class="section-title">Home Hilarity</h2>
+            <p class="section-subtitle">Gag gifts to turn your home into a prank zone!</p>
+            {% with products=home_hilarity %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+
+        <p class="hacks-prompt" id="all-products">Browse All Gag Gifts Now! <span class="cta-urgent">Limited Stock!</span></p>
+        <p class="prank-microcopy">Prank level: Off the charts!</p>
+        {% with products=all_products %}
+            {% include 'product_list.html' %}
+        {% endwith %}
+
+        <div class="product-section">
+            <h2 class="section-title">🎉 Best Gag Gifts for Weddings</h2>
+            <p class="section-subtitle">Add some humor to the big day with these hilarious picks!</p>
+            <ul class="product-list">
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/41XbQ9k0Q-L._AC_.jpg" alt="Fart Whistles" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')" class="product-link">Fart Whistles - Loads of Fun for the Reception</a>
+                        <p class="product-description">Tiny whistles that mimic hilarious sounds—perfect for wedding chaos!</p>
+                        <span class="product-rating">★★★★☆ (4/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles (Wedding)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/51Z0k9k0Q-L._AC_.jpg" alt="Poo Espresso Cups" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')" class="product-link">Expresso Cups in Poo Colors - A Crappy Gift for a Laugh</a>
+                        <p class="product-description">Cups in funky poo shades for a cheeky coffee break!</p>
+                        <span class="product-rating">★★★☆☆ (3/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors (Wedding)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg" alt="Rubber Chicken Purse" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')" class="product-link">Rubber Chicken Purse - Cluck in Style at the After-Party</a>
+                        <p class="product-description">A quirky purse that squeaks with every move!</p>
+                        <span class="product-rating">★★★★★ (5/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse (Wedding)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="product-section">
+            <h2 class="section-title">🤡 Funny Office Prank Ideas for April Fools</h2>
+            <p class="section-subtitle">Make your coworkers laugh with these prank-ready products!</p>
+            <ul class="product-list">
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/41XyZ0k9k0Q-L._AC_.jpg" alt="Fake Poop" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')" class="product-link">Fake Poop - Leave It on a Desk for a Scream</a>
+                        <p class="product-description">Realistic fake poop to prank your desk mates!</p>
+                        <span class="product-rating">★★★★☆ (4/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop (Office)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/51XyZ0k9k0Q-L._AC_.jpg" alt="Silly String Shooter" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')" class="product-link">Silly String Shooter - Spray Chaos in the Break Room</a>
+                        <p class="product-description">A fun shooter for colorful office mayhem!</p>
+                        <span class="product-rating">★★★☆☆ (3/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter (Office)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+                <li class="product-item">
+                    <img src="https://m.media-amazon.com/images/I/61XyZ0k9k0Q-L._AC_.jpg" alt="Giant Googly Eyes" class="product-image">
+                    <div class="product-details">
+                        <a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')" class="product-link">Giant Googly Eyes - Stick Them on Office Supplies</a>
+                        <p class="product-description">Huge eyes to give office items a funny face!</p>
+                        <span class="product-rating">★★★★★ (5/5)</span>
+                    </div>
+                    <a href="https://amzn.to/4i5b2PL" target="_blank" onclick="trackAffiliateClick('Giant Googly Eyes (Office)')" class="buy-now-btn">Buy Now!</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="reviews-section">
+            <h2 class="section-title">Prankster Reviews</h2>
+            <p class="section-subtitle">See what our pranksters are saying!</p>
+            <div class="reviews-list">
+                {% for review in reviews %}
+                    <p class="review-item">"{{ review.text }}" - {{ review.author }} <span class="review-date">April 1, 2025</span></p>
+                {% endfor %}
+                <p class="review-item">"Fooled my roommate, 10/10!" - John D. <span class="review-date">April 2, 2025</span></p>
+                <p class="review-item">"The Fake Poop was a hit at work!" - Jane S. <span class="review-date">April 1, 2025</span></p>
+                <p class="review-item">"Fart Whistles made my wedding epic!" - Mike R. <span class="review-date">March 31, 2025</span></p>
+            </div>
+            <form id="review-form" onsubmit="submitReview(event)">
+                <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
+                <button type="submit" class="btn">Submit Your Prank Story</button>
+            </form>
+        </div>
+
+        <div class="urgency-section">
+            <h2 class="section-title">⏰ Sale Ends in 24 Hours!</h2>
+            <div id="countdown-timer">Time left: <span id="timer">24:00:00</span></div>
+            <div class="top-pranks-section">
+                <h3 class="section-subtitle">Top 5 Pranks This Week</h3>
+                <ul class="product-list">
+                    <li class="product-item">
+                        <img src="https://m.media-amazon.com/images/I/812mKpP9BUL._AC_SX466_.jpg" alt="Fake Poop" class="product-image top-prank-image">
+                        <div class="product-details">
+                            <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop')" class="product-link">Fake Poop</a>
+                            <p class="product-description">Realistic prank for pools and desks!</p>
+                        </div>
+                        <a href="https://amzn.to/4hEoA4v" target="_blank" onclick="trackAffiliateClick('Fake Poop')" class="buy-now-btn">Buy Now!</a>
+                    </li>
+                    <li class="product-item">
+                        <img src="https://m.media-amazon.com/images/I/81-3DuwlrXL._AC_SX466_.jpg" alt="Silly String Shooter" class="product-image top-prank-image">
+                        <div class="product-details">
+                            <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter')" class="product-link">Silly String Shooter</a>
+                            <p class="product-description">Colorful office chaos!</p>
+                        </div>
+                        <a href="https://amzn.to/4l41QNZ" target="_blank" onclick="trackAffiliateClick('Silly String Shooter')" class="buy-now-btn">Buy Now!</a>
+                    </li>
+                    <li class="product-item">
+                        <img src="https://m.media-amazon.com/images/I/61eiIozbjeL._AC_SY625_.jpg" alt="Rubber Chicken Purse" class="product-image top-prank-image">
+                        <div class="product-details">
+                            <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse')" class="product-link">Rubber Chicken Purse</a>
+                            <p class="product-description">Squeaky wedding fun!</p>
+                        </div>
+                        <a href="https://amzn.to/4hAMdL5" target="_blank" onclick="trackAffiliateClick('Rubber Chicken Purse')" class="buy-now-btn">Buy Now!</a>
+                    </li>
+                    <li class="product-item">
+                        <img src="https://m.media-amazon.com/images/I/51QxdnNilYL.__AC_SX300_SY300_QL70_FMwebp_.jpg" alt="Fart Whistles" class="product-image top-prank-image">
+                        <div class="product-details">
+                            <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles')" class="product-link">Fart Whistles</a>
+                            <p class="product-description">Hilarious wedding pranks!</p>
+                        </div>
+                        <a href="https://amzn.to/4kQ39A7" target="_blank" onclick="trackAffiliateClick('Fart Whistles')" class="buy-now-btn">Buy Now!</a>
+                    </li>
+                    <li class="product-item">
+                        <img src="https://m.media-amazon.com/images/I/71GUx8MpJWL.__AC_SX300_SY300_QL70_FMwebp_.jpg" alt="Poo Espresso Cups" class="product-image top-prank-image">
+                        <div class="product-details">
+                            <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors')" class="product-link">Poo Espresso Cups</a>
+                            <p class="product-description">Cheeky coffee prank!</p>
+                        </div>
+                        <a href="https://amzn.to/4kVaBtW" target="_blank" onclick="trackAffiliateClick('Expresso Cups in Poo Colors')" class="buy-now-btn">Buy Now!</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="email-signup">
+            <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
+            <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE and never miss a laugh!</p>
+            <form action="{{ url_for('subscribe') }}" method="POST">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn">Sign Me Up for the Shenanigans! <span class="cta-urgent">Limited Offer!</span></button>
+            </form>
+            <p style="font-size: 0.75rem; margin-top: 10px;">
+                By signing up, you agree to our <a href="/privacy">Privacy Policy</a> and to receive monthly prank ideas and Amazon product recommendations.
+            </p>
+        </div>
+        <p class="contact-info">Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
     </div>
-    <p>Contact us for issues and suggestions: <a href="mailto:bshoemak@mac.com">bshoemak@mac.com</a></p>
+    <!-- Floating emojis -->
+    <div class="floating-emojis">
+        <span class="emoji">💩</span>
+        <span class="emoji">😂</span>
+        <span class="emoji">🤡</span>
+        <span class="emoji">🎉</span>
+        <span class="emoji">💥</span>
+        <span class="emoji">🐔</span>
+        <span class="emoji">💨</span>
+        <span class="emoji">🤪</span>
+        <span class="emoji">🎈</span>
+        <span class="emoji">🪅</span>
+        <span class="emoji">🐷</span>
+        <span class="emoji">🎃</span>
+        <span class="emoji">🦄</span>
+        <span class="emoji">🍑</span>
+        <span class="emoji">🤓</span>
+    </div>
+    <!-- Prank pop-up -->
+    <div id="prank-popup" class="prank-popup">
+        <p id="prank-suggestion"></p>
+        <button onclick="closePrankPopup()">Close</button>
+    </div>
 {% endblock %}
 
 {% block scripts %}
@@ -183,7 +296,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'Review submitted successfully!') {
-                    const reviewsList = document.getElementById('reviews-list');
+                    const reviewsList = document.querySelector('.reviews-list');
                     reviewsList.innerHTML += `<p class="review-item">"${reviewText}" - Anonymous Prankster <span class="review-date">${new Date().toLocaleDateString()}</span></p>`;
                     document.querySelector('#review-form').reset();
                 } else {
@@ -193,7 +306,133 @@
             .catch(error => console.error('Error submitting review:', error));
         }
 
+        // Countdown timer
+        function startCountdown() {
+            let time = 24 * 60 * 60; // 24 hours in seconds
+            const timerElement = document.getElementById('timer');
+            const countdown = setInterval(() => {
+                if (time <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = '00:00:00';
+                } else {
+                    let hours = Math.floor(time / 3600);
+                    let minutes = Math.floor((time % 3600) / 60);
+                    let seconds = time % 60;
+                    timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    time--;
+                }
+            }, 1000);
+        }
+
+        // Play fart sound on Buy Now click
+        function playFartSound() {
+            const audio = new Audio('https://www.freesoundslibrary.com/wp-content/uploads/2021/04/fart-sound.mp3');
+            audio.play().catch(error => console.error('Error playing fart sound:', error));
+        }
+
+        // Play rubber chicken sound on product image hover
+        function playChickenSound() {
+            const audio = new Audio('https://www.freesoundslibrary.com/wp-content/uploads/2021/04/rubber-chicken-squeak.mp3');
+            audio.play().catch(error => console.error('Error playing chicken sound:', error));
+        }
+
+        // Confetti effect
+        function launchConfetti() {
+            const duration = 5 * 1000; // 5 seconds
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 15, // Increased particle count
+                    angle: 60,
+                    spread: 70, // Wider spread
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 15,
+                    angle: 120,
+                    spread: 70,
+                    origin: { x: 1 }
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Fireworks effect
+        function launchFireworks() {
+            const duration = 5 * 1000; // 5 seconds
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 90,
+                    spread: 360,
+                    startVelocity: 30,
+                    decay: 0.9,
+                    scalar: 1.2,
+                    origin: { x: Math.random(), y: Math.random() - 0.2 }
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Random prank pop-up
+        function showPrankPopup() {
+            const suggestions = [
+                "Drop a whoopee cushion on your boss’s chair!",
+                "Swap your friend’s coffee with deCAF! ☕",
+                "Hide a fart whistle in a quiet meeting! 💨",
+                "Stick googly eyes on their keyboard! 👀",
+                "Gift a rubber chicken purse to your crush! 🐔"
+            ];
+            const suggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+            const popup = document.getElementById('prank-popup');
+            const suggestionElement = document.getElementById('prank-suggestion');
+            suggestionElement.textContent = suggestion;
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 5000);
+        }
+
+        function closePrankPopup() {
+            document.getElementById('prank-popup').style.display = 'none';
+        }
+
+        // Prank-O-Meter animation
+        function animatePrankMeter() {
+            const meterFill = document.querySelector('.meter-fill');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width += 2;
+                    meterFill.style.width = `${width}%`;
+                }
+            }, 50);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            startCountdown();
+            launchConfetti();
+            launchFireworks();
+            animatePrankMeter();
+            document.querySelectorAll('.buy-now-btn').forEach(btn => {
+                btn.addEventListener('click', playFartSound);
+            });
+            document.querySelectorAll('.product-image').forEach(img => {
+                img.addEventListener('mouseover', playChickenSound);
+            });
+            // Show prank pop-up randomly every 10-30 seconds
+            setInterval(() => {
+                if (Math.random() > 0.5) {
+                    showPrankPopup();
+                }
+            }, 15000);
             document.querySelectorAll('.fun-stuff-score').forEach(element => {
                 const productId = element.getAttribute('data-id');
                 const savedScore = localStorage.getItem(`fun-stuff-score-${productId}`);
@@ -203,4 +442,6 @@
             });
         });
     </script>
+    <!-- Include confetti.js -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 {% endblock %}

@@ -20,10 +20,9 @@
 <body>
     <div id="loading-bar"></div>
     <img id="barlito-mascot" src="{{ url_for('static', filename='barlito.jpg') }}" alt="Barlito the Prankster" data-tooltip="Cluck yeah, prank on!" style="display: block;" onerror="console.log('Failed to load Barlito image. Check path: static/barlito.jpg')">
-    <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
-        <h1 style="margin: 0;">Barlito’s Bazaar, Beta Version</h1>
-    </header>
+    <!-- Fallback div for speech bubble -->
+    <div id="barlito-tooltip" class="barlito-tooltip" style="display: none;"></div>
+    {% block header %}{% endblock %}
     <nav>
         <a href="#popular-picks">Popular Picks</a> |
         <a href="#wearable-pranks">Wearable Pranks</a> |
@@ -76,39 +75,75 @@
             }
         };
 
+        // Preload fart sound to reduce latency
+        const fartSound = new Audio('https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3');
+        fartSound.preload = 'auto';
+
         // Enhanced Barlito interactivity with cheeky comments
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOMContentLoaded event fired');
-            const barlitoTips = [
-                "Oi, drop some Fake Poop and watch ‘em squirm!",
-                "Screaming Goat Button? More like scream-and-run, mate!",
-                "Shock Pen’s my fave—zap ‘em when they least expect it!",
-                "Burrito Blanket: Wrap up and fart in style, yeah?",
-                "Fart Whistles at a wedding? You’re a legend!",
-                "Stick Giant Googly Eyes on their chair—freak ‘em out!"
-            ];
-            const barlitoMascot = document.getElementById('barlito-mascot');
-            console.log('Barlito script running:', barlitoMascot);
-            if (barlitoMascot) {
-                barlitoMascot.style.display = 'block';
-                barlitoMascot.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Click event triggered on Barlito');
-                    const randomTip = barlitoTips[Math.floor(Math.random() * barlitoTips.length)];
-                    console.log('Barlito clicked, new tip:', randomTip);
-                    barlitoMascot.setAttribute('data-tooltip', randomTip);
-                    barlitoMascot.classList.add('show-tooltip');
-                    console.log('Tooltip class added:', barlitoMascot.classList.contains('show-tooltip'));
-                    setTimeout(() => {
-                        barlitoMascot.classList.remove('show-tooltip');
-                        console.log('Tooltip class removed');
-                    }, 3000);
-                }, { passive: true }); // Add passive option to improve performance
-            } else {
-                console.error('Barlito mascot element not found!');
-            }
-        });
+        (function() {
+            console.log('Barlito script initializing...');
+            const initBarlito = () => {
+                console.log('DOMContentLoaded event fired');
+                const barlitoTips = [
+                    "Oi, drop some Fake Poop and watch ‘em squirm!",
+                    "Screaming Goat Button? More like scream-and-run, mate!",
+                    "Shock Pen’s my fave—zap ‘em when they least expect it!",
+                    "Burrito Blanket: Wrap up and fart in style, yeah?",
+                    "Fart Whistles at a wedding? You’re a legend!",
+                    "Stick Giant Googly Eyes on their chair—freak ‘em out!"
+                ];
+                const barlitoMascot = document.getElementById('barlito-mascot');
+                const tooltipFallback = document.getElementById('barlito-tooltip');
+                console.log('Barlito script running:', barlitoMascot);
+                if (barlitoMascot && tooltipFallback) {
+                    barlitoMascot.style.display = 'block';
+                    const handleInteraction = (e) => {
+                        console.log('Interaction event triggered on Barlito:', e.type);
+                        console.log('Browser:', navigator.userAgent);
+                        // Play fart sound when Barlito is clicked
+                        console.log('Attempting to play fart sound for Barlito click');
+                        fartSound.play().then(() => {
+                            console.log('Fart sound played successfully for Barlito');
+                        }).catch(error => {
+                            console.error('Error playing fart sound for Barlito:', error);
+                        });
+                        const randomTip = barlitoTips[Math.floor(Math.random() * barlitoTips.length)];
+                        console.log('Barlito clicked, new tip:', randomTip);
+                        barlitoMascot.setAttribute('data-tooltip', randomTip);
+                        tooltipFallback.textContent = randomTip;
+                        const mascotRect = barlitoMascot.getBoundingClientRect();
+                        const isMobile = window.innerWidth <= 600;
+                        const offset = isMobile ? 30 : 10;
+                        tooltipFallback.style.bottom = `${window.innerHeight - mascotRect.top + offset}px`;
+                        tooltipFallback.style.right = `${window.innerWidth - mascotRect.right + 10}px`;
+                        barlitoMascot.classList.add('show-tooltip');
+                        tooltipFallback.classList.add('show-tooltip');
+                        console.log('Tooltip position:', tooltipFallback.getBoundingClientRect());
+                        setTimeout(() => {
+                            barlitoMascot.classList.remove('show-tooltip');
+                            tooltipFallback.classList.remove('show-tooltip');
+                            console.log('Tooltip class removed');
+                        }, 5000);
+                    };
+                    barlitoMascot.addEventListener('click', handleInteraction);
+                    barlitoMascot.addEventListener('mousedown', handleInteraction);
+                    barlitoMascot.addEventListener('touchstart', handleInteraction);
+                } else {
+                    console.error('Barlito mascot or tooltip fallback element not found!');
+                }
+            };
+
+            // Try DOMContentLoaded first
+            document.addEventListener('DOMContentLoaded', initBarlito);
+
+            // Fallback: Run after a short delay if DOMContentLoaded doesn't fire
+            setTimeout(() => {
+                if (!document.getElementById('barlito-mascot')?.classList?.contains('show-tooltip')) {
+                    console.log('Fallback: Running Barlito script after delay');
+                    initBarlito();
+                }
+            }, 2000);
+        })();
     </script>
     {% block scripts %}{% endblock %}
 </body>
