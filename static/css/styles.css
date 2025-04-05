@@ -57,11 +57,29 @@ i.fas.fa-envelope:before {
     color: #ff9900;
 }
 
-.share-buttons {
+.share-button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Adjusted for text */
+    min-width: 60px; /* Wider for text */
+    font-size: 1rem; /* Slightly smaller for text */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
     display: flex;
-    gap: 5px;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    gap: 5px; /* Space between icon and text */
+}
+
+.share-button i {
+    color: white !important;
+    font-size: 1rem !important; /* Match text size */
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+
 }
 
 /* General button styles */
