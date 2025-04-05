@@ -3,6 +3,32 @@
 @import url('sections.css');
 @import url('barlito.css');
 
+/* Ensure Font Awesome icons render globally */
+i.fas {
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+    display: inline-block !important;
+    color: inherit !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Specific icon content for share buttons */
+i.fas.fa-twitter:before {
+    content: "\f099" !important;
+}
+i.fas.fa-facebook-f:before {
+    content: "\f39e" !important;
+}
+i.fas.fa-whatsapp:before {
+    content: "\f232" !important;
+}
+i.fas.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+
 /* Styles for giggle score separation and share buttons */
 .product-info {
     margin-bottom: 10px;
@@ -31,13 +57,14 @@
     color: #ff9900;
 }
 
-.action-buttons {
+.share-buttons {
     display: flex;
-    gap: 5px; /* Reduced gap for more buttons */
+    gap: 5px;
     justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping if needed */
+    flex-wrap: wrap;
 }
 
+/* General button styles */
 .btn {
     background-color: #ff9900;
     color: white;
@@ -47,10 +74,12 @@
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
 .btn:hover {
     background-color: #ff6600;
+    transform: scale(1.05);
 }
 
 .buy-now-btn {
@@ -61,19 +90,36 @@
     background-color: #218838;
 }
 
-.share-btn {
-    padding: 8px; /* Smaller padding for icon-only buttons */
-    min-width: 40px; /* Ensure buttons are uniform */
+/* Share button styles */
+.share-button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px;
+    min-width: 40px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem; /* Ensure icons are visible */
 }
 
-.share-btn i {
-    color: white; /* Ensure icons are white */
+.share-button:hover {
+    background-color: #138496;
+    transform: scale(1.05);
 }
 
+.share-button i {
+    color: white !important;
+    font-size: 1.2rem !important;
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+}
+
+/* Platform-specific overrides */
 .share-twitter {
     background-color: #1DA1F2;
 }
@@ -132,7 +178,7 @@
     .hacks-list img {
         width: 160px;
     }
-    .hacks-list .btn, .buy-now-btn, .share-btn {
+    .hacks-list .btn, .buy-now-btn, .share-button {
         font-size: 1rem;
         padding: 8px 12px;
     }
@@ -221,11 +267,11 @@
         flex-direction: column;
         gap: 5px;
     }
-    .action-buttons {
+    .share-buttons {
         flex-direction: column;
         gap: 5px;
     }
-    .share-btn {
+    .share-button {
         padding: 8px;
         min-width: 40px;
     }

@@ -9,12 +9,12 @@
                 <button class="btn giggle-btn" onclick="giggleVote('{{ product.id }}')">Giggle This!</button>
             </div>
         </div>
-        <div class="action-buttons">
+        <div class="share-buttons">
             <button class="buy-now-btn" onclick="window.open('{{ product.url }}', '_blank')">Buy Now</button>
-            <a href="https://twitter.com/intent/tweet?text=Check%20out%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium!&url={{ product.url }}" target="_blank" class="btn share-btn share-twitter" title="Share on Twitter"><i class="fas fa-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ product.url }}" target="_blank" class="btn share-btn share-facebook" title="Share on Facebook"><i class="fas fa-facebook-f"></i></a>
-            <a href="https://api.whatsapp.com/send?text=Check%20out%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium!%20{{ product.url }}" target="_blank" class="btn share-btn share-whatsapp" title="Share on WhatsApp"><i class="fas fa-whatsapp"></i></a>
-            <a href="mailto:?subject=Check%20out%20this%20prank!&body=I%20found%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium:%20{{ product.url }}" class="btn share-btn share-email" title="Share via Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://twitter.com/intent/tweet?text=Check%20out%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium!&url={{ product.url }}" target="_blank" class="share-button share-twitter" title="Share on Twitter"><i class="fas fa-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ product.url }}" target="_blank" class="share-button share-facebook" title="Share on Facebook"><i class="fas fa-facebook-f"></i></a>
+            <a href="https://api.whatsapp.com/send?text=Check%20out%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium!%20{{ product.url }}" target="_blank" class="share-button share-whatsapp" title="Share on WhatsApp"><i class="fas fa-whatsapp"></i></a>
+            <a href="mailto:?subject=Check%20out%20this%20prank!&body=I%20found%20{{ product.name }}%20at%20Barlito’s%20Prank%20Emporium:%20{{ product.url }}" class="share-button share-email" title="Share via Email"><i class="fas fa-envelope"></i></a>
         </div>
     </li>
     {% endfor %}
