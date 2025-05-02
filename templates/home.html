@@ -1,38 +1,20 @@
 {% extends "base.html" %}
 {% block header %}
     <header class="prank-header">
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
         <h1>Barlito’s Prank Emporium</h1>
         <nav class="sticky-nav">
             <a href="/">Home</a>
             <a href="/shop">Shop All</a>
             <a href="/reviews">Reviews</a>
+            <a href="/about">About</a>
             <a href="/subscribe">Subscribe</a>
         </nav>
     </header>
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="prank-o-meter">
-            <h3>Prank-O-Meter: <span id="prank-level">Off the Charts!</span></h3>
-            <div class="meter-bar">
-                <div class="meter-fill"></div>
-            </div>
-        </div>
         <p class="disclosure trust-badge">As an Amazon Associate, I earn from qualifying purchases. <span>Shop with Confidence!</span></p>
-        <p class="prank-warning">Prank responsibly—or don’t! 😈</p>
-
-        <div class="email-signup">
-            <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
-            <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE!</p>
-            <form id="subscribe-form" action="{{ url_for('subscribe') }}" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn">Sign Me Up! <span class="cta-urgent">Limited Offer!</span></button>
-            </form>
-            <p style="font-size: 0.75rem; margin-top: 10px;">
-                By signing up, you agree to our <a href="/privacy">Privacy Policy</a>.
-            </p>
-        </div>
 
         {% if seasonal_highlights %}
         <div class="product-section" id="seasonal-highlights">
@@ -61,6 +43,22 @@
         </div>
 
         <a href="/shop" class="btn shop-all">Browse All Products</a>
+
+        <div class="prank-tip">
+            <p id="prank-tip-text">Prank Tip: Hide a fart whistle in their chair!</p>
+        </div>
+
+        <div class="email-signup">
+            <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
+            <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE!</p>
+            <form id="subscribe-form" action="{{ url_for('subscribe') }}" method="POST">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn">Sign Me Up! <span class="cta-urgent">Limited Offer!</span></button>
+            </form>
+            <p style="font-size: 0.75rem; margin-top: 10px;">
+                By signing up, you agree to our <a href="/privacy">Privacy Policy</a>.
+            </p>
+        </div>
 
         <!-- Floating emojis -->
         <div class="floating-emojis">
@@ -113,10 +111,11 @@
             .catch(error => console.error('Error subscribing:', error));
         }
 
-        // Play fart sound on Buy Now click
+        // Play fart sound and trigger confetti on Buy Now click
         function playFartSound() {
             const audio = new Audio('https://www.freesoundslibrary.com/wp-content/uploads/2021/04/fart-sound.mp3');
             audio.play().catch(error => console.error('Error playing fart sound:', error));
+            launchConfetti();
         }
 
         // Play rubber chicken sound on product image hover
@@ -127,7 +126,7 @@
 
         // Confetti effect
         function launchConfetti() {
-            const duration = 5 * 1000;
+            const duration = 3 * 1000;
             const end = Date.now() + duration;
             (function frame() {
                 confetti({
@@ -148,23 +147,26 @@
             })();
         }
 
-        // Prank-O-Meter animation
-        function animatePrankMeter() {
-            const meterFill = document.querySelector('.meter-fill');
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                } else {
-                    width += 2;
-                    meterFill.style.width = `${width}%`;
-                }
-            }, 50);
+        // Rotate prank tips
+        function rotatePrankTips() {
+            const tips = [
+                "Hide a fart whistle in their chair!",
+                "Stick googly eyes on their coffee mug!",
+                "Swap their pen with a shock pen!",
+                "Gift a rubber chicken purse for laughs!",
+                "Drop fake poop in their shoe!"
+            ];
+            const tipElement = document.getElementById('prank-tip-text');
+            let index = 0;
+            setInterval(() => {
+                tipElement.textContent = `Prank Tip: ${tips[index]}`;
+                index = (index + 1) % tips.length;
+            }, 5000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             launchConfetti();
-            animatePrankMeter();
+            rotatePrankTips();
             document.querySelectorAll('.buy-now-btn').forEach(btn => {
                 btn.addEventListener('click', playFartSound);
             });

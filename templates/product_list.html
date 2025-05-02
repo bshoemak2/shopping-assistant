@@ -1,9 +1,10 @@
 <ul class="hacks-list">
     {% for product in products %}
     <li id="{{ product.category_id }}">
-        <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+        <img src="{{ product.image }}" alt="{{ product.name }} prank gift" class="product-image" loading="lazy">
         <div class="product-info">
             <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+            <p class="product-description">{{ product.tagline }}</p>
             <div class="giggle-section">
                 <span class="giggle-score" data-id="{{ product.id }}">Giggle Score: <span id="giggle-{{ product.id }}">{{ giggle_scores.get(product.id, 0) }}</span></span>
                 <button class="btn giggle-btn" onclick="giggleVote('{{ product.id }}')">Giggle This!</button>

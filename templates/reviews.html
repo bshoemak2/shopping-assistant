@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block header %}
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
+        <h1>Prankster Reviews</h1>
+        <nav class="sticky-nav">
+            <a href="/">Home</a>
+            <a href="/shop">Shop All</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/about">About</a>
+            <a href="/subscribe">Subscribe</a>
+        </nav>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="reviews-section">
+            <h2 class="section-title">Prankster Reviews</h2>
+            <p class="section-subtitle">See what our pranksters are saying!</p>
+            <div class="reviews-list">
+                {% for review in reviews %}
+                    <p class="review-item">"{{ review.text }}" - {{ review.author }} <span class="review-date">{{ review.date or 'May 2025' }}</span></p>
+                {% endfor %}
+            </div>
+            <form id="review-form" onsubmit="submitReview(event)">
+                <textarea name="review" placeholder="Tell us how your prank went!" required></textarea>
+                <button type="submit" class="btn">Submit Your Prank Story</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function submitReview(event) {
+            event.preventDefault();
+            const reviewText = document.querySelector('#review-form textarea').value;
+            fetch('/submit_review', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: reviewText, author: 'Anonymous Prankster' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Review submitted successfully!') {
+                    const reviewsList = document.querySelector('.reviews-list');
+                    reviewsList.innerHTML += `<p class="review-item">"${reviewText}" - Anonymous Prankster <span class="review-date">${new Date().toLocaleDateString()}</span></p>`;
+                    document.querySelector('#review-form').reset();
+                } else {
+                    alert('Failed to submit review: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error submitting review:', error));
+        }
+    </script>
+{% endblock %}

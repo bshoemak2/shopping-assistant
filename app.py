@@ -66,13 +66,61 @@ products = [
     {"name": "Fart Spray - Stink Up the Room", "url": "https://amzn.to/4hQyAr9", "image": "https://m.media-amazon.com/images/I/91l3YStar6L._AC_SY355_.jpg", "id": "fart-spray", "score": 8, "category_id": "all-products"},
 ]
 
+product_taglines = {
+    "rubber-chicken-purse": "Cluck your way to style!",
+    "skeleton-onesie": "Glow spooky, sleep cozy!",
+    "burrito-blanket": "Wrap up in taco-tastic glory!",
+    "screaming-goat-button": "Baa-ffle your coworkers!",
+    "inflatable-tube-man": "Wave away the boring desk vibes!",
+    "fake-poop": "For when you want to stink up their day!",
+    "toilet-bowl-night-light": "Light up your late-night potty trips!",
+    "zombie-garden-gnome": "Creep out your lawn in style!",
+    "cat-butt-magnets": "Stick some cheeky charm on your fridge!",
+    "wooden-clothes-pins": "Pinch chips or bad vibes!",
+    "fart-whistles": "Toot your way to laughs!",
+    "bear-claw-pencils": "Write with grizzly flair!",
+    "expresso-cups": "Sip from poo-colored perfection!",
+    "unicorn-meat": "Mythical munchies for emergencies!",
+    "bacon-bandages": "Heal with the power of pork!",
+    "bird-feeder": "Feed ‘em upside-down for giggles!",
+    "mini-disco-ball": "Party vibes, desk-sized!",
+    "dinosaur-taco-holder": "Chomp tacos like a T-Rex!",
+    "singing-pasta-timer": "Cook pasta with a serenade!",
+    "toaster-grilled-cheese-bags": "Say goodbye to burnt bread!",
+    "unicorn-pool-float": "Float like a magical beast!",
+    "giant-googly-eyes": "Stick ‘em anywhere for instant chaos!",
+    "inflatable-turkey": "Gobble up the Thanksgiving laughs!",
+    "singing-fish-plaque": "Your wall’s new karaoke star!",
+    "potato-chip-grabber": "Keep your fingers chip-free!",
+    "finger-hands": "Tiny hands, big laughs!",
+    "banana-phone": "Make calls with fruity flair!",
+    "squishy-stress-poop": "Squeeze away your worries!",
+    "storm-pooper-decal": "May the farce be with you!",
+    "silly-string-shooter": "Spray chaos everywhere!",
+    "prank-pregnancy-test": "Shock ‘em with a positive surprise!",
+    "invisible-ink-pen": "Write secrets that vanish!",
+    "shock-pen": "Zap ‘em with every click!",
+    "prank-spider": "Scare ‘em silly with a fake tarantula!",
+    "exploding-golf-balls": "Tee off with a bang!",
+    "fake-parking-ticket": "Fool ‘em with a fake fine!",
+    "squirting-flower-lapel": "Classic clown prank, water style!",
+    "itching-powder": "Sneaky scratch for sneaky laughs!",
+    "fake-lottery-tickets": "Win big... not really!",
+    "prank-hand-buzzer": "Shock ‘em with a handshake!",
+    "disappearing-ink": "Spill it, watch it vanish!",
+    "fake-cockroach": "Scream-worthy bug for pranks!",
+    "banana-bandages": "Heal with a fruity flair!",
+    "pineapple-bandages": "Tropical healing fun!",
+    "fart-spray": "Stink up the room in style!"
+}
+
 def init_db():
     conn = None
     try:
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
         c.execute('CREATE TABLE IF NOT EXISTS giggle_scores (product_id TEXT UNIQUE, score INTEGER)')
-        c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
+        c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT, date TEXT)')
         c.execute('CREATE TABLE IF NOT EXISTS subscribers (email TEXT UNIQUE)')
         conn.commit()
         logger.info("Database initialized successfully")
@@ -81,6 +129,9 @@ def init_db():
     finally:
         if conn:
             conn.close()
+
+def add_taglines(product_list):
+    return [{**p, 'tagline': product_taglines.get(p['id'], 'Get ready to prank!')} for p in product_list]
 
 @app.route('/')
 def home():
@@ -105,8 +156,8 @@ def home():
         c.execute('SELECT product_id, score FROM giggle_scores')
         giggle_scores = dict(c.fetchall())
         logger.debug(f"Loaded giggle_scores: {giggle_scores}")
-        c.execute('SELECT text, author FROM reviews')
-        reviews = [{'text': row[0], 'author': row[1]} for row in c.fetchall()]
+        c.execute('SELECT text, author, date FROM reviews')
+        reviews = [{'text': row[0], 'author': row[1], 'date': row[2]} for row in c.fetchall()]
         logger.debug(f"Loaded {len(reviews)} reviews")
     except Exception as e:
         logger.error(f"Database error in home(): {e}", exc_info=True)
@@ -117,9 +168,9 @@ def home():
 
     logger.debug(f"Rendering template with giggle_scores: {giggle_scores}")
     return render_template('home.html',
-                           seasonal_highlights=seasonal_highlights,
-                           top_picks=top_picks,
-                           fan_favorites=fan_favorites,
+                           seasonal_highlights=add_taglines(seasonal_highlights),
+                           top_picks=add_taglines(top_picks),
+                           fan_favorites=add_taglines(fan_favorites),
                            reviews=reviews,
                            giggle_scores=giggle_scores)
 
@@ -142,7 +193,63 @@ def shop():
         if conn:
             conn.close()
 
-    return render_template('shop.html', all_products=filtered_products, giggle_scores=giggle_scores)
+    return render_template('shop.html', all_products=add_taglines(filtered_products), giggle_scores=giggle_scores)
+
+@app.route('/reviews')
+def reviews():
+    reviews = []
+    conn = None
+    try:
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute('SELECT text, author, date FROM reviews')
+        reviews = [{'text': row[0], 'author': row[1], 'date': row[2]} for row in c.fetchall()]
+    except Exception as e:
+        logger.error(f"Database error in reviews(): {e}", exc_info=True)
+    finally:
+        if conn:
+            conn.close()
+    return render_template('reviews.html', reviews=reviews)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/subscribe')
+def subscribe_page():
+    return render_template('subscribe.html')
+
+@app.route('/subscribe', methods=['POST'])
+def subscribe():
+    email = request.form.get('email')
+    if not email:
+        logger.error("No email provided")
+        return jsonify({'message': 'Email required!'}), 400
+    
+    conn = None
+    try:
+        logger.debug(f"Subscribing email: {email}")
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute('INSERT INTO subscribers (email) VALUES (?)', (email,))
+        conn.commit()
+        success_html = """
+        <div style="background-color: #e6ffe6; padding: 15px; border-radius: 5px; text-align: center;">
+            <h3 style="color: #28a745; margin: 0;">🎉 You’re In on the Prank Party!</h3>
+            <p style="color: #333;">Welcome, <strong>{email}</strong>! Get ready for some epic shenanigans.</p>
+            <a href="/" style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Back to Home</a>
+        </div>
+        """.format(email=email)
+        return success_html, 200
+    except sqlite3.IntegrityError:
+        logger.warning(f"Email already subscribed: {email}")
+        return jsonify({'message': 'Email already subscribed!'}), 400
+    except Exception as e:
+        logger.error(f"Error in subscribe: {e}", exc_info=True)
+        return jsonify({'message': 'Database error occurred!'}), 500
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/giggle_vote', methods=['POST'])
 def giggle_vote():
@@ -208,6 +315,7 @@ def submit_review():
     data = request.get_json()
     review_text = data.get('text')
     author = data.get('author', 'Anonymous Prankster')
+    date = time.strftime('%Y-%m-%d')
     if not review_text:
         logger.error("No review text provided")
         return jsonify({'message': 'Review text required!'}), 400
@@ -217,43 +325,11 @@ def submit_review():
         logger.debug(f"Submitting review: {review_text} by {author}")
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
-        c.execute('INSERT INTO reviews (text, author) VALUES (?, ?)', (review_text, author))
+        c.execute('INSERT INTO reviews (text, author, date) VALUES (?, ?, ?)', (review_text, author, date))
         conn.commit()
         return jsonify({'message': 'Review submitted successfully!'}), 200
     except Exception as e:
         logger.error(f"Error in submit_review: {e}", exc_info=True)
-        return jsonify({'message': 'Database error occurred!'}), 500
-    finally:
-        if conn:
-            conn.close()
-
-@app.route('/subscribe', methods=['POST'])
-def subscribe():
-    email = request.form.get('email')
-    if not email:
-        logger.error("No email provided")
-        return jsonify({'message': 'Email required!'}), 400
-    
-    conn = None
-    try:
-        logger.debug(f"Subscribing email: {email}")
-        conn = sqlite3.connect('subscribers.db')
-        c = conn.cursor()
-        c.execute('INSERT INTO subscribers (email) VALUES (?)', (email,))
-        conn.commit()
-        success_html = """
-        <div style="background-color: #e6ffe6; padding: 15px; border-radius: 5px; text-align: center;">
-            <h3 style="color: #28a745; margin: 0;">🎉 You’re In on the Prank Party!</h3>
-            <p style="color: #333;">Welcome, <strong>{email}</strong>! Get ready for some epic shenanigans.</p>
-            <a href="/" style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Back to Home</a>
-        </div>
-        """.format(email=email)
-        return success_html, 200
-    except sqlite3.IntegrityError:
-        logger.warning(f"Email already subscribed: {email}")
-        return jsonify({'message': 'Email already subscribed!'}), 400
-    except Exception as e:
-        logger.error(f"Error in subscribe: {e}", exc_info=True)
         return jsonify({'message': 'Database error occurred!'}), 500
     finally:
         if conn:

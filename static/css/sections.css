@@ -29,7 +29,7 @@
     filter: drop-shadow(0 0 10px #FF00FF);
 }
 .prank-header h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin: 0;
     text-transform: uppercase;
@@ -134,10 +134,12 @@ h1 {
     background: rgba(0, 0, 0, 0.6);
     padding: 1rem;
     border: 2px dashed #00FF00;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .hacks-list li:hover {
     background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #FF00FF;
 }
 .hacks-list img {
     width: 200px;
@@ -186,127 +188,20 @@ h1 {
     display: block;
     margin-top: 0.3rem;
 }
-.prank-warning {
-    font-size: 1.2rem;
-    color: #FFFF00;
-    margin: 0.5rem 0;
-    font-weight: bold;
-    background: rgba(255, 0, 0, 0.5);
-    padding: 0.5rem;
-    border: 2px dashed #FF00FF;
-    border-radius: 5px;
-    text-shadow: 0 0 5px #00FF00;
-    text-align: center;
-    animation: shake 1s infinite;
-}
-.prank-microcopy {
-    font-size: 1.1rem;
-    color: #FF00FF;
-    margin: 0.5rem 0;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 0.5rem;
-    border: 2px solid #FFFF00;
-    border-radius: 5px;
-    text-shadow: 0 0 5px #00FF00;
-    text-align: center;
-}
-.prank-o-meter {
+.prank-tip {
     margin: 1rem 0;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid #FF00FF;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
 }
-.prank-o-meter h3 {
+.prank-tip p {
     color: #FFFF00;
     font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 5px #00FF00;
-}
-.prank-o-meter #prank-level {
-    color: #FF00FF;
-}
-.meter-bar {
-    width: 100%;
-    height: 15px;
-    background: #333;
-    border-radius: 5px;
-    overflow: hidden;
-}
-.meter-fill {
-    width: 0;
-    height: 100%;
-    background: linear-gradient(to right, #FF0000, #FFFF00, #00FF00);
-    transition: width 2s ease;
-}
-.prank-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    padding: 1rem;
-    border: 2px solid #FFFF00;
-    border-radius: 5px;
-    z-index: 2000;
-    display: none;
-    text-align: center;
-}
-.prank-popup p {
-    color: #FF00FF;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 5px #00FF00;
-}
-.prank-popup button {
-    background: #00FF00;
-    color: #FF00FF;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-weight: bold;
-}
-.prank-popup button:hover {
-    background: #FFFF00;
-    color: #FF0000;
-}
-.fun-stuff-score {
-    font-size: 1.1rem;
-    color: #FF00FF;
-    margin-left: 0.5rem;
-    font-weight: bold;
-    text-shadow: 0 0 3px #FFFF00;
-}
-.vote-buttons {
-    display: inline-block;
-    margin-left: 0.5rem;
-}
-.promo-video {
-    width: 100%;
-    max-width: 500px;
-    margin: 1rem auto;
-    border: 2px solid #00FF00;
-    box-shadow: 0 0 10px #FF00FF;
-    transition: transform 0.3s ease;
-}
-.promo-video:hover {
-    transform: scale(1.05);
-}
-.mystery-product-section {
-    margin: 1rem 0;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #FF00FF;
-}
-.mystery-product {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    color: #FFFF00;
-    text-shadow: 0 0 5px #FF00FF;
+    text-shadow: 0 0 5px #00FF00;
+    animation: blink 2s infinite;
 }
 .email-signup {
     background: rgba(0, 0, 0, 0.8);
@@ -541,4 +436,8 @@ h1 {
 }
 @keyframes blink {
     50% { opacity: 0.5; }
+}
+@media (max-width: 600px) {
+    .prank-header h1 { font-size: 2rem; }
+    .emoji { font-size: 1.2rem; }
 }

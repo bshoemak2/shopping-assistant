@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block header %}
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
+        <h1>Join the Prank Party</h1>
+        <nav class="sticky-nav">
+            <a href="/">Home</a>
+            <a href="/shop">Shop All</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/about">About</a>
+            <a href="/subscribe">Subscribe</a>
+        </nav>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="email-signup">
+            <h2 class="section-title">JOIN THE PRANK PARTY! 🎉</h2>
+            <p class="section-subtitle">Get 'The Ultimate Prank Cheat Sheet' for FREE and monthly prank ideas!</p>
+            <p class="prank-microcopy">Sign up to unleash epic shenanigans!</p>
+            <form id="subscribe-form" action="{{ url_for('subscribe') }}" method="POST">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn">Sign Me Up! <span class="cta-urgent">Limited Offer!</span></button>
+            </form>
+            <p style="font-size: 0.75rem; margin-top: 10px;">
+                By signing up, you agree to our <a href="/privacy">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        function handleSubscribe(event) {
+            event.preventDefault();
+            const form = document.getElementById('subscribe-form');
+            fetch('/subscribe', {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.querySelector('.email-signup').innerHTML = html;
+            })
+            .catch(error => console.error('Error subscribing:', error));
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('subscribe-form').addEventListener('submit', handleSubscribe);
+        });
+    </script>
+{% endblock %}
