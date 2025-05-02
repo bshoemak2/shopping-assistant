@@ -1,8 +1,8 @@
 #barlito-mascot {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 300px;
+    bottom: 15px;
+    right: 15px;
+    width: 150px;
     display: block !important;
     z-index: 20000;
     filter: drop-shadow(0 0 10px #00FF00) drop-shadow(0 0 15px #FF00FF);
@@ -15,11 +15,11 @@
 #barlito-mascot::before {
     content: "Barlito";
     position: absolute;
-    bottom: -40px;
+    bottom: -30px;
     right: 50%;
     transform: translateX(50%);
     color: #FFD700;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-shadow: 0 0 3px #000000;
     background: rgba(0, 0, 0, 0.7);
@@ -30,18 +30,17 @@
 #barlito-mascot::after {
     content: attr(data-tooltip);
     position: fixed;
-    width: 220px;
-    padding: 10px;
+    width: 150px;
+    padding: 8px;
     background: rgba(0, 0, 0, 0.9);
     color: #FFD700;
     border: 2px solid #00FF00;
     border-radius: 10px;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     text-align: center;
     text-shadow: 0 0 3px #000000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
     z-index: 20001;
 }
 #barlito-mascot.show-tooltip::after {
@@ -50,13 +49,13 @@
 }
 .barlito-tooltip {
     position: fixed;
-    width: 220px;
-    padding: 10px;
+    width: 150px;
+    padding: 8px;
     background: rgba(0, 0, 0, 0.9);
     color: #FFD700;
     border: 2px solid #00FF00;
     border-radius: 10px;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     text-align: center;
     text-shadow: 0 0 3px #000000;
     display: none;
@@ -67,20 +66,20 @@
 }
 @media (max-width: 600px) {
     #barlito-mascot {
-        width: 250px;
-        bottom: 20px;
-        right: 20px;
+        width: 100px;
+        bottom: 10px;
+        right: 10px;
     }
     #barlito-mascot::after {
-        width: 180px;
-        font-size: 1.4rem;
+        width: 120px;
+        font-size: 1rem;
     }
     #barlito-mascot::before {
-        font-size: 1.4rem;
-        bottom: -35px;
+        font-size: 1rem;
+        bottom: -25px;
     }
     .barlito-tooltip {
-        width: 180px;
-        font-size: 1.4rem;
+        width: 120px;
+        font-size: 1rem;
     }
 }

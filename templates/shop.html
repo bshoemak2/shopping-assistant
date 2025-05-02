@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block header %}
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
+        <h1>Shop All Pranks</h1>
+        <nav class="sticky-nav">
+            <a href="/">Home</a>
+            <a href="/shop">Shop All</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/subscribe">Subscribe</a>
+        </nav>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="section-title">Browse All Gag Gifts</h2>
+        <form method="POST" class="search-form">
+            <input type="text" name="query" placeholder="Search products..." value="{{ request.form.get('query', '') }}">
+            <select name="category">
+                <option value="">All Categories</option>
+                <option value="wearable-pranks" {% if request.form.get('category') == 'wearable-pranks' %}selected{% endif %}>Wearable Pranks</option>
+                <option value="desk-disasters" {% if request.form.get('category') == 'desk-disasters' %}selected{% endif %}>Desk Disasters</option>
+                <option value="home-hilarity" {% if request.form.get('category') == 'home-hilarity' %}selected{% endif %}>Home Hilarity</option>
+                <option value="all-products" {% if request.form.get('category') == 'all-products' %}selected{% endif %}>All Products</option>
+            </select>
+            <button type="submit" class="btn">Search</button>
+        </form>
+        <div class="product-section">
+            {% with products=all_products %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}

@@ -73,7 +73,6 @@ def init_db():
         c = conn.cursor()
         c.execute('CREATE TABLE IF NOT EXISTS giggle_scores (product_id TEXT UNIQUE, score INTEGER)')
         c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
-        c.execute('CREATE TABLE IF NOT EXISTS mystery_reveals (date TEXT, product_id TEXT)')
         c.execute('CREATE TABLE IF NOT EXISTS subscribers (email TEXT UNIQUE)')
         conn.commit()
         logger.info("Database initialized successfully")
@@ -90,52 +89,25 @@ def home():
     current_month = time.localtime().tm_mon
     seasonal_map = {4: "april-fools", 10: "halloween", 11: "thanksgiving"}
     current_season = seasonal_map.get(current_month, None)
-    seasonal_highlights = [p for p in products if p.get('seasonal') == current_season] if current_season else []
+    seasonal_highlights = [p for p in products if p.get('seasonal') == current_season][:3] if current_season else []
 
-    wearable_pranks = [p for p in products if p['category_id'] == 'wearable-pranks']
-    desk_disasters = [p for p in products if p['category_id'] == 'desk-disasters']
-    home_hilarity = [p for p in products if p['category_id'] == 'home-hilarity']
-    all_products = products
-    popular_picks = [p for p in products if p['id'] in ['bacon-bandages', 'banana-bandages', 'pineapple-bandages']]
-    wedding_gifts = [p for p in products if p['id'] in ['fart-whistles', 'expresso-cups', 'rubber-chicken-purse']]
-    office_pranks = [p for p in products if p['id'] in ['fake-poop', 'silly-string-shooter', 'giant-googly-eyes']]
+    top_picks = sorted(products, key=lambda x: x['score'], reverse=True)[:5]
+    fan_favorites = [p for p in products if p['id'] in ['unicorn-meat', 'burrito-blanket', 'screaming-goat-button']]
 
     giggle_scores = {}
     reviews = []
-    mystery_product = random.choice(products)  # Default fallback
 
     conn = None
     try:
         logger.debug("Connecting to database")
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
-
-        # Load giggle scores
-        c.execute('CREATE TABLE IF NOT EXISTS giggle_scores (product_id TEXT UNIQUE, score INTEGER)')
         c.execute('SELECT product_id, score FROM giggle_scores')
         giggle_scores = dict(c.fetchall())
         logger.debug(f"Loaded giggle_scores: {giggle_scores}")
-
-        # Load reviews
-        c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
         c.execute('SELECT text, author FROM reviews')
         reviews = [{'text': row[0], 'author': row[1]} for row in c.fetchall()]
         logger.debug(f"Loaded {len(reviews)} reviews")
-
-        # Load or set mystery product
-        c.execute('CREATE TABLE IF NOT EXISTS mystery_reveals (date TEXT, product_id TEXT)')
-        today = time.strftime('%Y-%m-%d')
-        c.execute('SELECT product_id FROM mystery_reveals WHERE date = ?', (today,))
-        mystery_result = c.fetchone()
-        if mystery_result:
-            mystery_product = next((p for p in products if p['id'] == mystery_result[0]), None)
-            logger.debug(f"Mystery product found: {mystery_product['id'] if mystery_product else 'None'}")
-        else:
-            mystery_product = random.choice(products)
-            c.execute('INSERT INTO mystery_reveals (date, product_id) VALUES (?, ?)', (today, mystery_product['id']))
-            conn.commit()
-            logger.debug(f"Inserted new mystery product: {mystery_product['id']}")
-
     except Exception as e:
         logger.error(f"Database error in home(): {e}", exc_info=True)
     finally:
@@ -146,16 +118,31 @@ def home():
     logger.debug(f"Rendering template with giggle_scores: {giggle_scores}")
     return render_template('home.html',
                            seasonal_highlights=seasonal_highlights,
-                           wearable_pranks=wearable_pranks,
-                           desk_disasters=desk_disasters,
-                           home_hilarity=home_hilarity,
-                           all_products=all_products,
-                           popular_picks=popular_picks,
-                           wedding_gifts=wedding_gifts,
-                           office_pranks=office_pranks,
+                           top_picks=top_picks,
+                           fan_favorites=fan_favorites,
                            reviews=reviews,
-                           mystery_product=mystery_product,
                            giggle_scores=giggle_scores)
+
+@app.route('/shop', methods=['GET', 'POST'])
+def shop():
+    query = request.form.get('query', '').lower() if request.method == 'POST' else ''
+    category = request.form.get('category', '') if request.method == 'POST' else ''
+    filtered_products = [p for p in products if (query in p['name'].lower() or not query) and (p['category_id'] == category or not category)]
+    
+    giggle_scores = {}
+    conn = None
+    try:
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute('SELECT product_id, score FROM giggle_scores')
+        giggle_scores = dict(c.fetchall())
+    except Exception as e:
+        logger.error(f"Database error in shop(): {e}", exc_info=True)
+    finally:
+        if conn:
+            conn.close()
+
+    return render_template('shop.html', all_products=filtered_products, giggle_scores=giggle_scores)
 
 @app.route('/giggle_vote', methods=['POST'])
 def giggle_vote():
@@ -193,24 +180,27 @@ def find():
             url = f"https://www.amazon.com/s?k={product.replace(' ', '+')}"
             headers = {'User-Agent': 'Mozilla/5.0'}
             response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.content, 'html.parser')
-                item = soup.select_one('.s-result-item')
-                if item:
-                    price = item.select_one('.a-price .a-offscreen')
-                    price = float(price.text.replace('$', '')) if price else 0.0
-                    rating = item.select_one('.a-icon-alt')
-                    rating = float(rating.text.split()[0]) if rating else 0.0
-                    comparisons[product] = {
-                        'price': price,
-                        'rating': rating,
-                        'review_summary': {'positive': 'Good', 'negative': 'None', 'sentiment_score': 0.5, 'keywords': ['fun']},
-                        'amazon_url': url,
-                        'is_search_page': True
-                    }
+            if response.status_code != 200:
+                logger.error(f"Amazon search failed for {product}: Status {response.status_code}")
+                continue
+            soup = BeautifulSoup(response.content, 'html.parser')
+            item = soup.select_one('.s-result-item')
+            if item:
+                price = item.select_one('.a-price .a-offscreen')
+                price = float(price.text.replace('$', '')) if price else 0.0
+                rating = item.select_one('.a-icon-alt')
+                rating = float(rating.text.split()[0]) if rating else 0.0
+                comparisons[product] = {
+                    'price': price,
+                    'rating': rating,
+                    'review_summary': {'positive': 'Good', 'negative': 'None', 'sentiment_score': 0.5, 'keywords': ['fun']},
+                    'amazon_url': url,
+                    'is_search_page': True
+                }
         logger.debug(f"Search results: {comparisons}")
     except Exception as e:
         logger.error(f"Error in find: {e}", exc_info=True)
+        return jsonify({'error': 'Search failed'}), 500
     return jsonify({'comparisons': comparisons})
 
 @app.route('/submit_review', methods=['POST'])
@@ -227,7 +217,6 @@ def submit_review():
         logger.debug(f"Submitting review: {review_text} by {author}")
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
-        c.execute('CREATE TABLE IF NOT EXISTS reviews (text TEXT, author TEXT)')
         c.execute('INSERT INTO reviews (text, author) VALUES (?, ?)', (review_text, author))
         conn.commit()
         return jsonify({'message': 'Review submitted successfully!'}), 200
@@ -250,10 +239,8 @@ def subscribe():
         logger.debug(f"Subscribing email: {email}")
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
-        c.execute('CREATE TABLE IF NOT EXISTS subscribers (email TEXT UNIQUE)')
         c.execute('INSERT INTO subscribers (email) VALUES (?)', (email,))
         conn.commit()
-        # Return styled HTML response
         success_html = """
         <div style="background-color: #e6ffe6; padding: 15px; border-radius: 5px; text-align: center;">
             <h3 style="color: #28a745; margin: 0;">🎉 You’re In on the Prank Party!</h3>

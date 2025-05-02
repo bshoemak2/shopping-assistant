@@ -5,85 +5,83 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    background: linear-gradient(135deg, #00FF00, #FF00FF, #FFFF00); /* Neon clown vibes */
-    position: relative; /* For floating emojis */
+    background: linear-gradient(135deg, #00FF00, #FF00FF, #FFFF00);
+    position: relative;
 }
 .prank-header {
     background: rgba(0, 0, 0, 0.8);
-    color: #FFFF00; /* Bright yellow */
-    padding: 20px;
+    color: #FFFF00;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 6px dashed #FF00FF; /* Hot pink dash */
+    border-bottom: 4px dashed #FF00FF;
     animation: glitch-text 2s infinite;
-    text-shadow: 0 0 10px #00FF00; /* Neon green glow */
+    text-shadow: 0 0 10px #00FF00;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 .prank-header img {
-    width: 150px;
+    width: 100px;
     height: auto;
-    margin-right: 20px;
+    margin-right: 1rem;
     filter: drop-shadow(0 0 10px #FF00FF);
 }
 .prank-header h1 {
-    font-size: 3.5rem; /* Bold and loud */
+    font-size: 2rem;
     font-weight: bold;
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
-nav {
+.sticky-nav {
     background: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    margin: 10px 0;
-    border: 4px solid #FFFF00;
+    padding: 0.5rem;
+    border: 2px solid #FFFF00;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     position: sticky;
-    top: 120px;
+    top: 0;
     z-index: 999;
 }
-nav a {
-    color: #00FF00; /* Neon green */
-    font-size: 1.2rem;
-    margin: 0 15px;
+.sticky-nav a {
+    color: #00FF00;
+    font-size: 1rem;
+    margin: 0 1rem;
     transition: color 0.3s ease;
 }
-nav a:hover {
-    color: #FF00FF; /* Hot pink */
+.sticky-nav a:hover {
+    color: #FF00FF;
     text-decoration: underline;
 }
 footer {
     background: rgba(0, 0, 0, 0.8);
     color: #FFD700;
-    padding: 10px;
+    padding: 1rem;
     text-align: center;
-    border-top: 4px solid #00FF00;
+    border-top: 2px solid #00FF00;
     width: calc(100% - 40px);
     text-shadow: 0 0 3px #000000;
-    margin-top: 20px;
+    margin-top: 1rem;
 }
 .image-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 20px 0;
-    background: rgba(255, 255, 0, 0.2); /* Light yellow */
-    padding: 15px;
+    margin: 1rem 0;
+    background: rgba(255, 255, 0, 0.2);
+    padding: 1rem;
     border-radius: 10px;
-    box-shadow: 0 0 15px #FF00FF;
+    box-shadow: 0 0 10px #FF00FF;
 }
 .funny-image {
-    width: 300px;
+    width: 250px;
     height: auto;
-    margin: 10px;
-    display: block;
-    border: 4px solid #FF00FF;
-    filter: drop-shadow(0 0 10px #00FF00);
+    margin: 0.5rem;
+    border: 2px solid #FF00FF;
+    filter: drop-shadow(0 0 5px #00FF00);
     transition: transform 0.3s ease;
 }
 .funny-image:hover {
@@ -98,39 +96,43 @@ footer {
     100% { transform: rotate(0deg); }
 }
 h1 {
-    font-size: 3rem;
-    margin: 20px 0;
+    font-size: 2rem;
+    margin: 1rem 0;
     animation: glitch-text 2s infinite;
 }
 #find-form {
-    margin: 20px 0;
+    margin: 1rem 0;
 }
 #results {
-    margin-top: 20px;
+    margin-top: 1rem;
     text-align: left;
     display: inline-block;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background: rgba(0, 0, 0, 0.7);
-    padding: 10px;
+    padding: 0.5rem;
     border: 2px solid #FFFF00;
 }
 .prompt {
-    font-size: 1.8rem;
-    margin: 10px 0;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
     font-weight: bold;
 }
 .searchable {
-    font-size: 1.5rem;
-    margin: 15px 0;
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+}
+.hacks-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
 }
 .hacks-list li {
-    font-size: 1.4rem;
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
+    padding: 1rem;
     border: 2px dashed #00FF00;
     transition: background-color 0.3s ease;
 }
@@ -140,7 +142,7 @@ h1 {
 .hacks-list img {
     width: 200px;
     height: auto;
-    margin-right: 15px;
+    margin: 0.5rem 0;
     border: 2px solid #FF00FF;
     filter: drop-shadow(0 0 5px #FFFF00);
     transition: transform 0.3s ease;
@@ -150,48 +152,47 @@ h1 {
     animation: wobble 0.5s ease;
 }
 .hacks-prompt {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     font-style: italic;
     text-shadow: 0 0 5px #00FF00;
 }
 .disclosure {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #FFD700;
-    margin: 10px 0;
+    margin: 0.5rem 0;
     font-style: italic;
     background: rgba(0, 0, 0, 0.7);
-    padding: 5px 10px;
-    display: inline-block;
+    padding: 0.5rem;
     border-radius: 5px;
     text-shadow: 0 0 3px #000000;
 }
 .trust-badge {
-    font-size: 1.5rem;
-    color: #FF00FF; /* Neon pink for contrast against green */
-    margin: 10px 0;
+    font-size: 1.3rem;
+    color: #FF00FF;
+    margin: 0.5rem 0;
     font-weight: bold;
-    background: rgba(0, 0, 0, 0.9); /* Dark background for readability */
-    padding: 15px;
-    border: 3px solid #FFFF00; /* Bright yellow border */
-    border-radius: 10px;
-    text-shadow: 0 0 5px #FFFFFF; /* White glow for visibility */
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.5rem;
+    border: 2px solid #FFFF00;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #FFFFFF;
     display: block;
     text-align: center;
 }
 .trust-badge span {
-    color: #00FF00; /* Neon green for "Shop with Confidence" */
-    font-size: 1.3rem;
+    color: #00FF00;
+    font-size: 1.1rem;
     display: block;
-    margin-top: 5px;
+    margin-top: 0.3rem;
 }
 .prank-warning {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #FFFF00;
-    margin: 10px 0;
+    margin: 0.5rem 0;
     font-weight: bold;
-    background: rgba(255, 0, 0, 0.5); /* Red background for warning */
-    padding: 10px;
+    background: rgba(255, 0, 0, 0.5);
+    padding: 0.5rem;
     border: 2px dashed #FF00FF;
     border-radius: 5px;
     text-shadow: 0 0 5px #00FF00;
@@ -199,29 +200,29 @@ h1 {
     animation: shake 1s infinite;
 }
 .prank-microcopy {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #FF00FF;
-    margin: 10px 0;
+    margin: 0.5rem 0;
     font-weight: bold;
     background: rgba(0, 0, 0, 0.7);
-    padding: 8px;
+    padding: 0.5rem;
     border: 2px solid #FFFF00;
     border-radius: 5px;
     text-shadow: 0 0 5px #00FF00;
     text-align: center;
 }
 .prank-o-meter {
-    margin: 20px 0;
-    padding: 15px;
+    margin: 1rem 0;
+    padding: 1rem;
     background: rgba(0, 0, 0, 0.8);
-    border: 3px solid #FF00FF;
+    border: 2px solid #FF00FF;
     border-radius: 10px;
     text-align: center;
 }
 .prank-o-meter h3 {
     color: #FFFF00;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
     text-shadow: 0 0 5px #00FF00;
 }
 .prank-o-meter #prank-level {
@@ -229,9 +230,9 @@ h1 {
 }
 .meter-bar {
     width: 100%;
-    height: 20px;
+    height: 15px;
     background: #333;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
 }
 .meter-fill {
@@ -246,91 +247,89 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.9);
-    padding: 20px;
-    border: 3px solid #FFFF00;
-    border-radius: 10px;
+    padding: 1rem;
+    border: 2px solid #FFFF00;
+    border-radius: 5px;
     z-index: 2000;
     display: none;
     text-align: center;
 }
 .prank-popup p {
     color: #FF00FF;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
     text-shadow: 0 0 5px #00FF00;
 }
 .prank-popup button {
     background: #00FF00;
     color: #FF00FF;
-    padding: 10px 20px;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    text-transform: uppercase;
 }
 .prank-popup button:hover {
     background: #FFFF00;
     color: #FF0000;
 }
 .fun-stuff-score {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #FF00FF;
-    margin-left: 15px;
+    margin-left: 0.5rem;
     font-weight: bold;
     text-shadow: 0 0 3px #FFFF00;
 }
 .vote-buttons {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 0.5rem;
 }
 .promo-video {
     width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    display: block;
-    border: 4px solid #00FF00;
-    box-shadow: 0 0 15px #FF00FF;
+    max-width: 500px;
+    margin: 1rem auto;
+    border: 2px solid #00FF00;
+    box-shadow: 0 0 10px #FF00FF;
     transition: transform 0.3s ease;
 }
 .promo-video:hover {
     transform: scale(1.05);
 }
 .mystery-product-section {
-    margin: 20px 0;
+    margin: 1rem 0;
     background: rgba(0, 0, 0, 0.6);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #FF00FF;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #FF00FF;
 }
 .mystery-product {
-    margin-top: 20px;
-    font-size: 1.4rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
     color: #FFFF00;
     text-shadow: 0 0 5px #FF00FF;
 }
 .email-signup {
     background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border: 4px dashed #00FF00;
-    border-radius: 10px;
-    margin: 20px auto;
+    padding: 1rem;
+    border: 2px dashed #00FF00;
+    border-radius: 5px;
+    margin: 1rem auto;
     max-width: 500px;
-    box-shadow: 0 0 15px #FF00FF;
+    box-shadow: 0 0 10px #FF00FF;
     transition: transform 0.3s ease;
 }
 .email-signup:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 .email-signup h2 {
     color: #FF00FF;
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
     animation: glitch-text 2s infinite;
 }
 .email-signup p {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
 }
 .email-signup form {
     display: flex;
@@ -338,10 +337,10 @@ h1 {
     align-items: center;
 }
 .product-section {
-    margin: 20px 0;
-    padding: 15px;
-    border: 4px solid #FF00FF;
-    border-radius: 10px;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 2px solid #FF00FF;
+    border-radius: 5px;
     background: rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease;
 }
@@ -350,7 +349,7 @@ h1 {
 }
 .product-section h2 {
     color: #00FF00;
-    font-size: 2rem;
+    font-size: 1.5rem;
     animation: glitch-text 2s infinite;
 }
 .product-section ul {
@@ -358,15 +357,13 @@ h1 {
     padding: 0;
 }
 .product-section li {
-    font-size: 1.4rem;
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
 }
 .product-section img {
     width: 200px;
     height: auto;
-    margin-right: 15px;
+    margin: 0.5rem 0;
     border: 2px solid #FF00FF;
     filter: drop-shadow(0 0 5px #FFFF00);
     transition: transform 0.3s ease;
@@ -376,25 +373,25 @@ h1 {
     animation: wobble 0.5s ease;
 }
 .top-pranks-section .top-prank-image {
-    width: 250px; /* Larger size for Top 5 Pranks */
+    width: 200px;
     height: auto;
-    margin-right: 20px;
-    border: 3px solid #FFFF00; /* Yellow border for emphasis */
-    filter: drop-shadow(0 0 10px #00FF00);
+    margin: 0.5rem 0;
+    border: 2px solid #FFFF00;
+    filter: drop-shadow(0 0 5px #00FF00);
 }
 .product-details {
     flex-grow: 1;
 }
 .product-description {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #FFD700;
-    margin: 5px 0;
+    margin: 0.3rem 0;
 }
 .product-link {
     color: #FFD700;
     font-size: 1.2rem;
     text-decoration: none;
-    margin: 5px 0;
+    margin: 0.3rem 0;
     display: block;
 }
 .product-link:hover {
@@ -403,33 +400,22 @@ h1 {
 }
 .product-rating {
     color: #FFFF00;
-    font-size: 1rem;
-    margin: 5px 0;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
 }
 .buy-now-btn {
-    background-color: #FF00FF; /* Hot pink */
-    color: #FFFF00; /* Yellow text */
-    font-size: 1.3rem;
-    padding: 10px 20px;
-    border: 2px solid #00FF00; /* Neon green */
-    border-radius: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px #FFFF00;
-    transition: all 0.3s ease;
-    margin-left: 10px;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
 }
 .buy-now-btn:hover {
-    background-color: #00FF00; /* Neon green */
-    color: #FF00FF; /* Hot pink text */
-    transform: scale(1.1);
-    animation: shake 0.5s ease;
+    transform: scale(1.05);
 }
 .reviews-section {
-    margin: 20px 0;
-    padding: 15px;
-    border: 4px solid #FFFF00;
-    border-radius: 10px;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 2px solid #FFFF00;
+    border-radius: 5px;
     background: rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease;
 }
@@ -438,12 +424,12 @@ h1 {
 }
 .reviews-section h2 {
     color: #FF00FF;
-    font-size: 2rem;
+    font-size: 1.5rem;
     animation: glitch-text 2s infinite;
 }
 .reviews-section p {
-    font-size: 1.3rem;
-    margin: 10px 0;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
 }
 .reviews-section form {
     display: flex;
@@ -452,8 +438,8 @@ h1 {
 }
 .reviews-section .review-item {
     background: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    margin: 10px 0;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
     border: 2px solid #FFFF00;
     border-radius: 5px;
     color: #FFD700;
@@ -461,41 +447,40 @@ h1 {
 }
 .reviews-section .review-date {
     color: #FF00FF;
-    font-size: 0.9rem;
-    margin-left: 10px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
 }
 .urgency-section {
-    margin: 20px 0;
-    padding: 15px;
-    border: 4px dashed #FFFF00;
-    border-radius: 10px;
-    background: rgba(255, 0, 0, 0.2); /* Red urgency vibe */
-    box-shadow: 0 0 20px #FF00FF;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 2px dashed #FFFF00;
+    border-radius: 5px;
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 10px #FF00FF;
 }
 #countdown-timer {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #FF0000;
-    margin: 10px 0;
+    margin: 0.5rem 0;
     font-weight: bold;
     text-shadow: 0 0 5px #FFFF00;
 }
 .top-pranks-section h3 {
     color: #00FF00;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
 }
 .contact-info {
-    font-size: 1.5rem;
-    color: #FFFFFF; /* White for contrast */
-    margin: 20px 0;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin: 1rem 0;
     font-weight: bold;
-    background: #00FF00; /* Neon green */
-    padding: 15px;
-    border: 3px solid #FF00FF; /* Hot pink border */
-    border-radius: 10px;
-    text-shadow: 0 0 5px #FFFF00; /* Yellow glow */
+    background: #00FF00;
+    padding: 0.5rem;
+    border: 2px solid #FF00FF;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #FFFF00;
     text-align: center;
-    display: block;
 }
 .contact-info a {
     color: #FF00FF;
@@ -508,7 +493,7 @@ h1 {
 .cta-urgent {
     color: #FF0000;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1rem;
     background: rgba(255, 0, 0, 0.3);
     padding: 2px 5px;
     border-radius: 3px;
@@ -525,7 +510,7 @@ h1 {
 }
 .emoji {
     position: absolute;
-    font-size: 2rem;
+    font-size: 1.5rem;
     animation: float 10s infinite linear;
 }
 .emoji:nth-child(1) { left: 5%; animation-delay: 0s; }

@@ -22,13 +22,6 @@
     <img id="barlito-mascot" src="{{ url_for('static', filename='barlito.jpg') }}" alt="Barlito the Prankster" data-tooltip="Cluck yeah, prank on!" style="display: block;" onerror="console.log('Failed to load Barlito image. Check path: static/barlito.jpg')">
     <div id="barlito-tooltip" class="barlito-tooltip" style="display: none;"></div>
     {% block header %}{% endblock %}
-    <nav>
-        <a href="#popular-picks">Popular Picks</a> |
-        <a href="#wearable-pranks">Wearable Pranks</a> |
-        <a href="#desk-disasters">Desk Disasters</a> |
-        <a href="#home-hilarity">Home Hilarity</a> |
-        <a href="#all-products">All Products</a>
-    </nav>
     <div class="container">
         {% block content %}{% endblock %}
     </div>
@@ -73,7 +66,7 @@
             }
         };
 
-        const fartSound = new Audio('https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3');
+        const fartSound = new Audio('https://www.freesoundslibrary.com/wp-content/uploads/2021/04/fart-sound.mp3');
         fartSound.preload = 'auto';
 
         (function() {
@@ -131,5 +124,6 @@
         })();
     </script>
     {% block scripts %}{% endblock %}
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93983b8a9faa8bb6',t:'MTc0NjE5NjM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

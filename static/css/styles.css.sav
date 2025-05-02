@@ -1,0 +1,296 @@
+@import url('global.css');
+@import url('components.css');
+@import url('sections.css');
+@import url('barlito.css');
+
+/* Ensure Font Awesome icons render globally */
+i.fas {
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+    display: inline-block !important;
+    color: inherit !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Specific icon content for share buttons */
+i.fas.fa-twitter:before {
+    content: "\f099" !important;
+}
+i.fas.fa-facebook-f:before {
+    content: "\f39e" !important;
+}
+i.fas.fa-whatsapp:before {
+    content: "\f232" !important;
+}
+i.fas.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+
+/* Styles for giggle score separation and share buttons */
+.product-info {
+    margin-bottom: 10px;
+}
+
+.product-info a {
+    color: #ff9900;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.product-info a:hover {
+    text-decoration: underline;
+}
+
+.giggle-section {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.giggle-score {
+    font-weight: bold;
+    color: #ff9900;
+}
+
+.share-button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Adjusted for text */
+    min-width: 60px; /* Wider for text */
+    font-size: 1rem; /* Slightly smaller for text */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Space between icon and text */
+}
+
+.share-button i {
+    color: white !important;
+    font-size: 1rem !important; /* Match text size */
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+
+}
+
+/* General button styles */
+.btn {
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn:hover {
+    background-color: #ff6600;
+    transform: scale(1.05);
+}
+
+.buy-now-btn {
+    background-color: #28a745;
+}
+
+.buy-now-btn:hover {
+    background-color: #218838;
+}
+
+/* Share button styles */
+.share-button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px;
+    min-width: 40px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-button:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+.share-button i {
+    color: white !important;
+    font-size: 1.2rem !important;
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+}
+
+/* Platform-specific overrides */
+.share-twitter {
+    background-color: #1DA1F2;
+}
+
+.share-twitter:hover {
+    background-color: #0d8ddb;
+}
+
+.share-facebook {
+    background-color: #3b5998;
+}
+
+.share-facebook:hover {
+    background-color: #2d4373;
+}
+
+.share-whatsapp {
+    background-color: #25D366;
+}
+
+.share-whatsapp:hover {
+    background-color: #20b759;
+}
+
+.share-email {
+    background-color: #666;
+}
+
+.share-email:hover {
+    background-color: #4d4d4d;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 600px) {
+    html {
+        font-size: 18px;
+    }
+    header img {
+        width: 100px; 
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+    .image-container {
+        flex-direction: column; 
+        align-items: center;
+    }
+    .funny-image {
+        width: 100%; 
+        max-width: 300px;
+        margin: 10px 0; 
+    }
+    .hacks-list li {
+        font-size: 1.2rem;
+    }
+    .hacks-list img {
+        width: 160px;
+    }
+    .hacks-list .btn, .buy-now-btn, .share-button {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+    .fun-stuff-score {
+        display: block; 
+        margin-left: 0; 
+        font-size: 1rem;
+    }
+    .vote-buttons {
+        display: block; 
+        margin-left: 0; 
+        margin-top: 5px; 
+    }
+    .vote-buttons .btn {
+        padding: 8px 12px;
+        font-size: 1.1rem;
+    }
+    .promo-video {
+        width: 100%; 
+        max-width: 300px; 
+    }
+    .mystery-button {
+        font-size: 1.3rem;
+        padding: 8px 12px;
+    }
+    .email-signup form {
+        flex-direction: column;
+    }
+    .email-signup input[type="email"] {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+    .email-signup .btn {
+        width: 100%;
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
+    .product-section h2 {
+        font-size: 1.8rem;
+    }
+    .product-section li {
+        font-size: 1.2rem;
+    }
+    .reviews-section h2 {
+        font-size: 1.8rem;
+    }
+    .reviews-section textarea {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+    .reviews-section .btn {
+        min-width: 60px;
+        min-height: 60px;
+        padding: 15px 20px;
+        font-size: 1.5rem;
+    }
+    .popular-picks li {
+        font-size: 1.4rem;
+    }
+    .popular-picks img {
+        width: 200px;
+    }
+    #barlito-mascot {
+        width: 200px;
+        bottom: 20px;
+        right: 20px;
+    }
+    #barlito-mascot::after {
+        width: 160px;
+        font-size: 1.2rem;
+        top: -80px;
+    }
+    #barlito-mascot::before {
+        font-size: 1.2rem;
+        bottom: -30px;
+    }
+    .product-item {
+        width: 100%;
+        max-width: 250px;
+    }
+    .product-image {
+        width: 100%;
+    }
+    .giggle-section {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .share-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .share-button {
+        padding: 8px;
+        min-width: 40px;
+    }
+}
