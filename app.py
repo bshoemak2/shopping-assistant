@@ -257,6 +257,10 @@ def subscribe_page():
 def videos():
     return render_template('videos.html')
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     email = request.form.get('email')
