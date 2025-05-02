@@ -20,15 +20,17 @@
         <div class="video-section">
             <h3>Chicken Chaos</h3>
             <video controls width="600" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                <source src="{{ url_for('static', filename='videos/chicken.mov') }}" type="video/quicktime">
                 <source src="{{ url_for('static', filename='videos/chicken.mp4') }}" type="video/mp4">
-                Sorry, the chicken video is unavailable. Please check if chicken.mp4 is in static/videos/.
+                Sorry, the chicken video is unavailable. Please check if chicken.mov or chicken.mp4 is in static/videos/.
             </video>
         </div>
         <div class="video-section">
             <h3>Bear-y Funny Prank</h3>
             <video controls width="600" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                <source src="{{ url_for('static', filename='videos/bear.mov') }}" type="video/quicktime">
                 <source src="{{ url_for('static', filename='videos/bear.mp4') }}" type="video/mp4">
-                Sorry, the bear video is unavailable. Please check if bear.mp4 is in static/videos/.
+                Sorry, the bear video is unavailable. Please check if bear.mov or bear.mp4 is in static/videos/.
             </video>
         </div>
     </div>
