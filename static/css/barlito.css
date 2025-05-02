@@ -12,6 +12,9 @@
     border-radius: 50%;
     pointer-events: auto;
 }
+#barlito-mascot.wiggle {
+    animation: wiggle 0.5s ease;
+}
 #barlito-mascot::before {
     content: "Barlito";
     position: absolute;
@@ -63,6 +66,13 @@
 }
 .barlito-tooltip.show-tooltip {
     display: block !important;
+}
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
 }
 @media (max-width: 600px) {
     #barlito-mascot {

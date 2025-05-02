@@ -11,10 +11,16 @@
     <meta property="og:url" content="https://shopping-assistant-5m0q.onrender.com/">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="preload" href="{{ url_for('static', filename='logo_1.png') }}" as="image">
+    <link rel="preload" href="{{ url_for('static', filename='barlito.jpg') }}" as="image">
     <script>
       !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-      twq('init','pdq4g');
-      twq('track','PageView');
+      try {
+          twq('init','pdq4g');
+          twq('track','PageView');
+      } catch(e) {
+          console.warn('Tracking blocked:', e);
+      }
     </script>
 </head>
 <body>
@@ -66,7 +72,7 @@
             }
         };
 
-        const fartSound = new Audio('https://www.freesoundslibrary.com/wp-content/uploads/2021/04/fart-sound.mp3');
+        const fartSound = new Audio('https://cdn.freesound.org/previews/123/123456_7890123-lq.mp3');
         fartSound.preload = 'auto';
 
         (function() {
@@ -92,6 +98,8 @@
                         console.log('Attempting to play fart sound for Barlito click');
                         fartSound.play().then(() => {
                             console.log('Fart sound played successfully for Barlito');
+                            barlitoMascot.classList.add('wiggle');
+                            setTimeout(() => barlitoMascot.classList.remove('wiggle'), 500);
                         }).catch(error => {
                             console.error('Error playing fart sound for Barlito:', error);
                         });
@@ -124,6 +132,5 @@
         })();
     </script>
     {% block scripts %}{% endblock %}
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93983b8a9faa8bb6',t:'MTc0NjE5NjM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

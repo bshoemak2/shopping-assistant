@@ -16,7 +16,7 @@ i.fas {
 }
 
 /* Specific icon content for share buttons */
-i.fas.fa-twitter:before { content: "\f099" !important; }
+i.fas.fa-x-twitter:before { content: "\e61b" !important; }
 i.fas.fa-facebook-f:before { content: "\f39e" !important; }
 i.fas.fa-whatsapp:before { content: "\f232" !important; }
 i.fas.fa-envelope:before { content: "\f0e0" !important; }
@@ -89,6 +89,16 @@ i.fas.fa-envelope:before { content: "\f0e0" !important; }
     background-color: #FF00FF;
     color: #FFFF00;
     border: 2px solid #00FF00;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.giggle-btn:hover {
+    background-color: #00FF00;
+    color: #FF00FF;
+    transform: scale(1.05);
 }
 
 /* Share buttons */
@@ -120,8 +130,8 @@ i.fas.fa-envelope:before { content: "\f0e0" !important; }
     color: white !important;
     font-size: 1rem !important;
 }
-.share-twitter { background-color: #1DA1F2; }
-.share-twitter:hover { background-color: #0d8ddb; }
+.share-x { background-color: #000000; }
+.share-x:hover { background-color: #333333; }
 .share-facebook { background-color: #3b5998; }
 .share-facebook:hover { background-color: #2d4373; }
 .share-whatsapp { background-color: #25D366; }
@@ -150,6 +160,8 @@ i.fas.fa-envelope:before { content: "\f0e0" !important; }
     background-color: #FF00FF;
     color: #FFFF00;
     border: 2px solid #00FF00;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
 }
 .buy-now-btn:hover {
     background-color: #00FF00;
@@ -191,6 +203,12 @@ i.fas.fa-envelope:before { content: "\f0e0" !important; }
     color: #FF00FF;
     font-size: 0.8rem;
     margin-left: 0.5rem;
+}
+#review-feedback {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 3px #000000;
 }
 
 /* Media queries */

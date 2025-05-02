@@ -1,120 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>About Shopping Assistant | Find Funny Gag Gifts & Pranks</title>
-    <meta name="description" content="Shopping Assistant helps you find funny gag gifts and pranks on Amazon. Learn more about our mission to make shopping for dumb stuff easy!">
+    <title>About Barlito’s Prank Emporium</title>
+    <meta name="description" content="Learn about Barlito’s Prank Emporium, your go-to for hilarious gag gifts and pranks on Amazon!">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style>
-        html {
-            font-size: 16px;
-        }
-        body { 
-            font-family: 'Courier New', monospace; 
-            margin: 20px; 
-            text-align: center; 
-            background-color: black; 
-            color: #00FFFF; 
-            line-height: 1.5;
-        }
-        .container {
-            max-width: 100%;
-            padding: 0 15px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        header { 
-            background-color: black; 
-            color: #00FFFF; 
-            padding: 10px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-bottom: 2px solid #00FFFF; 
-        }
-        header img { 
-            width: 150px; 
-            height: auto; 
-            margin-right: 10px; 
-        }
-        a { 
-            color: #00FFFF; 
-            text-decoration: none; 
-            padding: 0 10px; 
-        }
-        a:hover { 
-            text-decoration: underline; 
-        }
-        footer { 
-            background-color: black; 
-            color: #00FFFF; 
-            padding: 10px; 
-            text-align: center; 
-            border-top: 2px solid #00FFFF; 
-            width: calc(100% - 40px); 
-        }
-        .funny-image { 
-            width: 300px; 
-            height: auto; 
-            margin: 20px auto; 
-            display: block; 
-            border: 2px solid #00FFFF; 
-        }
-        .btn {
-            min-width: 48px;
-            min-height: 48px;
-            padding: 12px 16px;
-            font-size: 1rem;
-            touch-action: manipulation;
-            display: inline-block;
-        }
-        @media (max-width: 600px) {
-            html {
-                font-size: 14px;
-            }
-            header img {
-                width: 100px; 
-            }
-            h1 {
-                font-size: 1.5rem; 
-            }
-            .funny-image {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
     <script>
-        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
         twq('config','pdq4g');
     </script>
 </head>
 <body>
-    <header>
-        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="SHOPPING ASSISTANT LOGO">
-        <h1 style="margin: 0;">SHOPPING ASSISTANT</h1>
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
+        <h1>About Barlito’s Prank Emporium</h1>
+        <nav class="sticky-nav">
+            <a href="/">Home</a>
+            <a href="/shop">Shop All</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/about">About</a>
+            <a href="/subscribe">Subscribe</a>
+        </nav>
     </header>
     <div class="container">
-        <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito's Shopping Juggle" class="funny-image">
-        <h1>ABOUT SHOPPING ASSISTANT</h1>
-        <p>THIS APP HELPS YOU FIND FUNNY PRODUCTS THAT MAKE FOLKS LAUGH AND BREATH EASY</p>
-        <p>BUILT BY GAME THEORY TO SIMPLIFY ONLINE SHOPPING FOR DUMB STUFF</p>
-        <p>CHECK OUT OUR <a href="{{ url_for('blog_post', post_slug='best-gag-gift-for-brothers-wedding') }}">FUNNY GIFT GUIDES</a> FOR MORE LAUGHS!</p>
-        <p><a href="/" class="btn">HOME</a></p>
+        <img src="{{ url_for('static', filename='funny_shopping_image.png') }}" alt="Barlito’s Prank Juggle" class="funny-image">
+        <h1>ABOUT BARLITO’S PRANK EMPORIUM</h1>
+        <p>We’re here to make you laugh till you fart! Barlito’s Prank Emporium brings you the silliest gag gifts and pranks from Amazon, perfect for weddings, offices, or just because.</p>
+        <p>Built by pranksters for pranksters, we simplify shopping for dumb, hilarious stuff. From unicorn meat to fart whistles, we’ve got your giggles covered!</p>
+        <p class="prank-microcopy">Join the prank party and unleash some chaos! 😈</p>
+        <p><a href="/" class="btn">Back to Home</a></p>
     </div>
     <footer>
         <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+        <div class="trust-badges" style="margin-top: 10px;">
+            <p style="font-size: 1rem;">Amazon Affiliate | Secure Checkout via Amazon</p>
+        </div>
     </footer>
     <script type="text/javascript">
         var sc_project=13107765; 
         var sc_invisible=0; 
         var sc_security="da1ff213"; 
         var scJsHost = "https://";
-        document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+
-        "statcounter.com/counter/counter.js'></"+"script>");
+        (function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = scJsHost + 'statcounter.com/counter/counter.js';
+            document.head.appendChild(script);
+        })();
     </script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13107765/0/da1ff213/0/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 </body>

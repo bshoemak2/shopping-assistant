@@ -114,6 +114,27 @@ product_taglines = {
     "fart-spray": "Stink up the room in style!"
 }
 
+def migrate_db():
+    conn = None
+    try:
+        conn = sqlite3.connect('subscribers.db')
+        c = conn.cursor()
+        c.execute("PRAGMA table_info(reviews)")
+        columns = [col[1] for col in c.fetchall()]
+        if 'date' not in columns:
+            logger.info("Adding date column to reviews table")
+            c.execute("ALTER TABLE reviews ADD COLUMN date TEXT")
+            c.execute("UPDATE reviews SET date = '2025-05-01' WHERE date IS NULL")
+            conn.commit()
+            logger.info("Date column added successfully")
+        else:
+            logger.info("Date column already exists in reviews table")
+    except Exception as e:
+        logger.error(f"Error migrating database: {e}")
+    finally:
+        if conn:
+            conn.close()
+
 def init_db():
     conn = None
     try:
@@ -132,6 +153,9 @@ def init_db():
 
 def add_taglines(product_list):
     return [{**p, 'tagline': product_taglines.get(p['id'], 'Get ready to prank!')} for p in product_list]
+
+# Run migration on startup
+migrate_db()
 
 @app.route('/')
 def home():
@@ -156,8 +180,13 @@ def home():
         c.execute('SELECT product_id, score FROM giggle_scores')
         giggle_scores = dict(c.fetchall())
         logger.debug(f"Loaded giggle_scores: {giggle_scores}")
-        c.execute('SELECT text, author, date FROM reviews')
-        reviews = [{'text': row[0], 'author': row[1], 'date': row[2]} for row in c.fetchall()]
+        try:
+            c.execute('SELECT text, author, date FROM reviews')
+            reviews = [{'text': row[0], 'author': row[1], 'date': row[2] or '2025-05-01'} for row in c.fetchall()]
+        except sqlite3.OperationalError:
+            logger.warning("Date column missing, falling back to text and author only")
+            c.execute('SELECT text, author FROM reviews')
+            reviews = [{'text': row[0], 'author': row[1], 'date': '2025-05-01'} for row in c.fetchall()]
         logger.debug(f"Loaded {len(reviews)} reviews")
     except Exception as e:
         logger.error(f"Database error in home(): {e}", exc_info=True)
@@ -202,8 +231,13 @@ def reviews():
     try:
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
-        c.execute('SELECT text, author, date FROM reviews')
-        reviews = [{'text': row[0], 'author': row[1], 'date': row[2]} for row in c.fetchall()]
+        try:
+            c.execute('SELECT text, author, date FROM reviews')
+            reviews = [{'text': row[0], 'author': row[1], 'date': row[2] or '2025-05-01'} for row in c.fetchall()]
+        except sqlite3.OperationalError:
+            logger.warning("Date column missing, falling back to text and author only")
+            c.execute('SELECT text, author FROM reviews')
+            reviews = [{'text': row[0], 'author': row[1], 'date': '2025-05-01'} for row in c.fetchall()]
     except Exception as e:
         logger.error(f"Database error in reviews(): {e}", exc_info=True)
     finally:
@@ -322,15 +356,16 @@ def submit_review():
     
     conn = None
     try:
-        logger.debug(f"Submitting review: {review_text} by {author}")
+        logger.debug(f"Submitting review: {review_text} by {author} on {date}")
         conn = sqlite3.connect('subscribers.db')
         c = conn.cursor()
         c.execute('INSERT INTO reviews (text, author, date) VALUES (?, ?, ?)', (review_text, author, date))
         conn.commit()
+        logger.info(f"Review submitted successfully: {review_text}")
         return jsonify({'message': 'Review submitted successfully!'}), 200
     except Exception as e:
         logger.error(f"Error in submit_review: {e}", exc_info=True)
-        return jsonify({'message': 'Database error occurred!'}), 500
+        return jsonify({'message': f'Failed to submit review: {str(e)}'}), 500
     finally:
         if conn:
             conn.close()
