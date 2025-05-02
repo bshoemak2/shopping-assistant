@@ -35,6 +35,57 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+.hero-section {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 3px dashed #00FF00;
+    border-radius: 10px;
+    text-align: center;
+    animation: glitch-text 3s infinite;
+}
+.hero-section h2 {
+    color: #FF00FF;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #FFFF00;
+    margin: 0;
+}
+.prank-quote {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #FFFF00;
+    border-radius: 5px;
+    text-align: center;
+}
+.prank-quote p {
+    color: #00FF00;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px #FF00FF;
+}
+.home-video-section {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #FF00FF;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.home-video-section:hover {
+    transform: scale(1.02);
+}
+.home-video-section h3 {
+    color: #FFFF00;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px #00FF00;
+}
+.home-video-section video {
+    max-width: 100%;
+    height: auto;
+}
 .sticky-nav {
     background: rgba(0, 0, 0, 0.7);
     padding: 0.5rem;
@@ -48,14 +99,33 @@
 }
 .sticky-nav a {
     color: #00FF00;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0 1rem;
-    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .sticky-nav a:hover {
     color: #FF00FF;
-    text-decoration: underline;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #FFFF00;
+    animation: shake 0.5s ease;
 }
+.sticky-nav a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #FFFF00;
+}
+.sticky-nav a[href="/"]::before { content: "\f015"; }
+.sticky-nav a[href="/shop"]::before { content: "\f07a"; }
+.sticky-nav a[href="/reviews"]::before { content: "\f091"; }
+.sticky-nav a[href="/about"]::before { content: "\f05a"; }
+.sticky-nav a[href="/subscribe"]::before { content: "\f0e0"; }
+.sticky-nav a[href="/videos"]::before { content: "\f03d"; }
 footer {
     background: rgba(0, 0, 0, 0.8);
     color: #FFD700;
@@ -134,12 +204,23 @@ h1 {
     background: rgba(0, 0, 0, 0.6);
     padding: 1rem;
     border: 2px dashed #00FF00;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
+    perspective: 1000px;
 }
 .hacks-list li:hover {
     background-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #FF00FF;
+    transform: rotateY(180deg);
+}
+.hacks-list li:hover .product-info::after {
+    content: "Did you know fake poop fools 9/10 coworkers?";
+    color: #FF00FF;
+    font-size: 1rem;
+    font-style: italic;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    text-align: center;
 }
 .hacks-list img {
     width: 200px;
@@ -423,6 +504,27 @@ h1 {
 .emoji:nth-child(13) { left: 65%; animation-delay: 6s; }
 .emoji:nth-child(14) { left: 70%; animation-delay: 6.5s; }
 .emoji:nth-child(15) { left: 75%; animation-delay: 7s; }
+.soundboard {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.soundboard button {
+    background: #FF00FF;
+    color: #FFFF00;
+    border: 2px solid #00FF00;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.soundboard button:hover {
+    background: #00FF00;
+    color: #FF00FF;
+    transform: scale(1.05);
+}
 @keyframes float {
     0% { transform: translateY(100vh); opacity: 1; }
     100% { transform: translateY(-100vh); opacity: 0; }
@@ -439,5 +541,9 @@ h1 {
 }
 @media (max-width: 600px) {
     .prank-header h1 { font-size: 2rem; }
+    .hero-section h2 { font-size: 1.5rem; }
+    .prank-quote p { font-size: 1.1rem; }
+    .home-video-section video { width: 100%; }
+    .sticky-nav a { font-size: 1rem; margin: 0 0.5rem; }
     .emoji { font-size: 1.2rem; }
 }

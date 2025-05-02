@@ -253,6 +253,10 @@ def about():
 def subscribe_page():
     return render_template('subscribe.html')
 
+@app.route('/videos')
+def videos():
+    return render_template('videos.html')
+
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     email = request.form.get('email')

@@ -9,11 +9,25 @@
             <a href="/reviews">Reviews</a>
             <a href="/about">About</a>
             <a href="/subscribe">Subscribe</a>
+            <a href="/videos">Video Archive</a>
         </nav>
     </header>
 {% endblock %}
 {% block content %}
     <div class="container">
+        <div class="prank-quote">
+            <p id="prank-quote-text">“A good prank is worth a thousand laughs!”</p>
+        </div>
+        <div class="hero-section">
+            <h2>Prank Hard or Go Home!</h2>
+        </div>
+        <div class="home-video-section">
+            <h3>Bear-y Funny Prank!</h3>
+            <video controls width="600" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                <source src="{{ url_for('static', filename='videos/bear.mov') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         <p class="disclosure trust-badge">As an Amazon Associate, I earn from qualifying purchases. <span>Shop with Confidence!</span></p>
 
         {% if seasonal_highlights %}
@@ -58,6 +72,11 @@
             <p style="font-size: 0.75rem; margin-top: 10px;">
                 By signing up, you agree to our <a href="/privacy">Privacy Policy</a>.
             </p>
+        </div>
+
+        <div class="soundboard">
+            <button onclick="playSound('https://cdn.freesound.org/previews/123/123456_7890123-lq.mp3')">Fart</button>
+            <button onclick="playSound('https://cdn.freesound.org/previews/456/456789_1234567-lq.mp3')">Whoopee</button>
         </div>
 
         <!-- Floating emojis -->
@@ -124,6 +143,12 @@
             audio.play().catch(error => console.error('Error playing chicken sound:', error));
         }
 
+        // Play soundboard sounds
+        function playSound(url) {
+            const audio = new Audio(url);
+            audio.play().catch(error => console.error('Error playing sound:', error));
+        }
+
         // Confetti effect
         function launchConfetti() {
             const duration = 3 * 1000;
@@ -164,9 +189,26 @@
             }, 5000);
         }
 
+        // Rotate prank quotes
+        function rotatePrankQuotes() {
+            const quotes = [
+                "“A good prank is worth a thousand laughs!”",
+                "“Prank like nobody’s watching!”",
+                "“Fart whistles: the gift that keeps on tooting!”",
+                "“Life’s too short for boring pranks!”"
+            ];
+            const quoteElement = document.getElementById('prank-quote-text');
+            let index = 0;
+            setInterval(() => {
+                quoteElement.textContent = quotes[index];
+                index = (index + 1) % quotes.length;
+            }, 7000);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             launchConfetti();
             rotatePrankTips();
+            rotatePrankQuotes();
             document.querySelectorAll('.buy-now-btn').forEach(btn => {
                 btn.addEventListener('click', playFartSound);
             });

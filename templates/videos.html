@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block header %}
+    <header class="prank-header">
+        <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
+        <h1>Video Archive</h1>
+        <nav class="sticky-nav">
+            <a href="/">Home</a>
+            <a href="/shop">Shop All</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/about">About</a>
+            <a href="/subscribe">Subscribe</a>
+            <a href="/videos">Video Archive</a>
+        </nav>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="section-title">Prank Video Archive</h2>
+        <p class="section-subtitle">Watch our hilarious prank videos!</p>
+        <div class="video-section">
+            <h3>Chicken Chaos</h3>
+            <video controls width="600" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                <source src="{{ url_for('static', filename='videos/chicken.mov') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="video-section">
+            <h3>Bear-y Funny Prank</h3>
+            <video controls width="600" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                <source src="{{ url_for('static', filename='videos/bear.mov') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+{% endblock %}

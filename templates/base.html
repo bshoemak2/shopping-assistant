@@ -27,12 +27,25 @@
     <div id="loading-bar"></div>
     <img id="barlito-mascot" src="{{ url_for('static', filename='barlito.jpg') }}" alt="Barlito the Prankster" data-tooltip="Cluck yeah, prank on!" style="display: block;" onerror="console.log('Failed to load Barlito image. Check path: static/barlito.jpg')">
     <div id="barlito-tooltip" class="barlito-tooltip" style="display: none;"></div>
-    {% block header %}{% endblock %}
+    {% block header %}
+        <header class="prank-header">
+            <img src="{{ url_for('static', filename='logo_1.png') }}" alt="Barlito’s Prank Emporium Logo">
+            <h1>Barlito’s Prank Emporium</h1>
+            <nav class="sticky-nav">
+                <a href="/">Home</a>
+                <a href="/shop">Shop All</a>
+                <a href="/reviews">Reviews</a>
+                <a href="/about">About</a>
+                <a href="/subscribe">Subscribe</a>
+                <a href="/videos">Video Archive</a>
+            </nav>
+        </header>
+    {% endblock %}
     <div class="container">
         {% block content %}{% endblock %}
     </div>
     <footer>
-        <a href="/">HOME</a> | <a href="/about">ABOUT</a>
+        <a href="/">HOME</a> | <a href="/about">ABOUT</a> | <a href="/videos">VIDEO ARCHIVE</a>
         <div class="trust-badges" style="margin-top: 10px;">
             <p style="font-size: 1rem;">Amazon Affiliate | Secure Checkout via Amazon</p>
         </div>
