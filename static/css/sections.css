@@ -35,35 +35,6 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-.hero-section {
-    background: rgba(0, 0, 0, 0.9);
-    padding: 2rem;
-    margin: 1rem 0;
-    border: 3px dashed #00FF00;
-    border-radius: 10px;
-    text-align: center;
-    animation: glitch-text 3s infinite;
-}
-.hero-section h2 {
-    color: #FF00FF;
-    font-size: 2rem;
-    text-shadow: 0 0 10px #FFFF00;
-    margin: 0;
-}
-.prank-quote {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #FFFF00;
-    border-radius: 5px;
-    text-align: center;
-}
-.prank-quote p {
-    color: #00FF00;
-    font-size: 1.3rem;
-    font-weight: bold;
-    text-shadow: 0 0 5px #FF00FF;
-}
 .home-video-section {
     margin: 1rem 0;
     padding: 1rem;
@@ -541,8 +512,6 @@ h1 {
 }
 @media (max-width: 600px) {
     .prank-header h1 { font-size: 2rem; }
-    .hero-section h2 { font-size: 1.5rem; }
-    .prank-quote p { font-size: 1.1rem; }
     .home-video-section video { width: 100%; }
     .sticky-nav a { font-size: 1rem; margin: 0 0.5rem; }
     .emoji { font-size: 1.2rem; }
