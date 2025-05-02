@@ -20,7 +20,7 @@
         {% if seasonal_highlights %}
         <div class="product-section" id="seasonal-highlights">
             <h2 class="section-title">🌟 Seasonal Prank Highlights</h2>
-            <p class="section-subtitle">Perfect picks to prank this season!</p>
+            <p class="section-subtitle">Timely tricks to spice up the season!</p>
             {% with products=seasonal_highlights %}
                 {% include 'product_list.html' %}
             {% endwith %}
@@ -29,7 +29,7 @@
 
         <div class="product-section" id="top-picks">
             <h2 class="section-title">⭐ Top Prank Picks</h2>
-            <p class="section-subtitle">Our best-selling gags for pranksters!</p>
+            <p class="section-subtitle">The hottest gags for epic pranks!</p>
             {% with products=top_picks %}
                 {% include 'product_list.html' %}
             {% endwith %}
@@ -37,8 +37,16 @@
 
         <div class="product-section" id="fan-favorites">
             <h2 class="section-title">🎉 Fan Favorites</h2>
-            <p class="section-subtitle">Loved by pranksters everywhere!</p>
+            <p class="section-subtitle">Pranksters’ go-to goodies!</p>
             {% with products=fan_favorites %}
+                {% include 'product_list.html' %}
+            {% endwith %}
+        </div>
+
+        <div class="product-section" id="prank-classics">
+            <h2 class="section-title">😂 Prank Classics</h2>
+            <p class="section-subtitle">Old-school tricks for timeless laughs!</p>
+            {% with products=prank_classics %}
                 {% include 'product_list.html' %}
             {% endwith %}
         </div>

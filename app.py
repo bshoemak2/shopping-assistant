@@ -64,6 +64,11 @@ products = [
     {"name": "Banana Bandages - Heal with Fruit Flair", "url": "https://amzn.to/426U6SO", "image": "https://m.media-amazon.com/images/I/81o05QPkfEL._AC_SX679_.jpg", "id": "banana-bandages", "score": 7, "category_id": "all-products"},
     {"name": "Pineapple Bandages - Tropical Healing Fun", "url": "https://amzn.to/3Y7Ptqg", "image": "https://m.media-amazon.com/images/I/91flowprqVL._AC_SY450_.jpg", "id": "pineapple-bandages", "score": 7, "category_id": "all-products"},
     {"name": "Fart Spray - Stink Up the Room", "url": "https://amzn.to/4hQyAr9", "image": "https://m.media-amazon.com/images/I/91l3YStar6L._AC_SY355_.jpg", "id": "fart-spray", "score": 8, "category_id": "all-products"},
+    {"name": "Prank Snake - Scare 'Em with a Slithery Surprise", "url": "https://amzn.to/3Y8QzRt", "image": "https://m.media-amazon.com/images/I/71zQzQzQzQz._AC_SY355_.jpg", "id": "prank-snake", "score": 9, "category_id": "all-products"},
+    {"name": "Farting Unicorn Plush - Toot-Tastic Cuddles", "url": "https://amzn.to/3Z1RwRw", "image": "https://m.media-amazon.com/images/I/61xQzQzQzQz._AC_SY355_.jpg", "id": "farting-unicorn-plush", "score": 8, "category_id": "all-products"},
+    {"name": "Exploding Cigar - Light Up the Laughs", "url": "https://amzn.to/4aQzQzQz", "image": "https://m.media-amazon.com/images/I/51yQzQzQzQz._AC_SY355_.jpg", "id": "exploding-cigar", "score": 7, "category_id": "all-products"},
+    {"name": "Sneezing Powder - Achoo-Inducing Antics", "url": "https://amzn.to/4bQzQzQz", "image": "https://m.media-amazon.com/images/I/41zQzQzQzQz._AC_SY355_.jpg", "id": "sneezing-powder", "score": 7, "category_id": "all-products"},
+    {"name": "Fake Dog Poop - Pawsitively Gross Prank", "url": "https://amzn.to/4cQzQzQz", "image": "https://m.media-amazon.com/images/I/71aQzQzQzQz._AC_SY355_.jpg", "id": "fake-dog-poop", "score": 8, "category_id": "all-products"}
 ]
 
 product_taglines = {
@@ -111,7 +116,12 @@ product_taglines = {
     "fake-cockroach": "Scream-worthy bug for pranks!",
     "banana-bandages": "Heal with a fruity flair!",
     "pineapple-bandages": "Tropical healing fun!",
-    "fart-spray": "Stink up the room in style!"
+    "fart-spray": "Stink up the room in style!",
+    "prank-snake": "Slither into their nightmares!",
+    "farting-unicorn-plush": "Cuddle up with magical toots!",
+    "exploding-cigar": "Light it up for explosive laughs!",
+    "sneezing-powder": "Achoo! Sneeze your way to giggles!",
+    "fake-dog-poop": "Drop a doggone disgusting prank!"
 }
 
 def migrate_db():
@@ -164,10 +174,27 @@ def home():
     current_month = time.localtime().tm_mon
     seasonal_map = {4: "april-fools", 10: "halloween", 11: "thanksgiving"}
     current_season = seasonal_map.get(current_month, None)
-    seasonal_highlights = [p for p in products if p.get('seasonal') == current_season][:3] if current_season else []
-
-    top_picks = sorted(products, key=lambda x: x['score'], reverse=True)[:5]
-    fan_favorites = [p for p in products if p['id'] in ['unicorn-meat', 'burrito-blanket', 'screaming-goat-button']]
+    
+    # Select Top Prank Picks (10 highest-scoring products)
+    top_picks = sorted(products, key=lambda x: x['score'], reverse=True)[:10]
+    top_picks_ids = {p['id'] for p in top_picks}
+    
+    # Select Fan Favorites (7 products, excluding Top Picks)
+    fan_favorites = [p for p in products if p['id'] in [
+        'unicorn-meat', 'burrito-blanket', 'screaming-goat-button', 'fart-whistles',
+        'fake-poop', 'mini-disco-ball', 'banana-phone'
+    ] and p['id'] not in top_picks_ids]
+    
+    # Select Prank Classics (7 products, excluding Top Picks and Fan Favorites)
+    fan_favorites_ids = {p['id'] for p in fan_favorites}
+    prank_classics = [p for p in products if p['id'] in [
+        'fake-lottery-tickets', 'squirting-flower-lapel', 'itching-powder', 'disappearing-ink',
+        'prank-hand-buzzer', 'banana-bandages', 'pineapple-bandages'
+    ] and p['id'] not in top_picks_ids and p['id'] not in fan_favorites_ids]
+    
+    # Select Seasonal Highlights (up to 3, excluding products in other sections)
+    used_ids = top_picks_ids.union(fan_favorites_ids).union({p['id'] for p in prank_classics})
+    seasonal_highlights = [p for p in products if p.get('seasonal') == current_season and p['id'] not in used_ids][:3]
 
     giggle_scores = {}
     reviews = []
@@ -200,6 +227,7 @@ def home():
                            seasonal_highlights=add_taglines(seasonal_highlights),
                            top_picks=add_taglines(top_picks),
                            fan_favorites=add_taglines(fan_favorites),
+                           prank_classics=add_taglines(prank_classics),
                            reviews=reviews,
                            giggle_scores=giggle_scores)
 
