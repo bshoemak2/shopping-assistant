@@ -18,19 +18,20 @@
         <div class="reviews-section">
             <h2>Prankster Reviews</h2>
             <p>Hear what our fellow pranksters have to say!</p>
+            <div id="review-message" style="display: none; background-color: #e6ffe6; padding: 10px; border-radius: 5px; text-align: center; color: #28a745;"></div>
             {% if reviews %}
                 {% for review in reviews %}
                 <div class="review-item">
                     <p>"{{ review.text }}"</p>
-                    <p>- {{ review.author }} <span class="review-date">({{ review.date }})</span></p>
+                    <p>- {{ review.author | default('Anonymous Prankster') }} <span class="review-date">({{ review.date | default('2025-05-01') }})</span></p>
                 </div>
                 {% endfor %}
             {% else %}
-                <p>No reviews yet! Be the first to share your prank experience!</p>
+                <p>No reviews yet! Be the first to share your prank experience and join the fun!</p>
             {% endif %}
             <form id="review-form">
                 <label for="review-text">Your Review:</label>
-                <textarea id="review-text" name="text" required></textarea>
+                <textarea id="review-text" name="text" required placeholder="Share your prank story!"></textarea>
                 <label for="review-author">Your Name (optional):</label>
                 <input type="text" id="review-author" name="author" placeholder="Anonymous Prankster">
                 <button type="submit" class="btn">Submit Review</button>
@@ -57,8 +58,11 @@
             .then(data => {
                 console.log('Review submission result:', data);
                 if (data.message.includes('successfully')) {
-                    alert('Review submitted successfully!');
-                    location.reload();
+                    const messageDiv = document.getElementById('review-message');
+                    messageDiv.textContent = 'Review submitted successfully! Refresh to see it.';
+                    messageDiv.style.display = 'block';
+                    document.getElementById('review-form').reset();
+                    setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
                 } else {
                     alert('Failed to submit review: ' + data.message);
                 }
