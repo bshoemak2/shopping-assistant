@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 .container {
     max-width: 100%;
     padding: 0 15px;
@@ -35,28 +37,6 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-.home-video-section {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #FF00FF;
-    border-radius: 5px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-.home-video-section:hover {
-    transform: scale(1.02);
-}
-.home-video-section h3 {
-    color: #FFFF00;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 5px #00FF00;
-}
-.home-video-section video {
-    max-width: 100%;
-    height: auto;
-}
 .sticky-nav {
     background: rgba(0, 0, 0, 0.7);
     padding: 0.5rem;
@@ -69,8 +49,8 @@
     z-index: 999;
 }
 .sticky-nav a {
-    color: #00FF00;
-    font-size: 1.1rem;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
     margin: 0 1rem;
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -79,24 +59,44 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    background: linear-gradient(to right, #FF00FF, #00FF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .sticky-nav a:hover {
-    color: #FF00FF;
+    background: linear-gradient(to right, #FF69B4, #FFFF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     transform: scale(1.1);
     box-shadow: 0 0 10px #FFFF00;
-    animation: shake 0.5s ease;
+    animation: bounce 0.3s ease;
 }
 .sticky-nav a::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     color: #FFFF00;
+    font-size: 1.2rem;
 }
-.sticky-nav a[href="/"]::before { content: "\f015"; }
-.sticky-nav a[href="/shop"]::before { content: "\f07a"; }
-.sticky-nav a[href="/reviews"]::before { content: "\f091"; }
-.sticky-nav a[href="/about"]::before { content: "\f05a"; }
-.sticky-nav a[href="/subscribe"]::before { content: "\f0e0"; }
-.sticky-nav a[href="/videos"]::before { content: "\f03d"; }
+.sticky-nav a[href="/"]::before { content: "\f164"; } /* thumbs-up */
+.sticky-nav a[href="/shop"]::before { content: "\f291"; } /* shopping-basket */
+.sticky-nav a[href="/reviews"]::before { content: "\f4ad"; } /* comment-alt */
+.sticky-nav a[href="/about"]::before { content: "\f05a"; } /* info-circle */
+.sticky-nav a[href="/subscribe"]::before { content: "\f0e0"; } /* envelope */
+.sticky-nav a[href="/videos"]::before { content: "\f008"; } /* film */
+.product-video {
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.product-video h3 {
+    color: #FFFF00;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px #00FF00;
+}
+.product-video video {
+    max-width: 100%;
+    height: auto;
+}
 footer {
     background: rgba(0, 0, 0, 0.8);
     color: #FFD700;
@@ -135,6 +135,11 @@ footer {
     50% { transform: rotate(5deg); }
     75% { transform: rotate(-5deg); }
     100% { transform: rotate(0deg); }
+}
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 h1 {
     font-size: 2rem;
@@ -177,6 +182,282 @@ h1 {
     border: 2px dashed #00FF00;
     transition: transform 0.3s ease;
     perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hacks-list li:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: rotateY(180deg);
+}
+.hacks-list li:hover .product-info::after {
+    content: "Did you know fake poop fools 9/10 coworkers?";
+    color: #FF00FF;
+    font-size: 1rem;
+    font-style: italic;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    text-align: center;
+}
+.hacks-list img {
+    width: 200px;
+    height: auto;
+    margin: 0.5rem 0;
+    border: 2px solid #FF00FF;
+    filter: drop-shadow(0 0 5px #FFFF00);
+    transition: transform 0.3s ease;
+}
+.hacks-list img:hover {
+    transform: scale(1.05);
+    animation: wobble 0.5s ease;
+}
+.hacks-prompt {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-shadow: 0 0 5px #00FF00;
+}
+.disclosure {
+    font-size: 1.2rem;
+    color: #FFD700;
+    margin: 0.5rem 0;
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-shadow: 0 0 3px #000000;
+}
+.trust-badge {
+    font-size: 1.3rem;
+    color: #FF00FF;
+    margin: 0.5rem 0;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.5rem;
+    border: 2px solid #FFFF00;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #FFFFFF;
+    display: block;
+    text-align: center;
+}
+.trust-badge span {
+    color: #00FF00;
+    font-size: 1.1rem;
+    display: block;
+    margin-top: 0.3rem;
+}
+.prank-tip {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 以往的代码中未包含 `prank-tip` 的完整定义，需继续完成
+
+System: It looks like the `sections.css` file was cut off at the `.prank-tip` style definition. I'll complete the `sections.css` file, ensuring it includes the `.prank-tip` styling and addresses all your requests for Barlito’s Prank Emporium (https://shopping-assistant-5m0q.onrender.com/). Your requirements are:
+
+1. **Remove Fart and Whoopee Soundboard**: Eliminate the soundboard from the bottom of the homepage (`home.html`).
+2. **Place Bear Video Next to Bear Pencil Product**: Position `bear.mp4` next to the "Bear Claw Pencils" product link in `product_list.html`.
+3. **Place Chicken Video Next to Fart Whistle Product**: Position `chicken.mp4` next to the "Fart Whistles" product link in `product_list.html`.
+4. **Make Navigation Icons and Text More Fun and Colorful**: Enhance `sticky-nav` links in `sections.css` with vibrant colors, playful icons, and a fun font.
+5. **Fix Chicken Movie Not Playing**: Convert `chicken.mov` to `chicken.mp4` and ensure playback in `videos.html`.
+6. **Download Fart Noise Locally**: Host Barlito’s fart sound as `fart.mp3` in `static/audio/` and update `base.html`.
+
+I’ll complete `sections.css` to include `.prank-tip` and other necessary styles, provide updated files (`home.html`, `product_list.html`, `videos.html`, `base.html`), and ensure all changes align with the prank theme. I’ll also include instructions for converting `chicken.mov` and `bear.mov` to MP4, downloading the fart sound, and deploying the changes. Files will be wrapped in `<xaiArtifact>` tags, reusing existing artifact IDs.
+
+---
+
+### Completing `sections.css`
+
+The `sections.css` file defines styles for the homepage and other pages. It was cut off at the `.prank-tip` definition, which styles the prank tip rotator. I’ll complete it, ensuring `.prank-tip`, `.product-video`, and `.sticky-nav a` support your requests for colorful navigation and video placement.
+
+<xaiArtifact artifact_id="3b902d1e-deba-4c08-857e-70b2fa933e5e" artifact_version_id="32013e11-1681-4c5d-aebb-a422dfbef13e" title="sections.css" contentType="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.container {
+    max-width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: linear-gradient(135deg, #00FF00, #FF00FF, #FFFF00);
+    position: relative;
+}
+.prank-header {
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFFF00;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 4px dashed #FF00FF;
+    animation: glitch-text 2s infinite;
+    text-shadow: 0 0 10px #00FF00;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.prank-header img {
+    width: 100px;
+    height: auto;
+    margin-right: 1rem;
+    filter: drop-shadow(0 0 10px #FF00FF);
+}
+.prank-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.sticky-nav {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem;
+    border: 2px solid #FFFF00;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.sticky-nav a {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(to right, #FF00FF, #00FF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sticky-nav a:hover {
+    background: linear-gradient(to right, #FF69B4, #FFFF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #FFFF00;
+    animation: bounce 0.3s ease;
+}
+.sticky-nav a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #FFFF00;
+    font-size: 1.2rem;
+}
+.sticky-nav a[href="/"]::before { content: "\f164"; } /* thumbs-up */
+.sticky-nav a[href="/shop"]::before { content: "\f291"; } /* shopping-basket */
+.sticky-nav a[href="/reviews"]::before { content: "\f4ad"; } /* comment-alt */
+.sticky-nav a[href="/about"]::before { content: "\f05a"; } /* info-circle */
+.sticky-nav a[href="/subscribe"]::before { content: "\f0e0"; } /* envelope */
+.sticky-nav a[href="/videos"]::before { content: "\f008"; } /* film */
+.product-video {
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.product-video h3 {
+    color: #FFFF00;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px #00FF00;
+}
+.product-video video {
+    max-width: 100%;
+    height: auto;
+}
+footer {
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFD700;
+    padding: 1rem;
+    text-align: center;
+    border-top: 2px solid #00FF00;
+    width: calc(100% - 40px);
+    text-shadow: 0 0 3px #000000;
+    margin-top: 1rem;
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    background: rgba(255, 255, 0, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #FF00FF;
+}
+.funny-image {
+    width: 250px;
+    height: auto;
+    margin: 0.5rem;
+    border: 2px solid #FF00FF;
+    filter: drop-shadow(0 0 5px #00FF00);
+    transition: transform 0.3s ease;
+}
+.funny-image:hover {
+    transform: scale(1.05);
+    animation: wobble 0.5s ease;
+}
+@keyframes wobble {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+    animation: glitch-text 2s infinite;
+}
+#find-form {
+    margin: 1rem 0;
+}
+#results {
+    margin-top: 1rem;
+    text-align: left;
+    display: inline-block;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem;
+    border: 2px solid #FFFF00;
+}
+.prompt {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+}
+.searchable {
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+}
+.hacks-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+.hacks-list li {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    border: 2px dashed #00FF00;
+    transition: transform 0.3s ease;
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .hacks-list li:hover {
     background-color: rgba(0, 0, 0, 0.8);
@@ -475,27 +756,6 @@ h1 {
 .emoji:nth-child(13) { left: 65%; animation-delay: 6s; }
 .emoji:nth-child(14) { left: 70%; animation-delay: 6.5s; }
 .emoji:nth-child(15) { left: 75%; animation-delay: 7s; }
-.soundboard {
-    margin: 1rem 0;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-}
-.soundboard button {
-    background: #FF00FF;
-    color: #FFFF00;
-    border: 2px solid #00FF00;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.soundboard button:hover {
-    background: #00FF00;
-    color: #FF00FF;
-    transform: scale(1.05);
-}
 @keyframes float {
     0% { transform: translateY(100vh); opacity: 1; }
     100% { transform: translateY(-100vh); opacity: 0; }
@@ -512,7 +772,7 @@ h1 {
 }
 @media (max-width: 600px) {
     .prank-header h1 { font-size: 2rem; }
-    .home-video-section video { width: 100%; }
+    .product-video video { width: 100%; }
     .sticky-nav a { font-size: 1rem; margin: 0 0.5rem; }
     .emoji { font-size: 1.2rem; }
 }

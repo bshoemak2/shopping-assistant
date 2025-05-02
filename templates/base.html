@@ -85,7 +85,7 @@
             }
         };
 
-        const fartSound = new Audio('https://cdn.freesound.org/previews/123/123456_7890123-lq.mp3');
+        const fartSound = new Audio('{{ url_for('static', filename='audio/fart.mp3') }}');
         fartSound.preload = 'auto';
 
         (function() {

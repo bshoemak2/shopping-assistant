@@ -9,6 +9,23 @@
                 <span class="giggle-score" data-id="{{ product.id }}">Giggle Score: <span id="giggle-{{ product.id }}">{{ giggle_scores.get(product.id, 0) }}</span></span>
                 <button class="btn giggle-btn" onclick="giggleVote('{{ product.id }}')">Giggle This!</button>
             </div>
+            {% if product.id == 'bear-claw-pencils' %}
+            <div class="product-video">
+                <h3>Bear-y Funny Prank!</h3>
+                <video controls width="200" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                    <source src="{{ url_for('static', filename='videos/bear.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            {% elif product.id == 'fart-whistles' %}
+            <div class="product-video">
+                <h3>Chicken Chaos</h3>
+                <video controls width="200" style="border: 2px solid #FF00FF; border-radius: 5px;">
+                    <source src="{{ url_for('static', filename='videos/chicken.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            {% endif %}
         </div>
         <div class="share-buttons">
             <button class="buy-now-btn" onclick="window.open('{{ product.url }}', '_blank')">Buy Now</button>
