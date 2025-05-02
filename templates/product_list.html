@@ -3,7 +3,7 @@
     <li id="{{ product.category_id }}">
         <img src="{{ product.image }}" alt="{{ product.name }} prank gift" class="product-image" loading="lazy">
         <div class="product-info">
-            <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')">{{ product.name }}</a>
+            <a href="{{ product.url }}" target="_blank" onclick="trackAffiliateClick('{{ product.name }}')" class="product-link">{{ product.name }}</a>
             <p class="product-description">{{ product.tagline }}</p>
             <div class="giggle-section">
                 <span class="giggle-score" data-id="{{ product.id }}">Giggle Score: <span id="giggle-{{ product.id }}">{{ giggle_scores.get(product.id, 0) }}</span></span>
@@ -14,7 +14,7 @@
                 <h3>Bear-y Funny Prank!</h3>
                 <video controls width="200" style="border: 2px solid #FF00FF; border-radius: 5px;">
                     <source src="{{ url_for('static', filename='videos/bear.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
+                    Sorry, the bear video is unavailable. Please check if bear.mp4 is in static/videos/.
                 </video>
             </div>
             {% elif product.id == 'fart-whistles' %}
@@ -22,7 +22,7 @@
                 <h3>Chicken Chaos</h3>
                 <video controls width="200" style="border: 2px solid #FF00FF; border-radius: 5px;">
                     <source src="{{ url_for('static', filename='videos/chicken.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
+                    Sorry, the chicken video is unavailable. Please check if chicken.mp4 is in static/videos/.
                 </video>
             </div>
             {% endif %}
